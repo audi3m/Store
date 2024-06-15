@@ -18,6 +18,26 @@
 		D466A3472C1AD68700AA2954 /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3462C1AD68700AA2954 /* UIColor+Ex.swift */; };
 		D466A3492C1B13E600AA2954 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D466A3482C1B13E600AA2954 /* .gitignore */; };
 		D466A34B2C1B150300AA2954 /* StoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A34A2C1B150300AA2954 /* StoreAPI.swift */; };
+		D466A34D2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A34C2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift */; };
+		D466A34F2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */; };
+		D466A3532C1B1BAE00AA2954 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3522C1B1BAE00AA2954 /* SearchTabViewController.swift */; };
+		D466A3552C1B1BFE00AA2954 /* SettingsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3542C1B1BFE00AA2954 /* SettingsTabViewController.swift */; };
+		D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3562C1B1C6A00AA2954 /* TabBarController.swift */; };
+		D466A35A2C1B1DAF00AA2954 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3592C1B1DAF00AA2954 /* OnboardingViewController.swift */; };
+		D466A35D2C1B1DFB00AA2954 /* ButtonDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */; };
+		D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A35E2C1B215D00AA2954 /* CircleImageView.swift */; };
+		D466A3612C1B282700AA2954 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3602C1B282700AA2954 /* ProfileCollectionViewCell.swift */; };
+		D466A3632C1B283700AA2954 /* id.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3622C1B283700AA2954 /* id.swift */; };
+		D466A3652C1B287A00AA2954 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3642C1B287A00AA2954 /* SettingsTableViewCell.swift */; };
+		D466A3672C1BCBAE00AA2954 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3662C1BCBAE00AA2954 /* UserDefaultsHelper.swift */; };
+		D466A3692C1C209D00AA2954 /* CircleCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3682C1C209D00AA2954 /* CircleCamera.swift */; };
+		D466A36B2C1C225F00AA2954 /* ResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A36A2C1C225F00AA2954 /* ResultsCollectionViewCell.swift */; };
+		D466A36D2C1C22CF00AA2954 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A36C2C1C22CF00AA2954 /* ResultsViewController.swift */; };
+		D466A3722C1C866E00AA2954 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3712C1C866E00AA2954 /* TestViewController.swift */; };
+		D466A3742C1C8B3C00AA2954 /* Date+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3732C1C8B3C00AA2954 /* Date+Ex.swift */; };
+		D466A3762C1D5D7200AA2954 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3752C1D5D7200AA2954 /* SearchResultCollectionViewCell.swift */; };
+		D466A37A2C1D843300AA2954 /* RecentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3792C1D843300AA2954 /* RecentListViewController.swift */; };
+		D466A37C2C1D843E00AA2954 /* RecentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A37B2C1D843E00AA2954 /* RecentListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +52,26 @@
 		D466A3462C1AD68700AA2954 /* UIColor+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
 		D466A3482C1B13E600AA2954 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D466A34A2C1B150300AA2954 /* StoreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAPI.swift; sourceTree = "<group>"; };
+		D466A34C2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameSettingViewController.swift; sourceTree = "<group>"; };
+		D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingViewController.swift; sourceTree = "<group>"; };
+		D466A3522C1B1BAE00AA2954 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
+		D466A3542C1B1BFE00AA2954 /* SettingsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabViewController.swift; sourceTree = "<group>"; };
+		D466A3562C1B1C6A00AA2954 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		D466A3592C1B1DAF00AA2954 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDesign.swift; sourceTree = "<group>"; };
+		D466A35E2C1B215D00AA2954 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		D466A3602C1B282700AA2954 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		D466A3622C1B283700AA2954 /* id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = id.swift; sourceTree = "<group>"; };
+		D466A3642C1B287A00AA2954 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		D466A3662C1BCBAE00AA2954 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		D466A3682C1C209D00AA2954 /* CircleCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCamera.swift; sourceTree = "<group>"; };
+		D466A36A2C1C225F00AA2954 /* ResultsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCollectionViewCell.swift; sourceTree = "<group>"; };
+		D466A36C2C1C22CF00AA2954 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		D466A3712C1C866E00AA2954 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		D466A3732C1C8B3C00AA2954 /* Date+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ex.swift"; sourceTree = "<group>"; };
+		D466A3752C1D5D7200AA2954 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		D466A3792C1D843300AA2954 /* RecentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentListViewController.swift; sourceTree = "<group>"; };
+		D466A37B2C1D843E00AA2954 /* RecentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +110,19 @@
 				D466A3292C1AD53F00AA2954 /* AppDelegate.swift */,
 				D466A32B2C1AD53F00AA2954 /* SceneDelegate.swift */,
 				D466A32D2C1AD53F00AA2954 /* ViewController.swift */,
+				D466A3712C1C866E00AA2954 /* TestViewController.swift */,
+				D466A34A2C1B150300AA2954 /* StoreAPI.swift */,
+				D466A3582C1B1D9300AA2954 /* Onboarding */,
+				D466A3512C1B1BA100AA2954 /* Tabs */,
+				D466A3772C1D83E000AA2954 /* Search */,
+				D466A3782C1D83EC00AA2954 /* Settings */,
+				D466A36E2C1C238400AA2954 /* Results */,
+				D466A3502C1B1B9600AA2954 /* Profile */,
 				D466A3432C1AD5F200AA2954 /* Extensions */,
+				D466A35B2C1B1DDD00AA2954 /* Design */,
 				D466A3322C1AD54000AA2954 /* Assets.xcassets */,
 				D466A3342C1AD54000AA2954 /* LaunchScreen.storyboard */,
 				D466A3372C1AD54000AA2954 /* Info.plist */,
-				D466A34A2C1B150300AA2954 /* StoreAPI.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -82,10 +130,78 @@
 		D466A3432C1AD5F200AA2954 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D466A3662C1BCBAE00AA2954 /* UserDefaultsHelper.swift */,
 				D466A3442C1AD60200AA2954 /* UIImage+Ex.swift */,
 				D466A3462C1AD68700AA2954 /* UIColor+Ex.swift */,
+				D466A3732C1C8B3C00AA2954 /* Date+Ex.swift */,
+				D466A3622C1B283700AA2954 /* id.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D466A3502C1B1B9600AA2954 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D466A34C2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift */,
+				D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */,
+				D466A3602C1B282700AA2954 /* ProfileCollectionViewCell.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		D466A3512C1B1BA100AA2954 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				D466A3562C1B1C6A00AA2954 /* TabBarController.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		D466A3582C1B1D9300AA2954 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D466A3592C1B1DAF00AA2954 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D466A35B2C1B1DDD00AA2954 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */,
+				D466A35E2C1B215D00AA2954 /* CircleImageView.swift */,
+				D466A3682C1C209D00AA2954 /* CircleCamera.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		D466A36E2C1C238400AA2954 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				D466A36C2C1C22CF00AA2954 /* ResultsViewController.swift */,
+				D466A36A2C1C225F00AA2954 /* ResultsCollectionViewCell.swift */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		D466A3772C1D83E000AA2954 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D466A3522C1B1BAE00AA2954 /* SearchTabViewController.swift */,
+				D466A3752C1D5D7200AA2954 /* SearchResultCollectionViewCell.swift */,
+				D466A3792C1D843300AA2954 /* RecentListViewController.swift */,
+				D466A37B2C1D843E00AA2954 /* RecentListTableViewCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D466A3782C1D83EC00AA2954 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D466A3542C1B1BFE00AA2954 /* SettingsTabViewController.swift */,
+				D466A3642C1B287A00AA2954 /* SettingsTableViewCell.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,12 +283,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D466A3672C1BCBAE00AA2954 /* UserDefaultsHelper.swift in Sources */,
+				D466A3692C1C209D00AA2954 /* CircleCamera.swift in Sources */,
+				D466A3722C1C866E00AA2954 /* TestViewController.swift in Sources */,
+				D466A3632C1B283700AA2954 /* id.swift in Sources */,
 				D466A3452C1AD60200AA2954 /* UIImage+Ex.swift in Sources */,
+				D466A37A2C1D843300AA2954 /* RecentListViewController.swift in Sources */,
 				D466A32E2C1AD53F00AA2954 /* ViewController.swift in Sources */,
+				D466A3742C1C8B3C00AA2954 /* Date+Ex.swift in Sources */,
+				D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */,
+				D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */,
+				D466A3612C1B282700AA2954 /* ProfileCollectionViewCell.swift in Sources */,
 				D466A34B2C1B150300AA2954 /* StoreAPI.swift in Sources */,
+				D466A3552C1B1BFE00AA2954 /* SettingsTabViewController.swift in Sources */,
+				D466A34F2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift in Sources */,
 				D466A3472C1AD68700AA2954 /* UIColor+Ex.swift in Sources */,
+				D466A35A2C1B1DAF00AA2954 /* OnboardingViewController.swift in Sources */,
+				D466A3652C1B287A00AA2954 /* SettingsTableViewCell.swift in Sources */,
+				D466A36B2C1C225F00AA2954 /* ResultsCollectionViewCell.swift in Sources */,
 				D466A32A2C1AD53F00AA2954 /* AppDelegate.swift in Sources */,
+				D466A3532C1B1BAE00AA2954 /* SearchTabViewController.swift in Sources */,
+				D466A37C2C1D843E00AA2954 /* RecentListTableViewCell.swift in Sources */,
+				D466A3762C1D5D7200AA2954 /* SearchResultCollectionViewCell.swift in Sources */,
+				D466A36D2C1C22CF00AA2954 /* ResultsViewController.swift in Sources */,
+				D466A35D2C1B1DFB00AA2954 /* ButtonDesign.swift in Sources */,
 				D466A32C2C1AD53F00AA2954 /* SceneDelegate.swift in Sources */,
+				D466A34D2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

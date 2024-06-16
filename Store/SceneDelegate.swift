@@ -10,6 +10,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    let ud = UserDefaultsHelper.shared
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -21,10 +23,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
 //        let vc = ProfileNicknameSettingViewController(mode: .edit)
-        let vc = RecentListViewController()
-        vc.view.backgroundColor = .whiteColor
-        let nav = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nav
+        if ud.nickname == "" {
+            let vc = OnboardingViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
+        } else {
+            let vc = TabBarController()
+            window?.rootViewController = vc
+        }
         window?.makeKeyAndVisible()
     }
 

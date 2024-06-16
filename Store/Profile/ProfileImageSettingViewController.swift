@@ -12,7 +12,7 @@ class ProfileImageSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    lazy var selectedImageView = CircleImageView(image: UIImage(named: ud.profile)!, type: .profile)
+    lazy var selectedImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_\(Int.random(in: 0..<12))")!, type: .profile)
     let cameraImage = CameraImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -54,7 +54,8 @@ class ProfileImageSettingViewController: UIViewController {
         
         selectedImageView.layer.cornerRadius = 60
         
-        if let item = profileList.firstIndex(of: ud.profile) {
+        if let profile = ud.profile,
+           let item = profileList.firstIndex(of: profile) {
             collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
         }
     }

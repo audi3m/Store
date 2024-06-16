@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RecentListTableViewCell: UITableViewCell {
+class RecentListTableViewCell: UITableViewCell { 
     
     let clockImage = UIImageView()
     let searchWordLabel = UILabel()
@@ -42,7 +42,6 @@ class RecentListTableViewCell: UITableViewCell {
         clockImage.tintColor = .blackColor
         
         searchWordLabel.font = .boldSystemFont(ofSize: 14)
-        searchWordLabel.text = "맥북 거치대"
         
         xButton.setImage(.xmark, for: .normal)
         xButton.tintColor = .blackColor

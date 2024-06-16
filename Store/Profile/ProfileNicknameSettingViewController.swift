@@ -17,7 +17,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile)!, type: .profile)
+    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_\(Int.random(in: 0..<12))")!, type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UITextField()
     let underBar = UIView()
@@ -43,6 +43,9 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.delegate = self
+        view.backgroundColor = .whiteColor
+        
         setNavBar()
         
         configHierarchy()
@@ -92,7 +95,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         
         cameraImageView.snp.makeConstraints { make in
             make.centerX.equalTo(profileImageView.snp.centerX).offset(41)
-            make.centerY.equalTo(profileImageView.snp.centerY).offset(41) 
+            make.centerY.equalTo(profileImageView.snp.centerY).offset(41)
         }
         
         nicknameTextField.snp.makeConstraints { make in
@@ -121,7 +124,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         
     }
     
-    func setProfileImageView() {
+    private func setProfileImageView() {
         profileImageView.layer.cornerRadius = 60
         profileImageView.isUserInteractionEnabled = true
         
@@ -129,10 +132,11 @@ class ProfileNicknameSettingViewController: UIViewController {
         profileImageView.addGestureRecognizer(gesture)
     }
     
-    func setNicknameTextField() {
+    private func setNicknameTextField() {
         nicknameTextField.delegate = self
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
+        nicknameTextField.text = ud.nickname
         nicknameTextField.placeholder = "닉네임"
         
         underBar.backgroundColor = .lightGrayColor
@@ -141,26 +145,39 @@ class ProfileNicknameSettingViewController: UIViewController {
         warningLabel.font = .systemFont(ofSize: 13)
     }
     
-    func setCompleteButton() {
+    private func setCompleteButton() {
         completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
-        buttonEnabled = false
+        
     }
     
-    @objc func selectProfile() {
+    @objc private func selectProfile() {
         print("Image tapped")
         let vc = ProfileImageSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func completeButtonClicked() {
+    @objc private func completeButtonClicked() {
         print("Complete!")
+        let nickname = nicknameTextField.text!
+        ud.nickname = nickname
+        ud.registerDate = Date.now.customFormat()
+        
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        let vc = UINavigationController(rootViewController: TabBarController())
+        
+        sceneDelegate?.window?.rootViewController = vc
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
-    
-    @objc func saveButtonClicked() {
+    @objc private func saveButtonClicked() {
         print("Save!")
+        let nickname = nicknameTextField.text!
+        ud.nickname = nickname
+        
+        navigationController?.popViewController(animated: true)
     }
-    
     
 }
 
@@ -186,4 +203,17 @@ extension ProfileNicknameSettingViewController: UITextFieldDelegate {
         
     }
     
+}
+
+extension ProfileNicknameSettingViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController != self {
+            backButtonPressed()
+        }
+    }
+    
+    func backButtonPressed() {
+        // 여기에 원하는 함수를 구현하세요
+        print("Back button pressed")
+    }
 }

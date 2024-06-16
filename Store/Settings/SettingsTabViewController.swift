@@ -8,7 +8,8 @@
 import UIKit
 
 class SettingsTabViewController: UIViewController {
-
+    
+    let ud = UserDefaultsHelper.shared
     let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -27,11 +28,11 @@ class SettingsTabViewController: UIViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        
     }
-
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+    }
     
 }
 
@@ -44,7 +45,8 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
         
         if indexPath.row == 0 {
             let accountCell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.id, for: indexPath) as! AccountTableViewCell
-            
+            accountCell.nicknameLabel.text = ud.nickname
+            accountCell.registerDateLabel.text = ud.registerDate
             return accountCell
             
         } else {
@@ -97,7 +99,6 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     private func confirmButtonClicked() {
         
     }
-    
     
 }
 

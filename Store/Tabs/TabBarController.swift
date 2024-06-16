@@ -11,10 +11,11 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .whiteColor
         
         tabBar.tintColor = .themeColor
         tabBar.unselectedItemTintColor = .gray
-        
+         
         let search = UINavigationController(rootViewController: SearchTabViewController())
         search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)
         

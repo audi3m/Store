@@ -32,9 +32,9 @@ class UserDefaultsHelper {
         }
     }
     
-    var profile: String {
+    var profile: String? {
         get {
-            return UserDefaults.standard.string(forKey: "profile") ?? "profile_\(Int.random(in: 0..<12))"
+            return UserDefaults.standard.string(forKey: "profile")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "profile")

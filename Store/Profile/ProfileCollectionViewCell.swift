@@ -18,7 +18,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        // Ensure the corner radius is set correctly when the layout changes
+        
         updateImageViewAppearance()
     }
     

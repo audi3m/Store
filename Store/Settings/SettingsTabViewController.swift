@@ -10,7 +10,13 @@ import UIKit
 class SettingsTabViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
+    let topBar = UIView()
     let tableView = UITableView()
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,19 +29,22 @@ class SettingsTabViewController: UIViewController {
         tableView.register(AccountTableViewCell.self, forCellReuseIdentifier: AccountTableViewCell.id)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.id)
         
+        view.addSubview(topBar)
         view.addSubview(tableView)
         
-        tableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+        topBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
         }
         
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(topBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        topBar.backgroundColor = .lightGrayColor
     }
-    
-    override func viewIsAppearing(_ animated: Bool) {
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
-    }
-    
 }
 
 extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource {
@@ -44,7 +53,6 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0 {
             let accountCell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.id, for: indexPath) as! AccountTableViewCell
             accountCell.nicknameLabel.text = ud.nickname
@@ -56,13 +64,15 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
             let cell =  tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.id, for: indexPath) as! SettingsTableViewCell
             let title = SettingsItem.allCases[indexPath.row].rawValue
             if indexPath.row == 1 {
-                cell.countLabel.text = "\(ud.likeItems.count)개의 상품"
+                cell.countLabel.isHidden = false
+                cell.countLabel.attributedText = likesCountLabel(count: ud.likeItems.count)
+            } else {
+                cell.countLabel.isHidden = true
             }
             cell.titleLabel.text = title
             return cell
         }
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
@@ -80,6 +90,34 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.row == 0 ? 120 : 44
     }
+}
+
+extension SettingsTabViewController {
+    
+    private func likesCountLabel(count: Int) -> NSMutableAttributedString {
+        let boldAttribute = [
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)
+        ]
+        let regularAttribute = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)
+        ]
+        
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = .likeSelected
+        imageAttachment.bounds = CGRect(x: 0, y: -4, width: 20, height: 20)
+        
+        let imageAttributedString = NSAttributedString(attachment: imageAttachment)
+        
+        let boldText = NSAttributedString(string: "\(count)개", attributes: boldAttribute)
+        let regularText = NSAttributedString(string: "의 상품", attributes: regularAttribute)
+        let newString = NSMutableAttributedString()
+        
+        newString.append(imageAttributedString)
+        newString.append(boldText)
+        newString.append(regularText)
+        
+        return newString
+    }
     
     private func presentProfileSetting() {
         let vc = ProfileNicknameSettingViewController(mode: .edit)
@@ -89,7 +127,6 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     private func deleteAccountButtonClicked() {
         let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?",
                                       preferredStyle: .alert)
-        
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         let confirm = UIAlertAction(title: "확인", style: .default) { _ in
             self.confirmButtonClicked()
@@ -97,9 +134,7 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
         
         alert.addAction(cancel)
         alert.addAction(confirm)
-        
         present(alert, animated: true)
-        
     }
     
     private func confirmButtonClicked() {
@@ -113,7 +148,6 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
         sceneDelegate?.window?.rootViewController = nav
         sceneDelegate?.window?.makeKeyAndVisible()
     }
-    
 }
 
 enum SettingsItem: String, CaseIterable {

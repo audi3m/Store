@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteColor
@@ -25,5 +25,4 @@ class TabBarController: UITabBarController {
         setViewControllers([search, settings], animated: true)
         
     }
-
 }

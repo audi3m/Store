@@ -17,6 +17,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
+    let topBar = UIView()
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UITextField()
@@ -38,10 +39,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         if let profile = ud.profile {
             profileImageView.image = UIImage(named: profile)
@@ -50,13 +47,13 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.delegate = self
         view.backgroundColor = .whiteColor
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         setNavBar()
         
-        configHierarchy()
-        configLayout()
+        setHierarchy()
+        setLayout()
         
         setProfileImageView()
         setNicknameTextField()
@@ -64,12 +61,17 @@ class ProfileNicknameSettingViewController: UIViewController {
         
         if mode == .edit {
             completeButton.isHidden = true
+            warningLabel.text = "사용할 수 있는 닉네임이에요"
         }
-        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setNavBar() {
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
+        topBar.backgroundColor = .lightGrayColor
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         let attributes: [NSAttributedString.Key: Any] = [
@@ -84,7 +86,8 @@ class ProfileNicknameSettingViewController: UIViewController {
         }
     }
     
-    private func configHierarchy() {
+    private func setHierarchy() {
+        view.addSubview(topBar)
         view.addSubview(profileImageView)
         view.addSubview(cameraImageView)
         view.addSubview(nicknameTextField)
@@ -93,10 +96,16 @@ class ProfileNicknameSettingViewController: UIViewController {
         view.addSubview(completeButton)
     }
     
-    private func configLayout() {
+    private func setLayout() {
+        topBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+        
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            make.top.equalTo(topBar.snp.bottom).offset(40)
             make.size.equalTo(120)
         }
         
@@ -128,7 +137,6 @@ class ProfileNicknameSettingViewController: UIViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
             make.height.equalTo(50)
         }
-        
     }
     
     private func setProfileImageView() {
@@ -148,7 +156,6 @@ class ProfileNicknameSettingViewController: UIViewController {
     private func setNicknameTextField() {
         nicknameTextField.delegate = self
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
         nicknameTextField.text = ud.nickname
         nicknameTextField.placeholder = "닉네임"
         
@@ -160,7 +167,6 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     private func setCompleteButton() {
         completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
-        
     }
     
     @objc private func selectProfile() {
@@ -191,10 +197,8 @@ class ProfileNicknameSettingViewController: UIViewController {
         print("Save!")
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
-        
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 extension ProfileNicknameSettingViewController: UITextFieldDelegate {
@@ -215,20 +219,5 @@ extension ProfileNicknameSettingViewController: UITextFieldDelegate {
             warningLabel.text = "사용할 수 있는 닉네임이에요"
             buttonEnabled = true
         }
-        
-        
-    }
-    
-}
-
-extension ProfileNicknameSettingViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        if viewController != self {
-            backButtonPressed()
-        }
-    }
-    
-    func backButtonPressed() {
-        
     }
 }

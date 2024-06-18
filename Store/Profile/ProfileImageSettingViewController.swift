@@ -12,6 +12,7 @@ class ProfileImageSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
+    let topBar = UIView()
     var selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImage = CameraImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
@@ -26,10 +27,6 @@ class ProfileImageSettingViewController: UIViewController {
     init(mode: ProfileSettingMode) {
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,13 +45,19 @@ class ProfileImageSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
         
+        view.addSubview(topBar)
         view.backgroundColor = .whiteColor
         view.addSubview(selectedImageView)
         view.addSubview(cameraImage)
         view.addSubview(collectionView)
+        
+        topBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
         
         selectedImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
@@ -78,12 +81,13 @@ class ProfileImageSettingViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.id)
         
+        topBar.backgroundColor = .lightGrayColor
         selectedImageView.layer.cornerRadius = 60
-        
-        
-        
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -118,5 +122,4 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
         return layout
     }
-    
 }

@@ -12,6 +12,7 @@ import WebKit
 class DetailViewController: UIViewController {
     let ud = UserDefaultsHelper.shared
     
+    let topBar = UIView()
     let webView = WKWebView()
     let loading = UIActivityIndicatorView()
     
@@ -22,37 +23,43 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .whiteColor 
         
         if let item {
-            let like = ud.like(item.productId)
+            let like = ud.likeThisProduct(item.productId)
             let likeButton = UIBarButtonItem(image: like ? .like : .unlike,
                                              style: .plain, target: self, action: #selector(likeButtonClicked))
             navigationItem.rightBarButtonItem = likeButton
         }
         
-        webView.navigationDelegate = self
-        
+        view.addSubview(topBar)
         view.addSubview(webView)
         view.addSubview(loading)
         
+        topBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+        
         webView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(topBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         loading.snp.makeConstraints { make in
             make.center.equalTo(view.center)
         }
         
+        topBar.backgroundColor = .lightGrayColor
+        webView.navigationDelegate = self
         loading.style = .medium
         loading.hidesWhenStopped = true
-        
     }
     
     @objc private func likeButtonClicked() {
         guard let productId = item?.productId else { return }
-        let image: UIImage = ud.like(productId) ? .unlike : .like
+        let image: UIImage = ud.likeThisProduct(productId) ? .unlike : .like
         ud.handleLikes(productID: productId)
         navigationItem.rightBarButtonItem?.image = image
     }
-    
 }
 
 extension DetailViewController: WKNavigationDelegate {

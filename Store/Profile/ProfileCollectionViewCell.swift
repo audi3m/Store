@@ -12,13 +12,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     let imageView = CircleImageView(image: UIImage(named: "profile_0")!, type: .selected)
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         updateImageViewAppearance()
     }
     
@@ -30,18 +25,17 @@ class ProfileCollectionViewCell: UICollectionViewCell {
             make.center.equalTo(contentView.snp.center)
             make.size.equalTo(contentView.snp.size)
         }
-        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func updateImageViewAppearance() {
-        // Assuming the width and height are equal
         imageView.layer.borderWidth = isSelected ? 3 : 1
         imageView.layer.borderColor = isSelected ? UIColor.themeColor.cgColor : UIColor.lightGray.cgColor
         imageView.alpha = isSelected ? 1 : 0.5
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
-        
     }
-    
-    
 }

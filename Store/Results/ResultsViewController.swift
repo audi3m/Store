@@ -11,6 +11,7 @@ import SnapKit
 
 class ResultsViewController: UIViewController {
     
+    let topBar = UIView()
     let resultCountLabel = UILabel()
     let sortStack = UIStackView()
     let simButton = SortingButton(option: .sim)
@@ -21,6 +22,7 @@ class ResultsViewController: UIViewController {
     
     var sortOption: SortOptions = .sim {
         didSet {
+            start = 1
             requestItems(query: query)
             simButton.deSelected()
             dateButton.deSelected()
@@ -47,10 +49,6 @@ class ResultsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewIsAppearing(_ animated: Bool) {
         if selectedCell >= 0 {
             collectionView.reloadItems(at: [IndexPath(item: selectedCell, section: 0)])
@@ -71,16 +69,23 @@ class ResultsViewController: UIViewController {
         
         setButtons()
         
+        view.addSubview(topBar)
         view.addSubview(resultCountLabel)
         view.addSubview(sortStack)
         view.addSubview(collectionView)
+        
+        topBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
         
         resultCountLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         sortStack.snp.makeConstraints { make in
-            make.top.equalTo(resultCountLabel.snp.bottom).offset(20)
+            make.top.equalTo(resultCountLabel.snp.bottom).offset(15)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
@@ -89,15 +94,19 @@ class ResultsViewController: UIViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        
+        topBar.backgroundColor = .lightGrayColor
+        resultCountLabel.text = " "
         resultCountLabel.font = .boldSystemFont(ofSize: 14)
         resultCountLabel.textColor = .themeColor
         
         requestItems(query: query)
-        
     }
     
-    func setButtons() {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setButtons() {
         sortStack.axis = .horizontal
         sortStack.spacing = 7
         sortStack.addArrangedSubview(simButton)
@@ -113,7 +122,7 @@ class ResultsViewController: UIViewController {
         simButton.selected()
     }
     
-    func requestItems(query: String) {
+    private func requestItems(query: String) {
         let url = StoreAPI.url
         let parameters: Parameters = [
             "query": query,
@@ -139,22 +148,22 @@ class ResultsViewController: UIViewController {
         }
     }
     
-    @objc func simClicked() {
+    @objc private func simClicked() {
         sortOption = .sim
         simButton.selected()
     }
     
-    @objc func dateClicked() {
+    @objc private func dateClicked() {
         sortOption = .date
         dateButton.selected()
     }
     
-    @objc func ascClicked() {
+    @objc private func ascClicked() {
         sortOption = .asc
         ascButton.selected()
     }
     
-    @objc func dscClicked() {
+    @objc private func dscClicked() {
         sortOption = .dsc
         dscButton.selected()
     }
@@ -217,5 +226,4 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         navigationController?.pushViewController(vc, animated: true)
         
     }
-    
 }

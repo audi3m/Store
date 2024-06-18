@@ -16,9 +16,8 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         view.backgroundColor = .whiteColor
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         view.addSubview(titleLabel)
         view.addSubview(imageView)
@@ -52,9 +51,8 @@ class OnboardingViewController: UIViewController {
 
     }
     
-    @objc func startButtonClicked() {
+    @objc private func startButtonClicked() {
         let vc = ProfileNicknameSettingViewController(mode: .newProfile)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
 }

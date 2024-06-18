@@ -63,11 +63,11 @@ class UserDefaultsHelper {
 
 extension UserDefaultsHelper {
     
-    
     func deleteSearchQuery(query: String) {
         recentSearch.removeAll { $0 == query }
     }
     
+    @discardableResult
     func handleSearch(query: String) -> [String] {
         if let index = recentSearch.firstIndex(of: query) {
             recentSearch.remove(at: index)
@@ -76,12 +76,12 @@ extension UserDefaultsHelper {
         return recentSearch
     }
     
-    func like(_ productID: String) -> Bool {
+    func likeThisProduct(_ productID: String) -> Bool {
         likeItems.keys.contains(productID)
     }
     
     func handleLikes(productID: String) {
-        if like(productID) {
+        if likeThisProduct(productID) {
             likeItems.removeValue(forKey: productID)
         } else {
             likeItems.updateValue(0, forKey: productID)

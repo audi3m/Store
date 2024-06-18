@@ -18,7 +18,6 @@ class CameraImageView: UIView {
         configHierarchy()
         configLayout()
         configUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +48,5 @@ class CameraImageView: UIView {
         smallImageView.image = .camera
         smallImageView.contentMode = .scaleAspectFit
         smallImageView.tintColor = .whiteColor
-        
     }
 }

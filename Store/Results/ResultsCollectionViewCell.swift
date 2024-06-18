@@ -25,10 +25,6 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         setUI()
@@ -38,6 +34,10 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         setHierarchy()
         setLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setHierarchy() {
@@ -73,12 +73,11 @@ class ResultsCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(contentView)
         }
-        
     }
     
     private func setUI() {
         guard let item else { return }
-        let like = ud.like(item.productId)
+        let like = ud.likeThisProduct(item.productId)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
@@ -90,13 +89,12 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
         
         mallLabel.font = .systemFont(ofSize: 13)
-        mallLabel.textColor = .lightGrayColor
+        mallLabel.textColor = .grayColor
         
         titleLabel.font = .systemFont(ofSize: 14)
         titleLabel.numberOfLines = 2
         
         priceLabel.font = .systemFont(ofSize: 15, weight: .black)
-        
     }
     
     private func setData() {
@@ -112,12 +110,11 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         
         likeButton.setImage(like ? .like : .unlike, for: .normal)
         likeButton.backgroundColor = like ? .whiteColor : .grayColor.withAlphaComponent(0.7)
-        
     }
     
     @objc func likeButtonClicked() {
         guard let productId = item?.productId else { return }
-        let like = ud.like(productId)
+        let like = ud.likeThisProduct(productId)
         likeButton.setImage(like ? .unlike : .like, for: .normal)
         likeButton.backgroundColor = like ? .grayColor.withAlphaComponent(0.7) : .whiteColor
         ud.handleLikes(productID: productId)

@@ -11,7 +11,7 @@ import SnapKit
 class AccountTableViewCell: UITableViewCell {
     
     let ud = UserDefaultsHelper.shared
-    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "")!, type: .selected)
+    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_0")!, type: .selected)
     let stackView = UIStackView()
     let nicknameLabel = UILabel()
     let registerDateLabel = UILabel()
@@ -102,7 +102,7 @@ class SettingsTableViewCell: UITableViewCell {
         
         countLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.snp.centerY)
-            make.leading.equalTo(contentView.snp.leading).offset(20)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide).offset(-20)
             
         }
         
@@ -114,6 +114,9 @@ class SettingsTableViewCell: UITableViewCell {
         
         
         titleLabel.font = .systemFont(ofSize: 15)
+        
+        countLabel.font = .systemFont(ofSize: 15)
+        
         
         underBar.backgroundColor = .darkGrayColor
         

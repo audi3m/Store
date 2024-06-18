@@ -10,16 +10,23 @@ import SnapKit
 import WebKit
 
 class DetailViewController: UIViewController {
+    let ud = UserDefaultsHelper.shared
     
     let webView = WKWebView()
     let loading = UIActivityIndicatorView()
+    
+    var item: SearchItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteColor 
         
-        let like = UIBarButtonItem(image: .likeUnselected, style: .plain, target: self, action: #selector(likeButtonClicked))
-        navigationItem.rightBarButtonItem = like
+        if let item {
+            let like = ud.like(item.productId)
+            let likeButton = UIBarButtonItem(image: like ? .like : .unlike,
+                                             style: .plain, target: self, action: #selector(likeButtonClicked))
+            navigationItem.rightBarButtonItem = likeButton
+        }
         
         webView.navigationDelegate = self
         
@@ -34,14 +41,16 @@ class DetailViewController: UIViewController {
             make.center.equalTo(view.center)
         }
         
-        loading.style = .large
+        loading.style = .medium
         loading.hidesWhenStopped = true
-        
         
     }
     
     @objc private func likeButtonClicked() {
-        
+        guard let productId = item?.productId else { return }
+        let image: UIImage = ud.like(productId) ? .unlike : .like
+        ud.handleLikes(productID: productId)
+        navigationItem.rightBarButtonItem?.image = image
     }
     
 }

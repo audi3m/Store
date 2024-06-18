@@ -12,7 +12,7 @@ class ProfileImageSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    lazy var selectedImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_\(Int.random(in: 0..<12))")!, type: .profile)
+    var selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImage = CameraImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -20,10 +20,36 @@ class ProfileImageSettingViewController: UIViewController {
                        "profile_4", "profile_5", "profile_6", "profile_7",
                        "profile_8", "profile_9", "profile_10", "profile_11"]
     
+    let mode: ProfileSettingMode
+    var randomrofile: String?
+    
+    init(mode: ProfileSettingMode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if mode == .newProfile {
+            if let randomrofile, let item = profileList.firstIndex(of: randomrofile) {
+                selectedImageView.image = UIImage(named: randomrofile)
+                collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
+            }
+        } else {
+            if let profile = ud.profile, let item = profileList.firstIndex(of: profile) {
+                selectedImageView.image = UIImage(named: profile)
+                collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "PROFILE SETTING"
+        navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
         
         view.backgroundColor = .whiteColor
         view.addSubview(selectedImageView)
@@ -37,8 +63,8 @@ class ProfileImageSettingViewController: UIViewController {
         }
         
         cameraImage.snp.makeConstraints { make in
-            make.centerX.equalTo(selectedImageView.snp.centerX).offset(42.43)
-            make.centerY.equalTo(selectedImageView.snp.centerY).offset(42.43)
+            make.centerX.equalTo(selectedImageView.snp.centerX).offset(42)
+            make.centerY.equalTo(selectedImageView.snp.centerY).offset(42)
             make.size.equalTo(30)
         }
         
@@ -54,10 +80,8 @@ class ProfileImageSettingViewController: UIViewController {
         
         selectedImageView.layer.cornerRadius = 60
         
-        if let profile = ud.profile,
-           let item = profileList.firstIndex(of: profile) {
-            collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
-        }
+        
+        
     }
     
 }

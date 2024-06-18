@@ -10,9 +10,15 @@ import SnapKit
 
 class RecentListTableViewCell: UITableViewCell { 
     
+    let ud = UserDefaultsHelper.shared
+    
     let clockImage = UIImageView()
     let searchWordLabel = UILabel()
     let xButton = UIButton()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,14 +51,14 @@ class RecentListTableViewCell: UITableViewCell {
         
         xButton.setImage(.xmark, for: .normal)
         xButton.tintColor = .blackColor
-        
-        
-        
+        xButton.addTarget(self, action: #selector(xButtonClicked), for: .touchUpInside)
         
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc func xButtonClicked() {
+        print(#function)
+        
     }
-
+    
+    
 }

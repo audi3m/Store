@@ -15,6 +15,7 @@ class SettingsTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "SETTING"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -30,8 +31,9 @@ class SettingsTabViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewIsAppearing(_ animated: Bool) {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
     
 }
@@ -46,12 +48,16 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 0 {
             let accountCell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.id, for: indexPath) as! AccountTableViewCell
             accountCell.nicknameLabel.text = ud.nickname
+            accountCell.profileImageView.image = UIImage(named: ud.profile ?? "profile_0")
             accountCell.registerDateLabel.text = ud.registerDate
             return accountCell
             
         } else {
             let cell =  tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.id, for: indexPath) as! SettingsTableViewCell
             let title = SettingsItem.allCases[indexPath.row].rawValue
+            if indexPath.row == 1 {
+                cell.countLabel.text = "\(ud.likeItems.count)개의 상품"
+            }
             cell.titleLabel.text = title
             return cell
         }
@@ -97,7 +103,15 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     private func confirmButtonClicked() {
+        ud.resetData()
         
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        let nav = UINavigationController(rootViewController: OnboardingViewController())
+        
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
 }

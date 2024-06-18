@@ -23,7 +23,6 @@ class RecentListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         list = ud.recentSearch
         
         setHierarchy()
@@ -83,9 +82,9 @@ extension RecentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentListTableViewCell.id, for: indexPath) as! RecentListTableViewCell
-        let data = list[indexPath.row]
-        cell.searchWordLabel.text = data
+        let query = list[indexPath.row]
         
+        cell.searchWordLabel.text = query
         return cell
     }
     
@@ -98,9 +97,6 @@ extension RecentListViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = ResultsViewController(query: query)
         navigationController?.pushViewController(vc, animated: true)
         tableView.reloadRows(at: [indexPath], with: .automatic)
-        
     }
-    
-    
     
 }

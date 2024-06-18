@@ -11,6 +11,8 @@ import Kingfisher
 
 class ResultsCollectionViewCell: UICollectionViewCell {
     
+    let ud = UserDefaultsHelper.shared
+    
     let imageView = UIImageView()
     let likeButton = UIButton()
     let mallLabel = UILabel()
@@ -19,7 +21,7 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     
     var item: SearchItem? {
         didSet {
-            setUI()
+            setData()
         }
     }
     
@@ -29,20 +31,18 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setData()
+        setUI()
     }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
         setHierarchy()
         setLayout()
-        setUI()
     }
     
     private func setHierarchy() {
         contentView.addSubview(imageView)
-        imageView.addSubview(likeButton)
+        contentView.addSubview(likeButton)
         contentView.addSubview(mallLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
@@ -56,7 +56,7 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         
         likeButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(imageView).inset(12)
-            make.size.equalTo(30)
+            make.size.equalTo(35)
         }
         
         mallLabel.snp.makeConstraints { make in
@@ -78,12 +78,15 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     
     private func setUI() {
         guard let item else { return }
+        let like = ud.like(item.productId)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .lightGrayColor
         
-        likeButton.setImage(.likeUnselected, for: .normal)
+        likeButton.setImage(like ? .like : .unlike, for: .normal)
+        likeButton.backgroundColor = like ? .whiteColor : .grayColor.withAlphaComponent(0.7)
+        likeButton.layer.cornerRadius = 10
         likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
         
         mallLabel.font = .systemFont(ofSize: 13)
@@ -98,16 +101,27 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     
     private func setData() {
         guard let item else { return }
+        let like = ud.likeItems.keys.contains(item.productId)
         let url = URL(string: item.image)
         imageView.kf.setImage(with: url)
         
         likeButton.setImage(.likeUnselected, for: .normal)
         mallLabel.text = item.mallName
         titleLabel.text = item.title
-        priceLabel.text = (Int(item.lprice)?.formatted() ?? "알수없음") + "원"
+        priceLabel.text = (Int(item.lprice)?.formatted() ?? "1,000") + "원"
+        
+        likeButton.setImage(like ? .like : .unlike, for: .normal)
+        likeButton.backgroundColor = like ? .whiteColor : .grayColor.withAlphaComponent(0.7)
+        
     }
     
     @objc func likeButtonClicked() {
-        
+        guard let productId = item?.productId else { return }
+        let like = ud.like(productId)
+        likeButton.setImage(like ? .unlike : .like, for: .normal)
+        likeButton.backgroundColor = like ? .grayColor.withAlphaComponent(0.7) : .whiteColor
+        ud.handleLikes(productID: productId)
     }
+    
 }
+

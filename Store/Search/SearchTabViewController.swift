@@ -19,17 +19,18 @@ class SearchTabViewController: UIViewController {
     let recentSearchLabel = UILabel()
     let deleteAllButton = UIButton()
     
-    let tableView = UITableView()
-    var list: [String] = [] {
+    let recentListTableView = UITableView()
+    var recentList: [String] = [] {
         didSet {
-            tableView.reloadData()
+            recentListTableView.reloadData()
             updateViewVisibility()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        list = ud.recentSearch
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        recentList = ud.recentSearch.reversed()
         
         setHierarchy()
         setLayout()
@@ -37,15 +38,15 @@ class SearchTabViewController: UIViewController {
         
         searchBar.delegate = self
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(RecentListTableViewCell.self, forCellReuseIdentifier: RecentListTableViewCell.id)
-        tableView.separatorStyle = .none
+        recentListTableView.delegate = self
+        recentListTableView.dataSource = self
+        recentListTableView.register(RecentListTableViewCell.self, forCellReuseIdentifier: RecentListTableViewCell.id)
+        recentListTableView.separatorStyle = .none
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        navigationItem.title = "\(ud.nickname)'s MEANING OUT"
+    override func viewIsAppearing(_ animated: Bool) {
+        navigationItem.title = "\(ud.nickname ?? "")'s MEANING OUT"
     }
     
     private func setHierarchy() {
@@ -54,7 +55,7 @@ class SearchTabViewController: UIViewController {
         view.addSubview(emptyView.view)
         view.addSubview(recentSearchLabel)
         view.addSubview(deleteAllButton)
-        view.addSubview(tableView)
+        view.addSubview(recentListTableView)
     }
     
     private func setLayout() {
@@ -79,7 +80,7 @@ class SearchTabViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
         
-        tableView.snp.makeConstraints { make in
+        recentListTableView.snp.makeConstraints { make in
             make.top.equalTo(recentSearchLabel.snp.bottom).offset(15)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -87,6 +88,7 @@ class SearchTabViewController: UIViewController {
         emptyView.view.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
+        
     }
     
     private func setUI() {
@@ -106,48 +108,38 @@ class SearchTabViewController: UIViewController {
     
     @objc func deleteAll() {
         ud.recentSearch = []
-        list = []
+        recentList = []
     }
     
     private func updateViewVisibility() {
-        let recentSearchEmpty = list.isEmpty
+        let recentSearchEmpty = recentList.isEmpty
         emptyView.view.isHidden = !recentSearchEmpty
         recentSearchLabel.isHidden = recentSearchEmpty
         deleteAllButton.isHidden = recentSearchEmpty
-        tableView.isHidden = recentSearchEmpty
+        recentListTableView.isHidden = recentSearchEmpty
     }
     
 }
 
-
-
 extension SearchTabViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let query = searchBar.text!
+        recentList = ud.handleSearch(query: query).reversed()
         let vc = ResultsViewController(query: query)
         navigationController?.pushViewController(vc, animated: true)
-        
-        // UserDefaults 저장
-        var list = ud.recentSearch
-        if let index = list.firstIndex(of: query) {
-            list.remove(at: index)
-        }
-        list.append(query)
-        self.list = list
-        ud.recentSearch = list
-        
+        searchBar.text = ""
     }
     
 }
 
 extension SearchTabViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        list.count
+        recentList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentListTableViewCell.id, for: indexPath) as! RecentListTableViewCell
-        let data = list[indexPath.row]
+        let data = recentList[indexPath.row]
         cell.searchWordLabel.text = data
         
         return cell
@@ -158,13 +150,11 @@ extension SearchTabViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let query = list[indexPath.row]
+        let query = recentList[indexPath.row]
         let vc = ResultsViewController(query: query)
         navigationController?.pushViewController(vc, animated: true)
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
     }
-    
-    
     
 }

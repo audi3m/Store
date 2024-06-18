@@ -16,21 +16,22 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Onboarding appear")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         view.backgroundColor = .whiteColor
         
         view.addSubview(titleLabel)
         view.addSubview(imageView)
         view.addSubview(startButton)
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(70)
-            make.centerX.equalTo(view.snp.centerX)
-        }
-        
         imageView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
-            
+            make.size.equalTo(view.snp.width)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(imageView.snp.top).offset(-30)
+            make.centerX.equalTo(view.snp.centerX)
         }
         
         startButton.snp.makeConstraints { make in
@@ -39,7 +40,8 @@ class OnboardingViewController: UIViewController {
         }
         
         titleLabel.text = "MeaningOut"
-        titleLabel.font = .systemFont(ofSize: 35, weight: .black)
+        titleLabel.font = .systemFont(ofSize: 40, weight: .black)
+        titleLabel.textAlignment = .center
         titleLabel.textColor = .themeColor
         
         startButton.layer.cornerRadius = 25

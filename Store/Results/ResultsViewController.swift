@@ -22,15 +22,23 @@ class ResultsViewController: UIViewController {
     var sortOption: SortOptions = .sim {
         didSet {
             requestItems(query: query)
+            simButton.deSelected()
+            dateButton.deSelected()
+            ascButton.deSelected()
+            dscButton.deSelected()
         }
     }
     let query: String
-    var start: Int = 1
-    var totalItems: Int = 0
+    var start = 1
+    var totalItems = 0
+    var selectedCell = -1
     
     var list: [SearchItem] = [] {
         didSet {
             collectionView.reloadData()
+            if start == 1 && !list.isEmpty {
+                collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
@@ -43,8 +51,16 @@ class ResultsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewIsAppearing(_ animated: Bool) {
+        if selectedCell >= 0 {
+            collectionView.reloadItems(at: [IndexPath(item: selectedCell, section: 0)])
+            selectedCell = -1
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.title = query
         view.backgroundColor = .whiteColor
         
@@ -125,40 +141,23 @@ class ResultsViewController: UIViewController {
     
     @objc func simClicked() {
         sortOption = .sim
-        
         simButton.selected()
-        dateButton.deSelected()
-        ascButton.deSelected()
-        dscButton.deSelected()
     }
     
     @objc func dateClicked() {
         sortOption = .date
-        
-        simButton.deSelected()
         dateButton.selected()
-        ascButton.deSelected()
-        dscButton.deSelected()
     }
     
     @objc func ascClicked() {
         sortOption = .asc
-        
-        simButton.deSelected()
-        dateButton.deSelected()
         ascButton.selected()
-        dscButton.deSelected()
     }
     
     @objc func dscClicked() {
         sortOption = .dsc
-        
-        simButton.deSelected()
-        dateButton.deSelected()
-        ascButton.deSelected()
         dscButton.selected()
     }
-    
     
 }
 
@@ -190,9 +189,8 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = list[indexPath.item]
-        if let url = URL(string: item.link) {
-            cellTapped(url: url, title: item.title)
-        }
+        cellTapped(item: item)
+        selectedCell = indexPath.item
     }
     
     static func collectionViewLayout() -> UICollectionViewLayout {
@@ -208,11 +206,14 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         return layout
     }
     
-    private func cellTapped(url: URL, title: String) {
-        let request = URLRequest(url: url)
+    private func cellTapped(item: SearchItem) {
         let vc = DetailViewController()
-        vc.webView.load(request)
-        vc.navigationItem.title = title
+        if let url = URL(string: item.link) {
+            let request = URLRequest(url: url)
+            vc.webView.load(request)
+        }
+        vc.item = item
+        vc.navigationItem.title = item.title
         navigationController?.pushViewController(vc, animated: true)
         
     }

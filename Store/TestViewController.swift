@@ -10,41 +10,41 @@ import SnapKit
 
 class TestViewController: UIViewController {
     
-    let backgroundView = UIView()
-    let imageView = UIImageView()
-    let camera = CameraImageView()
-
+    let button = UIButton()
+    
+    var like = false {
+        didSet {
+            navigationItem.rightBarButtonItem?.image = like ? .like : .unlike.withRenderingMode(.alwaysOriginal)
+            button.setImage(like ? .like : .unlike, for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(backgroundView)
-        backgroundView.addSubview(imageView)
-        view.addSubview(camera)
+        view.backgroundColor = .white
+        navigationItem.title = "테스트"
         
-        backgroundView.snp.makeConstraints { make in
+        let bag = UIBarButtonItem(image: .likeUnselected,
+                                   style: .plain, target: self,
+                                   action: #selector(bagClicked))
+        
+        navigationItem.rightBarButtonItem = bag
+        
+        view.addSubview(button)
+        
+        button.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
-            make.size.equalTo(30)
+            make.size.equalTo(40)
         }
         
-        imageView.snp.makeConstraints { make in
-            make.center.equalTo(backgroundView.snp.center)
-            make.size.equalTo(20)
-        }
-        
-        camera.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(50)
-        }
-        
-        backgroundView.backgroundColor = .themeColor
-        backgroundView.layer.cornerRadius = 15
-        
-        imageView.image = .camera
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .white
-        
+        button.setImage(.likeUnselected, for: .normal)
+        button.addTarget(self, action: #selector(bagClicked), for: .touchUpInside)
+        button.contentScaleFactor = 10
         
     }
     
-
+    @objc func bagClicked() {
+        like.toggle()
+    }
     
-
 }

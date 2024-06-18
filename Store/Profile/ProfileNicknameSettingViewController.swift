@@ -17,7 +17,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_\(Int.random(in: 0..<12))")!, type: .profile)
+    var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UITextField()
     let underBar = UIView()
@@ -25,6 +25,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     let completeButton = OrangeButton(title: "완료")
     
     let mode: ProfileSettingMode
+    let randomProfile = "profile_\(Int.random(in: 0..<12))"
     
     var buttonEnabled = false {
         didSet {
@@ -41,6 +42,12 @@ class ProfileNicknameSettingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let profile = ud.profile {
+            profileImageView.image = UIImage(named: profile)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.delegate = self
@@ -55,7 +62,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         setNicknameTextField()
         setCompleteButton()
         
-        if mode != .newProfile {
+        if mode == .edit {
             completeButton.isHidden = true
         }
         
@@ -130,6 +137,12 @@ class ProfileNicknameSettingViewController: UIViewController {
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(selectProfile))
         profileImageView.addGestureRecognizer(gesture)
+        
+        if let profile = ud.profile {
+            profileImageView.image = UIImage(named: profile)
+        } else {
+            profileImageView.image = UIImage(named: randomProfile)
+        }
     }
     
     private func setNicknameTextField() {
@@ -151,13 +164,16 @@ class ProfileNicknameSettingViewController: UIViewController {
     }
     
     @objc private func selectProfile() {
-        print("Image tapped")
-        let vc = ProfileImageSettingViewController()
+        let vc = ProfileImageSettingViewController(mode: mode)
+        if let profile = ud.profile {
+            vc.randomrofile = profile
+        } else {
+            vc.randomrofile = randomProfile
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func completeButtonClicked() {
-        print("Complete!")
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
         ud.registerDate = Date.now.customFormat()
@@ -165,7 +181,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        let vc = UINavigationController(rootViewController: TabBarController())
+        let vc = TabBarController()
         
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()
@@ -213,7 +229,6 @@ extension ProfileNicknameSettingViewController: UINavigationControllerDelegate {
     }
     
     func backButtonPressed() {
-        // 여기에 원하는 함수를 구현하세요
-        print("Back button pressed")
+        
     }
 }

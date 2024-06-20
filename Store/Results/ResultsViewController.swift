@@ -10,6 +10,7 @@ import Alamofire
 import SnapKit
 
 class ResultsViewController: UIViewController {
+    let storeService = StoreService.shared
     
     let topBar = UIView()
     let resultCountLabel = UILabel()
@@ -23,7 +24,9 @@ class ResultsViewController: UIViewController {
     var sortOption: SortOptions = .sim {
         didSet {
             start = 1
-            requestItems(query: query)
+            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
+                self.applyResponse(response: response)
+            }
             simButton.deSelected()
             dateButton.deSelected()
             ascButton.deSelected()
@@ -99,7 +102,10 @@ class ResultsViewController: UIViewController {
         resultCountLabel.font = .boldSystemFont(ofSize: 14)
         resultCountLabel.textColor = .themeColor
         
-        requestItems(query: query)
+        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
+            self.applyResponse(response: response)
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -120,33 +126,34 @@ class ResultsViewController: UIViewController {
         dscButton.addTarget(self, action: #selector(dscClicked), for: .touchUpInside)
         
         simButton.selected()
+        
     }
     
-    private func requestItems(query: String) {
-        let url = StoreAPI.url
-        let parameters: Parameters = [
-            "query": query,
-            "start": start,
-            "display": 30,
-            "sort": sortOption.rawValue
-        ]
-        
-        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
-            switch response.result {
-            case .success(let value):
-                print("SUCCESS")
-                self.totalItems = value.total
-                self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
-                if self.start == 1 {
-                    self.list = value.items
-                } else {
-                    self.list.append(contentsOf: value.items)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+//    private func requestItems(query: String) {
+//        let url = StoreAPI.url
+//        let parameters: Parameters = [
+//            "query": query,
+//            "start": start,
+//            "display": 30,
+//            "sort": sortOption.rawValue
+//        ]
+//        
+//        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
+//            switch response.result {
+//            case .success(let value):
+//                print("SUCCESS")
+//                self.totalItems = value.total
+//                self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
+//                if self.start == 1 {
+//                    self.list = value.items
+//                } else {
+//                    self.list.append(contentsOf: value.items)
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
     
     @objc private func simClicked() {
         sortOption = .sim
@@ -168,6 +175,15 @@ class ResultsViewController: UIViewController {
         dscButton.selected()
     }
     
+    func applyResponse(response: SearchResponse) {
+        self.totalItems = response.total
+        self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
+        if self.start == 1 {
+            self.list = response.items
+        } else {
+            self.list.append(contentsOf: response.items)
+        }
+    }
 }
 
 extension ResultsViewController: UICollectionViewDataSourcePrefetching {
@@ -176,7 +192,9 @@ extension ResultsViewController: UICollectionViewDataSourcePrefetching {
             if item.item == self.list.count - 2 {
                 start += 30
                 if start <= totalItems {
-                    requestItems(query: query)
+                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
+                        self.applyResponse(response: response)
+                    }
                 }
             }
         }
@@ -190,9 +208,7 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.id, for: indexPath) as! ResultsCollectionViewCell
-        let item = list[indexPath.item]
-        cell.item = item
-        
+        cell.item = list[indexPath.item]
         return cell
     }
     

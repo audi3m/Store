@@ -43,6 +43,7 @@ class SearchTabViewController: UIViewController {
         recentTableView.register(RecentListTableViewCell.self, forCellReuseIdentifier: RecentListTableViewCell.id)
         recentTableView.rowHeight = 44
         recentTableView.separatorStyle = .none
+        recentTableView.keyboardDismissMode = .onDrag
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -88,6 +89,7 @@ class SearchTabViewController: UIViewController {
         emptyView.view.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
+        
     }
     
     private func setUI() {
@@ -128,6 +130,7 @@ extension SearchTabViewController: UISearchBarDelegate {
             navigationController?.pushViewController(vc, animated: true)
         }
         searchBar.text = ""
+        view.endEditing(true)
     }
 }
 

@@ -99,7 +99,6 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.id, for: indexPath) as! ProfileCollectionViewCell
         cell.imageView.image = UIImage(named: profileList[indexPath.item])
         cell.imageView.layer.cornerRadius = cell.frame.width/2
-        
         return cell
     }
     
@@ -107,7 +106,6 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         let profile = profileList[indexPath.item]
         selectedImageView.image = UIImage(named: profile)
         ud.profile = profile
-        
     }
     
     static func collectionViewLayout() -> UICollectionViewLayout {

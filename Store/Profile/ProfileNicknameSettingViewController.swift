@@ -24,6 +24,8 @@ class ProfileNicknameSettingViewController: UIViewController {
     let underBar = UIView()
     let warningLabel = UILabel()
     let completeButton = OrangeButton(title: "완료")
+    var goBack = true
+    var currentProfile = ""
     
     let mode: ProfileSettingMode
     let randomProfile = "profile_\(Int.random(in: 0..<12))"
@@ -45,6 +47,16 @@ class ProfileNicknameSettingViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if mode == .newProfile && goBack {
+            ud.resetData()
+        }
+        
+        if mode == .edit && goBack {
+            ud.profile = currentProfile
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteColor
@@ -62,6 +74,9 @@ class ProfileNicknameSettingViewController: UIViewController {
         if mode == .edit {
             completeButton.isHidden = true
             warningLabel.text = "사용할 수 있는 닉네임이에요"
+            if let profile = ud.profile {
+                currentProfile = profile
+            }
         }
     }
     
@@ -180,6 +195,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked() {
+        goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
         ud.registerDate = Date.now.customFormat()
@@ -194,7 +210,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     }
     
     @objc private func saveButtonClicked() {
-        print("Save!")
+        goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
         navigationController?.popViewController(animated: true)
@@ -203,9 +219,13 @@ class ProfileNicknameSettingViewController: UIViewController {
 
 extension ProfileNicknameSettingViewController: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        
         if text.count < 2 || text.count >= 10 {
             warningLabel.text = "2글자 이상 10글자 미만"
             buttonEnabled = false

@@ -53,7 +53,6 @@ class CircleImageView: UIImageView {
         alpha = type.alpha
         contentMode = .scaleAspectFit
         layer.masksToBounds = true
-        
     }
     
     required init?(coder: NSCoder) {

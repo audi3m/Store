@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class ProfileCollectionViewCell: UICollectionViewCell {
-    
     let imageView = CircleImageView(image: UIImage(named: "profile_0")!, type: .selected)
     
     override func layoutSubviews() {

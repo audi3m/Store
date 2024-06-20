@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 // nickname
 // profile
 // recentSearch
@@ -58,7 +57,6 @@ class UserDefaultsHelper {
             UserDefaults.standard.set(newValue, forKey: "likeItems")
         }
     }
-    
 }
 
 extension UserDefaultsHelper {

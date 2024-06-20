@@ -76,12 +76,9 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            presentProfileSetting()
-        case 5:
-            deleteAccountButtonClicked()
-        default:
-            break
+        case 0: presentProfileSetting()
+        case 5: deleteAccountButtonClicked()
+        default: break
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)

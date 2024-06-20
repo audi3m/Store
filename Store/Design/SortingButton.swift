@@ -63,14 +63,10 @@ enum SortOptions: String, CaseIterable {
     
     var title: String {
         switch self {
-        case .sim:
-            "정확도"
-        case .date:
-            "날짜순"
-        case .asc:
-            "가격낮은순"
-        case .dsc:
-            "가격높은순"
+        case .sim: "정확도"
+        case .date: "날짜순"
+        case .asc: "가격낮은순"
+        case .dsc: "가격높은순"
         }
     }
 }

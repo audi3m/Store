@@ -20,8 +20,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     let topBar = UIView()
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
-    let nicknameTextField = UITextField()
-    let underBar = UIView()
+    let nicknameTextField = UnderBarTextField()
     let warningLabel = UILabel()
     let completeButton = OrangeButton(title: "완료")
     var goBack = true
@@ -105,12 +104,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         topBar.backgroundColor = .lightGrayColor
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 17, weight: .black),
-            .foregroundColor: UIColor.black
-        ]
-        
-        saveButton.setTitleTextAttributes(attributes, for: .normal)
         
         if mode == .edit {
             navigationItem.rightBarButtonItem = saveButton
@@ -122,7 +115,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         view.addSubview(profileImageView)
         view.addSubview(cameraImageView)
         view.addSubview(nicknameTextField)
-        view.addSubview(underBar)
         view.addSubview(warningLabel)
         view.addSubview(completeButton)
     }
@@ -151,14 +143,8 @@ class ProfileNicknameSettingViewController: UIViewController {
             make.height.equalTo(50)
         }
         
-        underBar.snp.makeConstraints { make in
-            make.top.equalTo(nicknameTextField.snp.bottom)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
-            make.height.equalTo(1)
-        }
-        
         warningLabel.snp.makeConstraints { make in
-            make.top.equalTo(underBar.snp.bottom).offset(15)
+            make.top.equalTo(nicknameTextField.snp.bottom).offset(15)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(40)
             make.height.equalTo(24)
         }
@@ -189,8 +175,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         nicknameTextField.text = ud.nickname
         nicknameTextField.placeholder = "닉네임"
-        
-        underBar.backgroundColor = .lightGrayColor
         
         warningLabel.textColor = .themeColor
         warningLabel.font = .systemFont(ofSize: 13)

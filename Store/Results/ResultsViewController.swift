@@ -129,32 +129,6 @@ class ResultsViewController: UIViewController {
         
     }
     
-//    private func requestItems(query: String) {
-//        let url = StoreAPI.url
-//        let parameters: Parameters = [
-//            "query": query,
-//            "start": start,
-//            "display": 30,
-//            "sort": sortOption.rawValue
-//        ]
-//        
-//        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
-//            switch response.result {
-//            case .success(let value):
-//                print("SUCCESS")
-//                self.totalItems = value.total
-//                self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
-//                if self.start == 1 {
-//                    self.list = value.items
-//                } else {
-//                    self.list.append(contentsOf: value.items)
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     @objc private func simClicked() {
         sortOption = .sim
         simButton.selected()

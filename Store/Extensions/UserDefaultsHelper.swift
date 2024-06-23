@@ -57,8 +57,17 @@ class UserDefaultsHelper {
             UserDefaults.standard.set(newValue, forKey: "likeItems")
         }
     }
+    
+    func resetData() {
+        nickname = nil
+        registerDate = ""
+        profile = nil
+        recentSearch = []
+        likeItems = [:]
+    }
 }
 
+// search functions
 extension UserDefaultsHelper {
     
     func deleteSearchQuery(query: String) {
@@ -74,6 +83,16 @@ extension UserDefaultsHelper {
         return recentSearch
     }
     
+    @discardableResult
+    func deleteSearchHistory() -> [String] {
+        recentSearch.removeAll()
+        return []
+    }
+    
+}
+
+// like funtions
+extension UserDefaultsHelper {
     func likeThisProduct(_ productID: String) -> Bool {
         likeItems.keys.contains(productID)
     }
@@ -85,13 +104,4 @@ extension UserDefaultsHelper {
             likeItems.updateValue(0, forKey: productID)
         }
     }
-    
-    func resetData() {
-        nickname = nil
-        registerDate = ""
-        profile = nil
-        recentSearch = []
-        likeItems = [:]
-    }
-    
 }

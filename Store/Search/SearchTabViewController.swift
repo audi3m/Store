@@ -108,8 +108,7 @@ class SearchTabViewController: UIViewController {
     }
     
     @objc private func deleteAll() {
-        ud.recentSearch = []
-        recentList = []
+        recentList = ud.deleteSearchHistory()
     }
     
     private func updateViewVisibility() {

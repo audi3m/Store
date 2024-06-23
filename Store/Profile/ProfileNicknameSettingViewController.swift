@@ -27,12 +27,27 @@ class ProfileNicknameSettingViewController: UIViewController {
     var goBack = true
     var currentProfile = ""
     
+    var warningText = [String]() {
+        didSet {
+            var text = ""
+            for item in warningText {
+                if text.isEmpty {
+                    text += item
+                } else {
+                    text += "\n\(item)"
+                }
+            }
+            warningLabel.text = text
+        }
+    }
+    
     let mode: ProfileSettingMode
     let randomProfile = "profile_\(Int.random(in: 0..<12))"
     
     var buttonEnabled = false {
         didSet {
             completeButton.isEnabled = buttonEnabled
+            navigationItem.rightBarButtonItem?.isEnabled = buttonEnabled
         }
     }
     
@@ -41,26 +56,11 @@ class ProfileNicknameSettingViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if let profile = ud.profile {
-            profileImageView.image = UIImage(named: profile)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        if mode == .newProfile && goBack {
-            ud.resetData()
-        }
-        
-        if mode == .edit && goBack {
-            ud.profile = currentProfile
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteColor
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.hideKeyboardWhenTappedAround()
         
         setNavBar()
         
@@ -77,6 +77,22 @@ class ProfileNicknameSettingViewController: UIViewController {
             if let profile = ud.profile {
                 currentProfile = profile
             }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let profile = ud.profile {
+            profileImageView.image = UIImage(named: profile)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if mode == .newProfile && goBack {
+            ud.resetData()
+        }
+        
+        if mode == .edit && goBack {
+            ud.profile = currentProfile
         }
     }
     
@@ -226,18 +242,36 @@ extension ProfileNicknameSettingViewController: UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        if text.count < 2 || text.count >= 10 {
-            warningLabel.text = "2글자 이상 10글자 미만"
-            buttonEnabled = false
-        } else if text.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) != nil {
-            warningLabel.text = "@, #, $, %는 포함할 수 없습니다"
-            buttonEnabled = false
-        } else if text.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil {
-            warningLabel.text = "숫자는 포함할 수 없습니다"
-            buttonEnabled = false
-        } else {
+        do {
+            try isValidateInput(text: text)
             warningLabel.text = "사용할 수 있는 닉네임이에요"
             buttonEnabled = true
+            return
+        } catch NicknameValidationError.lengthError {
+            warningLabel.text = "2글자 이상 10글자 미만 입력해주세요"
+        } catch NicknameValidationError.symbolError {
+            warningLabel.text = "@, #, $, %는 포함할 수 없습니다"
+        } catch NicknameValidationError.numError {
+            warningLabel.text = "숫자는 포함할 수 없습니다"
+        } catch {
+            fatalError()
         }
+        
+        buttonEnabled = false
+        
     }
+    
+    @discardableResult
+    func isValidateInput(text: String) throws -> Bool {
+        guard text.count >= 2 && text.count < 10 else { throw NicknameValidationError.lengthError }
+        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) == nil else { throw NicknameValidationError.symbolError }
+        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) == nil else { throw NicknameValidationError.numError }
+        return true
+    }
+}
+
+enum NicknameValidationError: Error {
+    case lengthError
+    case symbolError
+    case numError
 }

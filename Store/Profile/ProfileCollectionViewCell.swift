@@ -37,4 +37,5 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
     }
+    
 }

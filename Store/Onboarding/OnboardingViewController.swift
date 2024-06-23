@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController {
-
+    
     let titleLabel = UILabel()
     let imageView = UIImageView()
     let startButton = OrangeButton(title: "시작하기")
@@ -55,4 +55,5 @@ class OnboardingViewController: UIViewController {
         let vc = ProfileNicknameSettingViewController(mode: .newProfile)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }

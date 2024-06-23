@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D453913F2C241E7B00E407C8 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453913E2C241E7B00E407C8 /* StoreService.swift */; };
+		D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */; };
+		D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391422C28156300E407C8 /* UnderBarTextField.swift */; };
+		D45391452C2816E600E407C8 /* ViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391442C2816E600E407C8 /* ViewController+Ex.swift */; };
 		D466A32A2C1AD53F00AA2954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3292C1AD53F00AA2954 /* AppDelegate.swift */; };
 		D466A32C2C1AD53F00AA2954 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A32B2C1AD53F00AA2954 /* SceneDelegate.swift */; };
 		D466A32E2C1AD53F00AA2954 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A32D2C1AD53F00AA2954 /* ViewController.swift */; };
@@ -45,6 +48,9 @@
 
 /* Begin PBXFileReference section */
 		D453913E2C241E7B00E407C8 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		D45391422C28156300E407C8 /* UnderBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarTextField.swift; sourceTree = "<group>"; };
+		D45391442C2816E600E407C8 /* ViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ex.swift"; sourceTree = "<group>"; };
 		D466A3262C1AD53F00AA2954 /* Store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Store.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D466A3292C1AD53F00AA2954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D466A32B2C1AD53F00AA2954 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				D466A3662C1BCBAE00AA2954 /* UserDefaultsHelper.swift */,
+				D45391442C2816E600E407C8 /* ViewController+Ex.swift */,
 				D466A3442C1AD60200AA2954 /* UIImage+Ex.swift */,
 				D466A3462C1AD68700AA2954 /* UIColor+Ex.swift */,
 				D4B83E0B2C211F9B00457CC7 /* String+Ex.swift */,
@@ -184,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */,
+				D45391422C28156300E407C8 /* UnderBarTextField.swift */,
 				D466A35E2C1B215D00AA2954 /* CircleImageView.swift */,
 				D466A3682C1C209D00AA2954 /* CircleCamera.swift */,
 				D466A37F2C1DD64900AA2954 /* SortingButton.swift */,
@@ -215,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				D466A3542C1B1BFE00AA2954 /* SettingsTabViewController.swift */,
+				D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */,
 				D466A3642C1B287A00AA2954 /* SettingsTableViewCell.swift */,
 			);
 			path = Settings;
@@ -311,6 +320,7 @@
 				D466A3742C1C8B3C00AA2954 /* Date+Ex.swift in Sources */,
 				D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */,
 				D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */,
+				D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */,
 				D466A3612C1B282700AA2954 /* ProfileCollectionViewCell.swift in Sources */,
 				D466A34B2C1B150300AA2954 /* StoreAPI.swift in Sources */,
 				D466A3552C1B1BFE00AA2954 /* SettingsTabViewController.swift in Sources */,
@@ -325,10 +335,12 @@
 				D466A3532C1B1BAE00AA2954 /* SearchTabViewController.swift in Sources */,
 				D466A37C2C1D843E00AA2954 /* RecentListTableViewCell.swift in Sources */,
 				D466A36D2C1C22CF00AA2954 /* ResultsViewController.swift in Sources */,
+				D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */,
 				D466A35D2C1B1DFB00AA2954 /* ButtonDesign.swift in Sources */,
 				D466A32C2C1AD53F00AA2954 /* SceneDelegate.swift in Sources */,
 				D466A34D2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift in Sources */,
 				D466A3852C1DE51200AA2954 /* DetailViewController.swift in Sources */,
+				D45391452C2816E600E407C8 /* ViewController+Ex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +487,7 @@
 				DEVELOPMENT_TEAM = NWL6WKXWCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Store/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "오종우";
+				INFOPLIST_KEY_CFBundleDisplayName = Store;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -508,7 +520,7 @@
 				DEVELOPMENT_TEAM = NWL6WKXWCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Store/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "오종우";
+				INFOPLIST_KEY_CFBundleDisplayName = Store;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

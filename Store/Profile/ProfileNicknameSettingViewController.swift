@@ -203,9 +203,10 @@ class ProfileNicknameSettingViewController: UIViewController {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        let vc = TabBarController()
+        let vc = SearchViewController()
+        let nav = UINavigationController(rootViewController: vc)
         
-        sceneDelegate?.window?.rootViewController = vc
+        sceneDelegate?.window?.rootViewController = nav
         sceneDelegate?.window?.makeKeyAndVisible()
     }
     
@@ -215,6 +216,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         ud.nickname = nickname
         navigationController?.popViewController(animated: true)
     }
+    
 }
 
 extension ProfileNicknameSettingViewController: UITextFieldDelegate {

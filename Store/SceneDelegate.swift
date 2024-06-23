@@ -24,8 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if let _ = ud.nickname {
-            let vc = TabBarController()
-            window?.rootViewController = vc
+            let vc = SearchViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
         } else {
             let vc = OnboardingViewController()
             let nav = UINavigationController(rootViewController: vc) 

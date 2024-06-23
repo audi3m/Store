@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsTabViewController: UIViewController {
+class SettingsViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     let topBar = UIView()
@@ -21,6 +21,7 @@ class SettingsTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "SETTING"
+        view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         tableView.separatorStyle = .none
@@ -47,7 +48,7 @@ class SettingsTabViewController: UIViewController {
     }
 }
 
-extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         SettingsItem.allCases.count
     }
@@ -89,7 +90,7 @@ extension SettingsTabViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-extension SettingsTabViewController {
+extension SettingsViewController {
     
     private func likesCountLabel(count: Int) -> NSMutableAttributedString {
         let boldAttribute = [

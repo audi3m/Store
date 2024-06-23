@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class SearchTabViewController: UIViewController {
+class SearchViewController: UIViewController {
     
     let ud = UserDefaultsHelper.shared
     
@@ -29,7 +29,12 @@ class SearchTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        let settings = UIBarButtonItem(image: UIImage(systemName: "gearshape"),style: .plain, target: self,
+                                       action: #selector(settingsButtonClicked))
+        navigationItem.rightBarButtonItem = settings
+        
         recentList = ud.recentSearch.reversed()
         
         setHierarchy()
@@ -46,13 +51,13 @@ class SearchTabViewController: UIViewController {
         recentTableView.keyboardDismissMode = .onDrag
     }
     
-    override func viewIsAppearing(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "\(ud.nickname ?? "")'s MEANING OUT"
     }
     
     private func setHierarchy() {
-        view.addSubview(searchBar)
         view.addSubview(underBar)
+        view.addSubview(searchBar)
         view.addSubview(emptyView.view)
         view.addSubview(recentSearchLabel)
         view.addSubview(deleteAllButton)
@@ -60,19 +65,19 @@ class SearchTabViewController: UIViewController {
     }
     
     private func setLayout() {
+        underBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.width.equalTo(view.snp.width)
+            make.height.equalTo(1)
+        }
+        
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
-        underBar.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.width.equalTo(view.snp.width)
-            make.height.equalTo(1)
-        }
-        
         recentSearchLabel.snp.makeConstraints { make in
-            make.top.equalTo(underBar.snp.bottom).offset(15)
+            make.top.equalTo(searchBar.snp.bottom).offset(15)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
@@ -93,10 +98,10 @@ class SearchTabViewController: UIViewController {
     }
     
     private func setUI() {
+        underBar.backgroundColor = .lightGrayColor
+        
         searchBar.backgroundImage = UIImage()
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
-        
-        underBar.backgroundColor = .lightGrayColor
         
         recentSearchLabel.text = "최근 검색"
         recentSearchLabel.font = .systemFont(ofSize: 15, weight: .black)
@@ -111,6 +116,11 @@ class SearchTabViewController: UIViewController {
         recentList = ud.deleteSearchHistory()
     }
     
+    @objc private func settingsButtonClicked() {
+        let vc = SettingsViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func updateViewVisibility() {
         let recentSearchEmpty = recentList.isEmpty
         emptyView.view.isHidden = !recentSearchEmpty
@@ -120,7 +130,7 @@ class SearchTabViewController: UIViewController {
     }
 }
 
-extension SearchTabViewController: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let query = searchBar.text!
         if !query.isEmptyOrWhiteSpace() {
@@ -133,7 +143,7 @@ extension SearchTabViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchTabViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recentList.count
     }

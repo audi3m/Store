@@ -64,7 +64,7 @@ class AccountTableViewCell: UITableViewCell {
     private func setUI() {
         profileImageView.layer.cornerRadius = 40
         
-        nicknameLabel.font = .systemFont(ofSize: 17, weight: .heavy)
+        nicknameLabel.font = .systemFont(ofSize: 17, weight: .bold)
         
         registerDateLabel.font = .systemFont(ofSize: 15)
         registerDateLabel.textColor = .grayColor

@@ -84,7 +84,7 @@ class ResultsViewController: UIViewController {
         }
         
         resultCountLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
         
         sortStack.snp.makeConstraints { make in

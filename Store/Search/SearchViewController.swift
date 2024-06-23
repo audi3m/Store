@@ -31,9 +31,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        let settings = UIBarButtonItem(image: UIImage(systemName: "gearshape"),style: .plain, target: self,
+        let settings = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"),style: .plain, target: self,
                                        action: #selector(settingsButtonClicked))
         navigationItem.rightBarButtonItem = settings
+        self.hideKeyboardWhenTappedAround()
         
         recentList = ud.recentSearch.reversed()
         
@@ -77,7 +78,7 @@ class SearchViewController: UIViewController {
         }
         
         recentSearchLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(15)
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
@@ -87,7 +88,7 @@ class SearchViewController: UIViewController {
         }
         
         recentTableView.snp.makeConstraints { make in
-            make.top.equalTo(recentSearchLabel.snp.bottom).offset(15)
+            make.top.equalTo(recentSearchLabel.snp.bottom).offset(10)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         

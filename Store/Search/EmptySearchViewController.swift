@@ -32,7 +32,7 @@ class EmptySearchViewController: UIViewController {
         imageView.image = .empty
         imageView.contentMode = .scaleAspectFit
         
-        noLabel.text = "최근 검색어가 없어요..."
+        noLabel.text = "최근 검색어가 없어요."
         noLabel.font = .systemFont(ofSize: 16, weight: .black)
     }
     

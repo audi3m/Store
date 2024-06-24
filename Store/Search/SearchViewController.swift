@@ -33,6 +33,7 @@ class SearchViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         let settings = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"),style: .plain, target: self,
                                        action: #selector(settingsButtonClicked))
+        settings.tintColor = .themeColor
         navigationItem.rightBarButtonItem = settings
         self.hideKeyboardWhenTappedAround()
         

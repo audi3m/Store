@@ -77,8 +77,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: presentProfileSetting()
-        case 5: deleteAccountButtonClicked()
+        case 0: 
+            presentProfileSetting()
+        case 5:
+            showAlert(type: .resign) {
+                self.confirmButtonClicked()
+            }
         default: break
         }
         
@@ -122,18 +126,18 @@ extension SettingsViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func deleteAccountButtonClicked() {
-        let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?",
-                                      preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
-        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-            self.confirmButtonClicked()
-        }
-        
-        alert.addAction(cancel)
-        alert.addAction(confirm)
-        present(alert, animated: true)
-    }
+//    private func deleteAccountButtonClicked() {
+//        let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?",
+//                                      preferredStyle: .alert)
+//        let cancel = UIAlertAction(title: "취소", style: .cancel)
+//        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+//            self.confirmButtonClicked()
+//        }
+//        
+//        alert.addAction(cancel)
+//        alert.addAction(confirm)
+//        present(alert, animated: true)
+//    }
     
     private func confirmButtonClicked() {
         ud.resetData()

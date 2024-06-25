@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class ResultsCollectionViewCell: UICollectionViewCell {
+class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     let ud = UserDefaultsHelper.shared
     
@@ -32,15 +32,10 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setHierarchy()
-        setLayout()
+        
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setHierarchy() {
+    override func setHierarchy() {
         contentView.addSubview(imageView)
         contentView.addSubview(likeButton)
         contentView.addSubview(mallLabel)
@@ -48,7 +43,7 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(priceLabel)
     }
     
-    private func setLayout() {
+    override func setLayout() {
         imageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView)
             make.height.equalTo(contentView.snp.width).multipliedBy(1.2)
@@ -75,7 +70,7 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func setUI() {
+    override func setUI() {
         guard let item else { return }
         let like = ud.likeThisProduct(item.productId)
         imageView.contentMode = .scaleAspectFill

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileCollectionViewCell: UICollectionViewCell {
+class ProfileCollectionViewCell: BaseCollectionViewCell {
     let imageView = CircleImageView(image: UIImage(named: "profile_0")!, type: .selected)
     
     override func layoutSubviews() {
@@ -18,16 +18,17 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+    }
+    
+    override func setHierarchy() {
         contentView.addSubview(imageView)
-        
+    }
+    
+    override func setLayout() {
         imageView.snp.makeConstraints { make in
             make.center.equalTo(contentView.snp.center)
             make.size.equalTo(contentView.snp.size)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func updateImageViewAppearance() {

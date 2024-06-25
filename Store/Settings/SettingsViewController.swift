@@ -23,12 +23,12 @@ class SettingsViewController: UIViewController {
         navigationItem.title = "SETTING"
         view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        tableView.separatorStyle = .none
+         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AccountTableViewCell.self, forCellReuseIdentifier: AccountTableViewCell.id)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.id)
+        tableView.separatorColor = .grayColor
         
         view.addSubview(topBar)
         view.addSubview(tableView)

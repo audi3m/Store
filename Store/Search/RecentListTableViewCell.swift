@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RecentListTableViewCell: UITableViewCell {
+class RecentListTableViewCell: BaseTableViewCell {
     let ud = UserDefaultsHelper.shared
     
     let clockImage = UIImageView()
@@ -17,11 +17,16 @@ class RecentListTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+         
+    }
+    
+    override func setHierarchy() {
         contentView.addSubview(clockImage)
         contentView.addSubview(searchWordLabel)
         contentView.addSubview(xButton)
-        
+    }
+    
+    override func setLayout() {
         clockImage.snp.makeConstraints { make in
             make.leading.equalTo(contentView).offset(20)
             make.centerY.equalTo(contentView.snp.centerY)
@@ -37,7 +42,9 @@ class RecentListTableViewCell: UITableViewCell {
             make.width.equalTo(contentView.snp.width).offset(-120)
             make.centerY.equalTo(contentView.snp.centerY)
         }
-        
+    }
+    
+    override func setUI() {
         clockImage.image = .clock
         clockImage.contentMode = .scaleAspectFit
         clockImage.tintColor = .blackColor
@@ -46,10 +53,6 @@ class RecentListTableViewCell: UITableViewCell {
         
         xButton.setImage(.xmark, for: .normal)
         xButton.tintColor = .blackColor
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    } 
     
 }

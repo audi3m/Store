@@ -61,9 +61,7 @@ class ResultsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.title = query
-        view.backgroundColor = .whiteColor
+        navigationItem.title = query 
         
         collectionView.delegate = self
         collectionView.dataSource = self

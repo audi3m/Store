@@ -15,8 +15,7 @@ class OnboardingViewController: BaseViewController {
     let startButton = OrangeButton(title: "시작하기")
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        super.viewDidLoad()  
         
     }
     

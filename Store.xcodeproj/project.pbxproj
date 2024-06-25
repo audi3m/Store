@@ -239,9 +239,9 @@
 		D4F8D5872C2AE15700638548 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */,
 				D4F8D5882C2AE17B00638548 /* BaseTableViewCell.swift */,
 				D4F8D58A2C2AE4B100638548 /* BaseCollectionViewCell.swift */,
-				D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";

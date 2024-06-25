@@ -56,8 +56,7 @@ class ProfileNicknameSettingViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        super.viewDidLoad()  
         
         setNavBar()
          

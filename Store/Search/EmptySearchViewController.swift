@@ -43,5 +43,4 @@ class EmptySearchViewController: BaseViewController {
         noLabel.font = .systemFont(ofSize: 16, weight: .black)
     }
     
-    
 }

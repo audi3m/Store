@@ -28,8 +28,7 @@ class SearchViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        super.viewDidLoad() 
         let settings = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"),style: .plain, target: self,
                                        action: #selector(settingsButtonClicked))
         settings.tintColor = .themeColor

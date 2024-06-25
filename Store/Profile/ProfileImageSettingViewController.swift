@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileImageSettingViewController: UIViewController {
+class ProfileImageSettingViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
     
@@ -29,6 +29,10 @@ class ProfileImageSettingViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if mode == .newProfile {
             if let randomrofile, let item = profileList.firstIndex(of: randomrofile) {
@@ -44,15 +48,19 @@ class ProfileImageSettingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .whiteColor
+        super.viewDidLoad() 
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
         
+    }
+    
+    override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(selectedImageView)
         view.addSubview(cameraImage)
         view.addSubview(collectionView)
-        
+    }
+    
+    override func setLayout() {
         topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -75,19 +83,18 @@ class ProfileImageSettingViewController: UIViewController {
             make.top.equalTo(selectedImageView.snp.bottom).offset(50)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
+    }
+    
+    override func setUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.id)
         
         topBar.backgroundColor = .lightGrayColor
         selectedImageView.layer.cornerRadius = 60
-        
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
 }
 
 extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {

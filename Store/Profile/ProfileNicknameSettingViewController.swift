@@ -13,7 +13,7 @@ enum ProfileSettingMode {
     case edit
 }
 
-class ProfileNicknameSettingViewController: UIViewController {
+class ProfileNicknameSettingViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
     
@@ -56,16 +56,11 @@ class ProfileNicknameSettingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .whiteColor
+        super.viewDidLoad() 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.hideKeyboardWhenTappedAround()
         
         setNavBar()
-        
-        setHierarchy()
-        setLayout()
-        
+         
         setProfileImageView()
         setNicknameTextField()
         setCompleteButton()
@@ -110,7 +105,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         }
     }
     
-    private func setHierarchy() {
+    override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(profileImageView)
         view.addSubview(cameraImageView)
@@ -119,7 +114,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         view.addSubview(completeButton)
     }
     
-    private func setLayout() {
+    override func setLayout() {
         topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)

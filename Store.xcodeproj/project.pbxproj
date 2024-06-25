@@ -46,6 +46,7 @@
 		D4B83E0C2C211F9B00457CC7 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B83E0B2C211F9B00457CC7 /* String+Ex.swift */; };
 		D4F8D5892C2AE17B00638548 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F8D5882C2AE17B00638548 /* BaseTableViewCell.swift */; };
 		D4F8D58B2C2AE4B100638548 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F8D58A2C2AE4B100638548 /* BaseCollectionViewCell.swift */; };
+		D4F8D58D2C2AE69D00638548 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		D4B83E0B2C211F9B00457CC7 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		D4F8D5882C2AE17B00638548 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		D4F8D58A2C2AE4B100638548 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +139,8 @@
 				D466A32D2C1AD53F00AA2954 /* ViewController.swift */,
 				D453913D2C241E6400E407C8 /* StoreService */,
 				D466A3582C1B1D9300AA2954 /* Onboarding */,
-				D466A3502C1B1B9600AA2954 /* Profile */,
 				D466A3512C1B1BA100AA2954 /* Tabs */,
+				D466A3502C1B1B9600AA2954 /* Profile */,
 				D466A3772C1D83E000AA2954 /* Search */,
 				D466A36E2C1C238400AA2954 /* Results */,
 				D466A3782C1D83EC00AA2954 /* Settings */,
@@ -239,6 +241,7 @@
 			children = (
 				D4F8D5882C2AE17B00638548 /* BaseTableViewCell.swift */,
 				D4F8D58A2C2AE4B100638548 /* BaseCollectionViewCell.swift */,
+				D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				D4F8D58B2C2AE4B100638548 /* BaseCollectionViewCell.swift in Sources */,
 				D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */,
 				D466A35D2C1B1DFB00AA2954 /* ButtonDesign.swift in Sources */,
+				D4F8D58D2C2AE69D00638548 /* BaseViewController.swift in Sources */,
 				D466A32C2C1AD53F00AA2954 /* SceneDelegate.swift in Sources */,
 				D466A34D2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift in Sources */,
 				D466A3852C1DE51200AA2954 /* DetailViewController.swift in Sources */,

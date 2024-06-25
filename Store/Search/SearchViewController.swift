@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
     
@@ -29,19 +29,13 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         let settings = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"),style: .plain, target: self,
                                        action: #selector(settingsButtonClicked))
         settings.tintColor = .themeColor
         navigationItem.rightBarButtonItem = settings
-        self.hideKeyboardWhenTappedAround()
         
         recentList = ud.recentSearch.reversed()
-        
-        setHierarchy()
-        setLayout()
-        setUI()
         
         searchBar.delegate = self
         
@@ -57,7 +51,7 @@ class SearchViewController: UIViewController {
         navigationItem.title = "\(ud.nickname ?? "")'s MEANING OUT"
     }
     
-    private func setHierarchy() {
+    override func setHierarchy() {
         view.addSubview(underBar)
         view.addSubview(searchBar)
         view.addSubview(emptyView.view)
@@ -66,7 +60,7 @@ class SearchViewController: UIViewController {
         view.addSubview(recentTableView)
     }
     
-    private func setLayout() {
+    override func setLayout() {
         underBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(view.snp.width)
@@ -99,7 +93,7 @@ class SearchViewController: UIViewController {
         
     }
     
-    private func setUI() {
+    override func setUI() {
         underBar.backgroundColor = .lightGrayColor
         
         searchBar.backgroundImage = UIImage()

@@ -8,21 +8,25 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: BaseViewController {
     
     let titleLabel = UILabel()
     let imageView = UIImageView()
     let startButton = OrangeButton(title: "시작하기")
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .whiteColor
+        super.viewDidLoad() 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
+    }
+    
+    override func setHierarchy() {
         view.addSubview(titleLabel)
         view.addSubview(imageView)
         view.addSubview(startButton)
-        
+    }
+    
+    override func setLayout() {
         imageView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
             make.size.equalTo(view.snp.width)
@@ -37,7 +41,9 @@ class OnboardingViewController: UIViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(30)
             make.height.equalTo(50)
         }
-        
+    }
+    
+    override func setUI() {
         titleLabel.text = "MeaningOut"
         titleLabel.font = .systemFont(ofSize: 40, weight: .black)
         titleLabel.textAlignment = .center
@@ -48,7 +54,6 @@ class OnboardingViewController: UIViewController {
         
         imageView.image = .launch
         imageView.contentMode = .scaleAspectFit
-
     }
     
     @objc private func startButtonClicked() {

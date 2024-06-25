@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class ResultsViewController: UIViewController {
+class ResultsViewController: BaseViewController {
     let storeService = StoreService.shared
     
     let topBar = UIView()
@@ -71,12 +71,21 @@ class ResultsViewController: UIViewController {
         collectionView.register(ResultsCollectionViewCell.self, forCellWithReuseIdentifier: ResultsCollectionViewCell.id)
         
         setButtons()
+         
+        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
+            self.applyResponse(response: response)
+        }
         
+    }
+    
+    override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(resultCountLabel)
         view.addSubview(sortStack)
         view.addSubview(collectionView)
-        
+    }
+    
+    override func setLayout() {
         topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -96,16 +105,13 @@ class ResultsViewController: UIViewController {
             make.top.equalTo(sortStack.snp.bottom).offset(20)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
+    }
+    
+    override func setUI() {
         topBar.backgroundColor = .lightGrayColor
         resultCountLabel.text = " "
         resultCountLabel.font = .boldSystemFont(ofSize: 14)
         resultCountLabel.textColor = .themeColor
-        
-        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
-            self.applyResponse(response: response)
-        }
-        
     }
     
     required init?(coder: NSCoder) {

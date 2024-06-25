@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
     let topBar = UIView()
@@ -21,7 +21,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "SETTING"
-        view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
          
         tableView.delegate = self
@@ -29,10 +28,15 @@ class SettingsViewController: UIViewController {
         tableView.register(AccountTableViewCell.self, forCellReuseIdentifier: AccountTableViewCell.id)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.id)
         tableView.separatorColor = .grayColor
-        
+         
+    }
+    
+    override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(tableView)
-        
+    }
+     
+    override func setLayout() {
         topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -43,9 +47,12 @@ class SettingsViewController: UIViewController {
             make.top.equalTo(topBar.snp.bottom)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
+    }
+    
+    override func setUI() {
         topBar.backgroundColor = .lightGrayColor
     }
+     
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {

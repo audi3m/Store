@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import WebKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: BaseViewController {
     let ud = UserDefaultsHelper.shared
     
     let topBar = UIView()
@@ -20,7 +20,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .whiteColor 
         
         if let item {
             let like = ud.likeThisProduct(item.productId)
@@ -28,11 +27,16 @@ class DetailViewController: UIViewController {
                                              style: .plain, target: self, action: #selector(likeButtonClicked))
             navigationItem.rightBarButtonItem = likeButton
         }
-        
+       
+    }
+    
+    override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(webView)
         view.addSubview(loading)
-        
+    }
+    
+    override func setLayout() {
         topBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -47,7 +51,9 @@ class DetailViewController: UIViewController {
         loading.snp.makeConstraints { make in
             make.center.equalTo(view.center)
         }
-        
+    }
+    
+    override func setUI() {
         topBar.backgroundColor = .lightGrayColor
         webView.navigationDelegate = self
         loading.style = .medium

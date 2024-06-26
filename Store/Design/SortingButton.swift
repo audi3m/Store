@@ -11,7 +11,7 @@ class SortingButton: UIButton {
     
     var option: SortOptions
     
-    private var padding = UIEdgeInsets(top: 3, left: 12, bottom: 3, right: 12)
+    private var padding = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     
     init(option: SortOptions) {
         self.option = option

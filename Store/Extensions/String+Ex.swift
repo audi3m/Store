@@ -12,4 +12,11 @@ extension String {
         let trimmed = self.trimmingCharacters(in: .whitespaces)
         return trimmed.isEmpty
     }
+    
+    func deleteHtmlTags() -> String {
+        let regex = try! NSRegularExpression(pattern: "<[^>]+>", options: .caseInsensitive)
+        let range = NSMakeRange(0, self.count)
+        let result = regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: "")
+        return result
+    }
 }

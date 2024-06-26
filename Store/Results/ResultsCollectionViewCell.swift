@@ -100,7 +100,7 @@ class ResultsCollectionViewCell: BaseCollectionViewCell {
         
         likeButton.setImage(.likeUnselected, for: .normal)
         mallLabel.text = item.mallName
-        titleLabel.text = item.title
+        titleLabel.text = item.title.deleteHtmlTags()
         priceLabel.text = (Int(item.lprice)?.formatted() ?? "1,000") + "원"
         
         likeButton.setImage(like ? .like : .unlike, for: .normal)

@@ -13,8 +13,7 @@ class StoreService {
     
     private init() { }
     
-    func requestItems(query: String, start: Int, sortOption: SortOptions,
-                      completionHandler: @escaping (SearchResponse) -> Void) {
+    func requestItems(query: String, start: Int, sortOption: SortOptions, completionHandler: @escaping (SearchResponse) -> Void) {
         let url = StoreAPI.url
         let parameters: Parameters = [
             "query": query,

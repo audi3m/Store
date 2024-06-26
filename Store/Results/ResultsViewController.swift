@@ -14,11 +14,12 @@ class ResultsViewController: BaseViewController {
     
     let topBar = UIView()
     let resultCountLabel = UILabel()
-    let sortStack = UIStackView()
+    let sortButtonsStack = UIStackView()
     let simButton = SortingButton(option: .sim)
     let dateButton = SortingButton(option: .date)
     let ascButton = SortingButton(option: .asc)
     let dscButton = SortingButton(option: .dsc)
+    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     var sortOption: SortOptions = .sim {
@@ -79,7 +80,7 @@ class ResultsViewController: BaseViewController {
     override func setHierarchy() {
         view.addSubview(topBar)
         view.addSubview(resultCountLabel)
-        view.addSubview(sortStack)
+        view.addSubview(sortButtonsStack)
         view.addSubview(collectionView)
     }
     
@@ -94,13 +95,13 @@ class ResultsViewController: BaseViewController {
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
         
-        sortStack.snp.makeConstraints { make in
-            make.top.equalTo(resultCountLabel.snp.bottom).offset(15)
+        sortButtonsStack.snp.makeConstraints { make in
+            make.top.equalTo(resultCountLabel.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(sortStack.snp.bottom).offset(20)
+            make.top.equalTo(sortButtonsStack.snp.bottom).offset(15)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -117,12 +118,12 @@ class ResultsViewController: BaseViewController {
     }
     
     private func setButtons() {
-        sortStack.axis = .horizontal
-        sortStack.spacing = 7
-        sortStack.addArrangedSubview(simButton)
-        sortStack.addArrangedSubview(dateButton)
-        sortStack.addArrangedSubview(ascButton)
-        sortStack.addArrangedSubview(dscButton)
+        sortButtonsStack.axis = .horizontal
+        sortButtonsStack.spacing = 7
+        sortButtonsStack.addArrangedSubview(simButton)
+        sortButtonsStack.addArrangedSubview(dateButton)
+        sortButtonsStack.addArrangedSubview(ascButton)
+        sortButtonsStack.addArrangedSubview(dscButton)
         
         simButton.addTarget(self, action: #selector(simClicked), for: .touchUpInside)
         dateButton.addTarget(self, action: #selector(dateClicked), for: .touchUpInside)
@@ -130,6 +131,10 @@ class ResultsViewController: BaseViewController {
         dscButton.addTarget(self, action: #selector(dscClicked), for: .touchUpInside)
         
         simButton.selected()
+        
+    }
+    
+    @objc private func sortButtonClicked() {
         
     }
     
@@ -224,7 +229,7 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
             vc.webView.load(request)
         }
         vc.item = item
-        vc.navigationItem.title = item.title
+        vc.navigationItem.title = item.title.deleteHtmlTags()
         navigationController?.pushViewController(vc, animated: true)
         
     }

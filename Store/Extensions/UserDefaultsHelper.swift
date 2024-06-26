@@ -13,6 +13,8 @@ import UIKit
 class UserDefaultsHelper {
     static let shared = UserDefaultsHelper()
     
+    private init() { }
+    
     var nickname: String? {
         get {
             return UserDefaults.standard.string(forKey: "nickname")

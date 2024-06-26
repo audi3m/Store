@@ -19,7 +19,7 @@ class ResultsCollectionViewCell: BaseCollectionViewCell {
     let titleLabel = UILabel()
     let priceLabel = UILabel()
     
-    var item: SearchItem? {
+    var item: SearchedItem? {
         didSet {
             setData()
         }

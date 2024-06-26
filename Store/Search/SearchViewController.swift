@@ -15,7 +15,7 @@ class SearchViewController: BaseViewController {
     
     let searchBar = UISearchBar()
     let underBar = UIView()
-    let emptyView = EmptySearchViewController()
+    let emptyView = EmptySearchView()
     let recentSearchLabel = UILabel()
     let deleteAllButton = UIButton()
     
@@ -53,7 +53,7 @@ class SearchViewController: BaseViewController {
     override func setHierarchy() {
         view.addSubview(underBar)
         view.addSubview(searchBar)
-        view.addSubview(emptyView.view)
+        view.addSubview(emptyView)
         view.addSubview(recentSearchLabel)
         view.addSubview(deleteAllButton)
         view.addSubview(recentTableView)
@@ -86,7 +86,7 @@ class SearchViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        emptyView.view.snp.makeConstraints { make in
+        emptyView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
         
@@ -118,7 +118,7 @@ class SearchViewController: BaseViewController {
     
     private func updateViewVisibility() {
         let recentSearchEmpty = recentList.isEmpty
-        emptyView.view.isHidden = !recentSearchEmpty
+        emptyView.isHidden = !recentSearchEmpty
         recentSearchLabel.isHidden = recentSearchEmpty
         deleteAllButton.isHidden = recentSearchEmpty
         recentTableView.isHidden = recentSearchEmpty

@@ -16,7 +16,7 @@ class DetailViewController: BaseViewController {
     let webView = WKWebView()
     let loading = UIActivityIndicatorView()
     
-    var item: SearchItem?
+    var item: SearchedItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()

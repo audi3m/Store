@@ -38,7 +38,7 @@ class ResultsViewController: BaseViewController {
     var totalItems = 0
     var selectedCell = -1
     
-    var list: [SearchItem] = [] {
+    var list: [SearchedItem] = [] {
         didSet {
             collectionView.reloadData()
             if start == 1 && !list.isEmpty {
@@ -209,7 +209,7 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         return layout
     }
     
-    private func cellTapped(item: SearchItem) {
+    private func cellTapped(item: SearchedItem) {
         let vc = DetailViewController()
         if let url = URL(string: item.link) {
             let request = URLRequest(url: url)

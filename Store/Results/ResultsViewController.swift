@@ -134,23 +134,31 @@ class ResultsViewController: BaseViewController {
     }
     
     @objc private func simClicked() {
-        sortOption = .sim
-        simButton.selected()
+        if sortOption != .sim {
+            sortOption = .sim
+            simButton.selected()
+        }
     }
     
     @objc private func dateClicked() {
-        sortOption = .date
-        dateButton.selected()
+        if sortOption != .date {
+            sortOption = .date
+            dateButton.selected()
+        }
     }
     
     @objc private func ascClicked() {
-        sortOption = .asc
-        ascButton.selected()
+        if sortOption != .asc {
+            sortOption = .asc
+            ascButton.selected()
+        }
     }
     
     @objc private func dscClicked() {
-        sortOption = .dsc
-        dscButton.selected()
+        if sortOption != .dsc {
+            sortOption = .dsc
+            dscButton.selected()
+        }
     }
     
     func applyResponse(response: SearchResponse) {

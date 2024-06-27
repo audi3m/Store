@@ -25,8 +25,13 @@ class ResultsViewController: BaseViewController {
     var sortOption: SortOptions = .sim {
         didSet {
             start = 1
-            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
-                self.applyResponse(response: response)
+            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error  in
+                if let error {
+                    
+                } else {
+                    guard let response else { return }
+                    self.applyResponse(response: response)
+                }
             }
             simButton.deSelected()
             dateButton.deSelected()
@@ -71,10 +76,14 @@ class ResultsViewController: BaseViewController {
         
         setButtons()
          
-        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
-            self.applyResponse(response: response)
+        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+            if let error {
+                
+            } else {
+                guard let response else { return }
+                self.applyResponse(response: response)
+            }
         }
-        
     }
     
     override func setHierarchy() {
@@ -134,6 +143,20 @@ class ResultsViewController: BaseViewController {
         
     }
     
+    func buttonSleep() {
+        simButton.isEnabled = false
+        dateButton.isEnabled = false
+        ascButton.isEnabled = false
+        dscButton.isEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.simButton.isEnabled = true
+            self.dateButton.isEnabled = true
+            self.ascButton.isEnabled = true
+            self.dscButton.isEnabled = true
+        }
+    }
+    
     @objc private func sortButtonClicked() {
         
     }
@@ -142,6 +165,7 @@ class ResultsViewController: BaseViewController {
         if sortOption != .sim {
             sortOption = .sim
             simButton.selected()
+            buttonSleep()
         }
     }
     
@@ -149,6 +173,7 @@ class ResultsViewController: BaseViewController {
         if sortOption != .date {
             sortOption = .date
             dateButton.selected()
+            buttonSleep()
         }
     }
     
@@ -156,6 +181,7 @@ class ResultsViewController: BaseViewController {
         if sortOption != .asc {
             sortOption = .asc
             ascButton.selected()
+            buttonSleep()
         }
     }
     
@@ -163,6 +189,7 @@ class ResultsViewController: BaseViewController {
         if sortOption != .dsc {
             sortOption = .dsc
             dscButton.selected()
+            buttonSleep()
         }
     }
     
@@ -183,8 +210,13 @@ extension ResultsViewController: UICollectionViewDataSourcePrefetching {
             if item.item == self.list.count - 2 {
                 start += 30
                 if start <= totalItems {
-                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response in
-                        self.applyResponse(response: response)
+                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+                        if let error {
+                            
+                        } else {
+                            guard let response else { return }
+                            self.applyResponse(response: response)
+                        }
                     }
                 }
             }

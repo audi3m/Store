@@ -73,10 +73,7 @@ class ResultsCollectionViewCell: BaseCollectionViewCell {
     override func setUI() {
         guard let item else { return }
         let like = ud.likeThisProduct(item.productId)
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .lightGrayColor
+        imageView.contentMode = .scaleAspectFit
         
         likeButton.setImage(like ? .like : .unlike, for: .normal)
         likeButton.backgroundColor = like ? .whiteColor : .grayColor.withAlphaComponent(0.7)

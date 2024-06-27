@@ -13,7 +13,7 @@ class StoreService {
     
     private init() { }
     
-    func requestItems(query: String, start: Int, sortOption: SortOptions, completionHandler: @escaping (SearchResponse) -> Void) {
+    func requestItems(query: String, start: Int, sortOption: SortOptions, completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
         let url = StoreAPI.url
         let parameters: Parameters = [
             "query": query,
@@ -25,9 +25,10 @@ class StoreService {
         AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
             switch response.result {
             case .success(let value):
-                completionHandler(value)
+                completionHandler(value, nil)
             case .failure(let error):
                 print(error)
+                completionHandler(nil, error)
             }
         }
     }

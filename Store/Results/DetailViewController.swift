@@ -27,7 +27,7 @@ class DetailViewController: BaseViewController {
                                              style: .plain, target: self, action: #selector(likeButtonClicked))
             navigationItem.rightBarButtonItem = likeButton
         }
-       
+        
     }
     
     override func setHierarchy() {

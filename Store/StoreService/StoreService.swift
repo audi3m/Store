@@ -13,6 +13,8 @@ class StoreService {
     
     private init() { }
     
+    typealias completionHandler = (SearchResponse?, Error?) -> Void
+    
     func requestItems(query: String, start: Int, sortOption: SortOptions, completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
         let url = StoreAPI.url
         let parameters: Parameters = [
@@ -33,4 +35,67 @@ class StoreService {
         }
     }
     
+    func request<T: Decodable>(query: String, start: Int, sortOption: SortOptions, model: T.Type,
+                               completionHandler: @escaping (T?, ResponseError?) -> Void) {
+        
+        var component = URLComponents(url: StoreAPI.url, resolvingAgainstBaseURL: false)!
+        component.queryItems = [
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "start", value: "\(start)"),
+            URLQueryItem(name: "display", value: "30"),
+            URLQueryItem(name: "sort", value: sortOption.rawValue)
+        ]
+        
+        var request = URLRequest(url: component.url!, timeoutInterval: 10)
+        request.setValue(StoreAPI.idKey, forHTTPHeaderField: "X-Naver-Client-Id")
+        request.setValue(StoreAPI.secretKey, forHTTPHeaderField: "X-Naver-Client-Secret")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    print("Failed Request")
+                    completionHandler(nil, .failedRequest)
+                    return
+                }
+                
+                guard let data else {
+                    print("No Data Returned")
+                    completionHandler(nil, .noData)
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse else {
+                    print("Unable Response")
+                    completionHandler(nil, .invalidResponse)
+                    return
+                }
+                
+                guard response.statusCode == 200 else {
+                    print("Failed Response")
+                    completionHandler(nil, .failedRequest)
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: data)
+                    completionHandler(result, nil)
+                    print("Success")
+                } catch {
+                    print("Error")
+                    completionHandler(nil, .invalidData)
+                }
+            }
+            
+        }.resume()
+        
+    }
+    
+}
+
+enum ResponseError: Int, Error {
+    case failedRequest = 401
+    case noData = 403
+    case invalidResponse // 404
+    case invalidData // 405
 }

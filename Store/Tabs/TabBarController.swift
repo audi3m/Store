@@ -15,6 +15,9 @@ class TabBarController: UITabBarController {
         
         tabBar.tintColor = .themeColor
         tabBar.unselectedItemTintColor = .gray
+        tabBar.layer.borderWidth = 1
+        tabBar.layer.borderColor = UIColor.lightGrayColor.cgColor
+        tabBar.clipsToBounds = false
          
         let search = UINavigationController(rootViewController: SearchViewController())
         search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)

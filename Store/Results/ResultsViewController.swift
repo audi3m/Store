@@ -25,13 +25,11 @@ class ResultsViewController: BaseViewController {
     var sortOption: SortOptions = .sim {
         didSet {
             start = 1
-            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error  in
-                if let error {
-                    
-                } else {
-                    guard let response else { return }
-                    self.applyResponse(response: response)
-                }
+            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+                guard error == nil else { return }
+                guard let response else { return }
+                
+                self.applyResponse(response: response)
             }
             simButton.deSelected()
             dateButton.deSelected()
@@ -67,7 +65,7 @@ class ResultsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = query 
+        navigationItem.title = query
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -75,15 +73,19 @@ class ResultsViewController: BaseViewController {
         collectionView.register(ResultsCollectionViewCell.self, forCellWithReuseIdentifier: ResultsCollectionViewCell.id)
         
         setButtons()
-         
-        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-            if let error {
-                
-            } else {
-                guard let response else { return }
-                self.applyResponse(response: response)
-            }
+        
+        storeService.request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
+            guard error == nil else { return }
+            guard let response else { return }
+            self.applyResponse(response: response)
         }
+        
+//        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+//            guard error == nil else { return }
+//            guard let response else { return }
+//            self.applyResponse(response: response)
+//            
+//        }
     }
     
     override func setHierarchy() {
@@ -110,7 +112,7 @@ class ResultsViewController: BaseViewController {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(sortButtonsStack.snp.bottom).offset(15)
+            make.top.equalTo(sortButtonsStack.snp.bottom).offset(12)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -149,7 +151,7 @@ class ResultsViewController: BaseViewController {
         ascButton.isEnabled = false
         dscButton.isEnabled = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.simButton.isEnabled = true
             self.dateButton.isEnabled = true
             self.ascButton.isEnabled = true
@@ -210,14 +212,17 @@ extension ResultsViewController: UICollectionViewDataSourcePrefetching {
             if item.item == self.list.count - 2 {
                 start += 30
                 if start <= totalItems {
-                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-                        if let error {
-                            
-                        } else {
-                            guard let response else { return }
-                            self.applyResponse(response: response)
-                        }
+                    storeService.request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
+                        guard error == nil else { return }
+                        guard let response else { return }
+                        self.applyResponse(response: response)
                     }
+                    
+//                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+//                        guard error == nil else { return }
+//                        guard let response else { return }
+//                        self.applyResponse(response: response)
+//                    }
                 }
             }
         }
@@ -263,6 +268,6 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         vc.item = item
         vc.navigationItem.title = item.title.deleteHtmlTags()
         navigationController?.pushViewController(vc, animated: true)
-        
     }
+    
 }

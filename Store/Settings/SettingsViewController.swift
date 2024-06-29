@@ -96,7 +96,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.row == 0 ? 120 : 44
+        indexPath.row == 0 ? 110 : 44
     }
 }
 

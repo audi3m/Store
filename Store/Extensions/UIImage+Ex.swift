@@ -14,6 +14,7 @@ extension UIImage {
     static let xmark = UIImage(systemName: "xmark")
     static let camera = UIImage(systemName: "camera.fill")
     static let chevronRight = UIImage(systemName: "chevron.right")
+    static let personCircle = UIImage(systemName: "person.crop.circle")
     
     static let like = UIImage.likeSelected.withRenderingMode(.alwaysOriginal)
     static let unlike = UIImage.likeUnselected.withRenderingMode(.alwaysOriginal)

@@ -7,6 +7,54 @@
 
 import UIKit
 
+class SortingButton: UIButton {
+    
+    var option: SortOptions
+    
+    private var padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    
+    init(option: SortOptions) {
+        self.option = option
+        super.init(frame: .zero)
+        setupButton()
+        deSelected()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.height/2
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupButton() {
+        setTitle(option.title, for: .normal)
+        titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        layer.cornerRadius = 10
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.darkGrayColor.cgColor
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        var contentSize = super.intrinsicContentSize
+        contentSize.height += padding.top + padding.bottom
+        contentSize.width += padding.left + padding.right
+        return contentSize
+    }
+    
+    func selected() {
+        backgroundColor = .darkGrayColor
+        setTitleColor(.whiteColor, for: .normal)
+    }
+    
+    func deSelected() {
+        backgroundColor = .white
+        setTitleColor(.black, for: .normal)
+    }
+}
+
 enum SortOptions: String, CaseIterable {
     case sim
     case date
@@ -21,53 +69,4 @@ enum SortOptions: String, CaseIterable {
         case .dsc: "가격높은순"
         }
     }
-}
-
-class SortingButton: UIButton {
-    
-    var option: SortOptions
-    
-    init(option: SortOptions) {
-        self.option = option
-        super.init(frame: .zero)
-        setupButton()
-        deSelected()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupButton() {
-        setTitle(option.title, for: .normal)
-        titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.darkGrayColor.cgColor
-    }
-    
-    func selected() {
-        backgroundColor = .darkGrayColor
-        setTitleColor(.whiteColor, for: .normal)
-    }
-    
-    func deSelected() {
-        backgroundColor = .white
-        setTitleColor(.black, for: .normal)
-    }
-}
-
-extension UIButton.Configuration {
-    
-    static func blackStyle(title: String) -> UIButton.Configuration {
-        var config = UIButton.Configuration.filled()
-        config.title = title
-        config.cornerStyle = .capsule
-        
-        return config
-    }
-    
 }

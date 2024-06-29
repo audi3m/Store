@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     let ud = UserDefaultsHelper.shared
-
+    
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -24,9 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if let _ = ud.nickname {
-            let vc = SearchViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            window?.rootViewController = nav
+            let vc = TabBarController()
+//            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = vc
         } else {
             let vc = OnboardingViewController()
             let nav = UINavigationController(rootViewController: vc) 

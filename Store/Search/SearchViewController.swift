@@ -29,7 +29,7 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad() 
-        let settings = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"),style: .plain, target: self,
+        let settings = UIBarButtonItem(image: .personCircle, style: .plain, target: self,
                                        action: #selector(settingsButtonClicked))
         settings.tintColor = .themeColor
         navigationItem.rightBarButtonItem = settings
@@ -47,7 +47,11 @@ class SearchViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "\(ud.nickname ?? "")'s MEANING OUT"
+        if let nickname = ud.nickname {
+            navigationItem.title = "\(nickname)'s MEANING OUT"
+        } else {
+            navigationItem.title = "MEANING OUT"
+        }
     }
     
     override func setHierarchy() {
@@ -68,7 +72,7 @@ class SearchViewController: BaseViewController {
         
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         
         recentSearchLabel.snp.makeConstraints { make in

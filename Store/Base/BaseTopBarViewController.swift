@@ -10,6 +10,8 @@ import SnapKit
 
 class BaseTopBarViewController: UIViewController {
     
+    let ud = UserDefaultsHelper.shared
+    
     let topBar = {
         let view = UIView()
         view.backgroundColor = .lightGrayColor

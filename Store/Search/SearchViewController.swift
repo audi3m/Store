@@ -11,8 +11,6 @@ import SnapKit
 
 class SearchViewController: BaseTopBarViewController {
     
-    let ud = UserDefaultsHelper.shared
-    
     let searchBar = UISearchBar()
     let emptyView = EmptySearchView()
     let recentSearchLabel = UILabel()

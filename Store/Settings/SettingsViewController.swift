@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import SnapKit
 
 class SettingsViewController: BaseTopBarViewController {
     
-    let ud = UserDefaultsHelper.shared
     let tableView = UITableView()
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -39,8 +39,6 @@ class SettingsViewController: BaseTopBarViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-    override func setUI() { }
      
 }
 
@@ -77,6 +75,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             presentProfileSetting()
         case 5:
             showAlert(type: .resign) {
+                self.ud.resetData()
                 self.confirmButtonClicked()
             }
         default: break
@@ -121,19 +120,6 @@ extension SettingsViewController {
         let vc = ProfileNicknameSettingViewController(mode: .edit)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-//    private func deleteAccountButtonClicked() {
-//        let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?",
-//                                      preferredStyle: .alert)
-//        let cancel = UIAlertAction(title: "취소", style: .cancel)
-//        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-//            self.confirmButtonClicked()
-//        }
-//        
-//        alert.addAction(cancel)
-//        alert.addAction(confirm)
-//        present(alert, animated: true)
-//    }
     
     private func confirmButtonClicked() {
         ud.resetData()

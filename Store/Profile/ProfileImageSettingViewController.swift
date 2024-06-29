@@ -10,8 +10,6 @@ import SnapKit
 
 class ProfileImageSettingViewController: BaseTopBarViewController {
     
-    let ud = UserDefaultsHelper.shared
-    
     let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImage = CameraImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())

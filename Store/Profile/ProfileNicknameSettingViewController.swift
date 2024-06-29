@@ -15,8 +15,6 @@ enum ProfileSettingMode {
 
 class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
-    let ud = UserDefaultsHelper.shared
-    
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UnderBarTextField()

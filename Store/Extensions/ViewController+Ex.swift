@@ -30,7 +30,19 @@ extension UIViewController {
         
         alert.addAction(cancel)
         alert.addAction(confirm)
+        
         present(alert, animated: true)
+    }
+    
+    func goToMain(root: UIViewController) {
+        
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        let nav = UINavigationController(rootViewController: root)
+        
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
 }

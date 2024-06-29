@@ -19,13 +19,21 @@ class TabBarController: UITabBarController {
         tabBar.layer.borderColor = UIColor.lightGrayColor.cgColor
         tabBar.clipsToBounds = false
         
-        let search = UINavigationController(rootViewController: SearchViewController())
-        search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)
+        let viewControllers = TabItems.allCases.map { tabItem -> UIViewController in
+            let viewController = tabItem.viewController
+            viewController.tabBarItem = UITabBarItem(title: tabItem.rawValue, image: tabItem.image, tag: 0)
+            return viewController
+        }
         
-        let settings = UINavigationController(rootViewController: SettingsViewController())
-        settings.tabBarItem = UITabBarItem(title: "설정", image: .person, tag: 1)
+        self.viewControllers = viewControllers
         
-        setViewControllers([search, settings], animated: true)
+//        let search = UINavigationController(rootViewController: SearchViewController())
+//        search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)
+//        
+//        let settings = UINavigationController(rootViewController: SettingsViewController())
+//        settings.tabBarItem = UITabBarItem(title: "설정", image: .person, tag: 1)
+//        
+//        setViewControllers([search, settings], animated: true)
         
     }
     
@@ -47,9 +55,9 @@ enum TabItems: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .search:
-            return SearchViewController()
+            return UINavigationController(rootViewController: SearchViewController())
         case .settings:
-            return SettingsViewController()
+            return UINavigationController(rootViewController: SettingsViewController())
         }
     }
     

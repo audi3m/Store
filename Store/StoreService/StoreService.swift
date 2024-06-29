@@ -15,7 +15,8 @@ class StoreService {
     
     typealias completionHandler = (SearchResponse?, Error?) -> Void
     
-    func requestItems(query: String, start: Int, sortOption: SortOptions, completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
+    func requestItems(query: String, start: Int, sortOption: SortOptions,
+                      completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
         let url = StoreAPI.url
         let parameters: Parameters = [
             "query": query,

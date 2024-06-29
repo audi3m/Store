@@ -19,6 +19,8 @@ class ResultsViewController: BaseTopBarViewController {
     let ascButton = SortingButton(option: .asc)
     let dscButton = SortingButton(option: .dsc)
     
+    var tabBarIsHidden = false
+    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     var sortOption: SortOptions = .sim {
@@ -43,6 +45,7 @@ class ResultsViewController: BaseTopBarViewController {
     
     var list: [SearchedItem] = [] {
         didSet {
+            sortButtonsStack.isHidden = false
             collectionView.reloadData()
             if start == 1 && !list.isEmpty {
                 collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
@@ -65,10 +68,9 @@ class ResultsViewController: BaseTopBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = query
+        sortButtonsStack.isHidden = true
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
+        setScrollViewProtocols(collectionView, viewController: self)
         collectionView.register(ResultsCollectionViewCell.self, forCellWithReuseIdentifier: ResultsCollectionViewCell.id)
         
         setButtons()
@@ -79,12 +81,13 @@ class ResultsViewController: BaseTopBarViewController {
             self.applyResponse(response: response)
         }
         
-//        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-//            guard error == nil else { return }
-//            guard let response else { return }
-//            self.applyResponse(response: response)
-//            
-//        }
+        //        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+        //            guard error == nil else { return }
+        //            guard let response else { return }
+        //            self.applyResponse(response: response)
+        //
+        //        }
+        
     }
     
     override func setHierarchy() {
@@ -94,7 +97,6 @@ class ResultsViewController: BaseTopBarViewController {
     }
     
     override func setLayout() {
-        
         resultCountLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
@@ -196,6 +198,7 @@ class ResultsViewController: BaseTopBarViewController {
             self.list.append(contentsOf: response.items)
         }
     }
+    
 }
 
 extension ResultsViewController: UICollectionViewDataSourcePrefetching {

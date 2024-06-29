@@ -182,9 +182,10 @@ class ProfileNicknameSettingViewController: BaseTopBarViewController {
         goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
+        ud.profile = randomProfile
         ud.registerDate = Date.now.customFormat()
         
-        changeRootViewController(root: SearchViewController())
+        resetRootViewController(root: SearchViewController())
         
     }
     

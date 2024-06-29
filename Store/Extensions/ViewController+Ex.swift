@@ -34,7 +34,7 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
-    func changeRootViewController(root: UIViewController) {
+    func resetRootViewController(root: UIViewController) {
         
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
@@ -44,6 +44,20 @@ extension UIViewController {
         sceneDelegate?.window?.rootViewController = nav
         sceneDelegate?.window?.makeKeyAndVisible()
     }
+    
+    func setScrollViewProtocols<T: UIScrollView>(_ scrollView: T, viewController: UIViewController) {
+        scrollView.delegate = viewController as? UIScrollViewDelegate
+        
+        if let tableView = scrollView as? UITableView {
+            tableView.dataSource = viewController as? UITableViewDataSource
+            
+        } else if let collectionView = scrollView as? UICollectionView {
+            collectionView.dataSource = viewController as? UICollectionViewDataSource
+            collectionView.prefetchDataSource = viewController as? UICollectionViewDataSourcePrefetching
+        }
+        
+    }
+    
     
 }
 

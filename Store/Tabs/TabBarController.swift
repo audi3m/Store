@@ -56,8 +56,10 @@ enum TabItems: String, CaseIterable {
         switch self {
         case .search:
             return UINavigationController(rootViewController: SearchViewController())
+//            return SearchViewController()
         case .settings:
             return UINavigationController(rootViewController: SettingsViewController())
+//            return SettingsViewController()
         }
     }
     

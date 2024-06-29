@@ -20,9 +20,8 @@ class SettingsViewController: BaseTopBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "SETTING" 
-         
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        setScrollViewProtocols(tableView, viewController: self)
         tableView.register(AccountTableViewCell.self, forCellReuseIdentifier: AccountTableViewCell.id)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.id)
         tableView.separatorColor = .grayColor
@@ -35,7 +34,7 @@ class SettingsViewController: BaseTopBarViewController {
      
     override func setLayout() {
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(topBar.snp.bottom)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -123,7 +122,7 @@ extension SettingsViewController {
     
     private func confirmButtonClicked() {
         ud.resetData()
-        changeRootViewController(root: OnboardingViewController())
+        resetRootViewController(root: OnboardingViewController())
     }
 }
 

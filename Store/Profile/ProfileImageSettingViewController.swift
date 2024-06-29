@@ -76,8 +76,7 @@ class ProfileImageSettingViewController: BaseTopBarViewController {
     }
     
     override func setUI() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setScrollViewProtocols(collectionView, viewController: self)
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.id)
         
         selectedImageView.layer.cornerRadius = 60

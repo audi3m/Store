@@ -34,7 +34,7 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
-    func goToMain(root: UIViewController) {
+    func changeRootViewController(root: UIViewController) {
         
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate

@@ -123,14 +123,7 @@ extension SettingsViewController {
     
     private func confirmButtonClicked() {
         ud.resetData()
-        
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        let nav = UINavigationController(rootViewController: OnboardingViewController())
-        
-        sceneDelegate?.window?.rootViewController = nav
-        sceneDelegate?.window?.makeKeyAndVisible()
+        changeRootViewController(root: OnboardingViewController())
     }
 }
 

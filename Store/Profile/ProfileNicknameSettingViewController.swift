@@ -184,14 +184,8 @@ class ProfileNicknameSettingViewController: BaseTopBarViewController {
         ud.nickname = nickname
         ud.registerDate = Date.now.customFormat()
         
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        changeRootViewController(root: SearchViewController())
         
-        let vc = SearchViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        
-        sceneDelegate?.window?.rootViewController = nav
-        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     @objc private func saveButtonClicked() {

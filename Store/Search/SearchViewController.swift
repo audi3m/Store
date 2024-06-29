@@ -9,12 +9,11 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class SearchViewController: BaseViewController {
+class SearchViewController: BaseTopBarViewController {
     
     let ud = UserDefaultsHelper.shared
     
     let searchBar = UISearchBar()
-    let underBar = UIView()
     let emptyView = EmptySearchView()
     let recentSearchLabel = UILabel()
     let deleteAllButton = UIButton()
@@ -55,7 +54,6 @@ class SearchViewController: BaseViewController {
     }
     
     override func setHierarchy() {
-        view.addSubview(underBar)
         view.addSubview(searchBar)
         view.addSubview(emptyView)
         view.addSubview(recentSearchLabel)
@@ -64,11 +62,6 @@ class SearchViewController: BaseViewController {
     }
     
     override func setLayout() {
-        underBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.width.equalTo(view.snp.width)
-            make.height.equalTo(1)
-        }
         
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -97,7 +90,6 @@ class SearchViewController: BaseViewController {
     }
     
     override func setUI() {
-        underBar.backgroundColor = .lightGrayColor
         
         searchBar.backgroundImage = UIImage()
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
@@ -121,11 +113,11 @@ class SearchViewController: BaseViewController {
     }
     
     private func updateViewVisibility() {
-        let recentSearchEmpty = recentList.isEmpty
-        emptyView.isHidden = !recentSearchEmpty
-        recentSearchLabel.isHidden = recentSearchEmpty
-        deleteAllButton.isHidden = recentSearchEmpty
-        recentTableView.isHidden = recentSearchEmpty
+        let isRecentSearchEmpty = recentList.isEmpty
+        emptyView.isHidden = !isRecentSearchEmpty
+        recentSearchLabel.isHidden = isRecentSearchEmpty
+        deleteAllButton.isHidden = isRecentSearchEmpty
+        recentTableView.isHidden = isRecentSearchEmpty
     }
 }
 
@@ -136,9 +128,9 @@ extension SearchViewController: UISearchBarDelegate {
             recentList = ud.handleSearch(query: query).reversed()
             let vc = ResultsViewController(query: query)
             navigationController?.pushViewController(vc, animated: true)
+            view.endEditing(true)
         }
         searchBar.text = ""
-        view.endEditing(true)
     }
 }
 

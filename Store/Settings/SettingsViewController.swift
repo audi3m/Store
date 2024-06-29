@@ -7,10 +7,9 @@
 
 import UIKit
 
-class SettingsViewController: BaseViewController {
+class SettingsViewController: BaseTopBarViewController {
     
     let ud = UserDefaultsHelper.shared
-    let topBar = UIView()
     let tableView = UITableView()
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -31,26 +30,17 @@ class SettingsViewController: BaseViewController {
     }
     
     override func setHierarchy() {
-        view.addSubview(topBar)
         view.addSubview(tableView)
     }
      
     override func setLayout() {
-        topBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
-        }
-        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(topBar.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    override func setUI() {
-        topBar.backgroundColor = .lightGrayColor
-    }
+    override func setUI() { }
      
 }
 

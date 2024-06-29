@@ -13,11 +13,10 @@ enum ProfileSettingMode {
     case edit
 }
 
-class ProfileNicknameSettingViewController: BaseViewController {
+class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    let topBar = UIView()
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UnderBarTextField()
@@ -95,7 +94,6 @@ class ProfileNicknameSettingViewController: BaseViewController {
     
     private func setNavBar() {
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
-        topBar.backgroundColor = .lightGrayColor
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         
@@ -105,7 +103,6 @@ class ProfileNicknameSettingViewController: BaseViewController {
     }
     
     override func setHierarchy() {
-        view.addSubview(topBar)
         view.addSubview(profileImageView)
         view.addSubview(cameraImageView)
         view.addSubview(nicknameTextField)
@@ -114,15 +111,10 @@ class ProfileNicknameSettingViewController: BaseViewController {
     }
     
     override func setLayout() {
-        topBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
-        }
         
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(topBar.snp.bottom).offset(40)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             make.size.equalTo(120)
         }
         

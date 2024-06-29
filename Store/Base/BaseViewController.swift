@@ -25,6 +25,4 @@ class BaseViewController: UIViewController {
     func setLayout() { }
     func setUI() { }
     
-    
-    
 }

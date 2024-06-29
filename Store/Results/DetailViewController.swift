@@ -10,9 +10,9 @@ import SnapKit
 import WebKit
 
 class DetailViewController: BaseViewController {
+    
     let ud = UserDefaultsHelper.shared
     
-    let topBar = UIView()
     let webView = WKWebView()
     let loading = UIActivityIndicatorView()
     
@@ -31,20 +31,14 @@ class DetailViewController: BaseViewController {
     }
     
     override func setHierarchy() {
-        view.addSubview(topBar)
         view.addSubview(webView)
         view.addSubview(loading)
     }
     
     override func setLayout() {
-        topBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
-        }
         
         webView.snp.makeConstraints { make in
-            make.top.equalTo(topBar.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -54,7 +48,6 @@ class DetailViewController: BaseViewController {
     }
     
     override func setUI() {
-        topBar.backgroundColor = .lightGrayColor
         webView.navigationDelegate = self
         loading.style = .medium
         loading.hidesWhenStopped = true

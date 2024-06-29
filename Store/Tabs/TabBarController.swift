@@ -18,7 +18,7 @@ class TabBarController: UITabBarController {
         tabBar.layer.borderWidth = 1
         tabBar.layer.borderColor = UIColor.lightGrayColor.cgColor
         tabBar.clipsToBounds = false
-         
+        
         let search = UINavigationController(rootViewController: SearchViewController())
         search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)
         
@@ -31,11 +31,26 @@ class TabBarController: UITabBarController {
     
 }
 
-enum MainTab {
-    case search
-    case settings
+enum TabItems: String, CaseIterable {
+    case search = "검색"
+    case settings = "설정"
     
+    var image: UIImage {
+        switch self {
+        case .search:
+            return .magnifyingglass
+        case .settings:
+            return .person
+        }
+    }
     
-    
+    var viewController: UIViewController {
+        switch self {
+        case .search:
+            return SearchViewController()
+        case .settings:
+            return SettingsViewController()
+        }
+    }
     
 }

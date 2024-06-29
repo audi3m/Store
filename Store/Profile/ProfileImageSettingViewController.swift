@@ -8,11 +8,10 @@
 import UIKit
 import SnapKit
 
-class ProfileImageSettingViewController: BaseViewController {
+class ProfileImageSettingViewController: BaseTopBarViewController {
     
     let ud = UserDefaultsHelper.shared
     
-    let topBar = UIView()
     let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImage = CameraImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
@@ -50,26 +49,19 @@ class ProfileImageSettingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad() 
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
-        
     }
     
     override func setHierarchy() {
-        view.addSubview(topBar)
         view.addSubview(selectedImageView)
         view.addSubview(cameraImage)
         view.addSubview(collectionView)
     }
     
     override func setLayout() {
-        topBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
-        }
         
         selectedImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(topBar.snp.bottom).offset(40)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             make.size.equalTo(120)
         }
         
@@ -90,10 +82,8 @@ class ProfileImageSettingViewController: BaseViewController {
         collectionView.dataSource = self
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.id)
         
-        topBar.backgroundColor = .lightGrayColor
         selectedImageView.layer.cornerRadius = 60
     }
-    
     
 }
 

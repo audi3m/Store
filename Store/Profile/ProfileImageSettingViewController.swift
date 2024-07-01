@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileImageSettingViewController: BaseTopBarViewController {
+final class ProfileImageSettingViewController: BaseTopBarViewController {
     
     let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImage = CameraImageView()

@@ -40,7 +40,7 @@ enum ImageViewType {
     }
 }
 
-class CircleImageView: UIImageView {
+final class CircleImageView: UIImageView {
     
     let camera = CameraImageView()
     

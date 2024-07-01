@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SortingButton: UIButton {
+final class SortingButton: UIButton {
     
     var option: SortOptions
     

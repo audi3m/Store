@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EmptySearchView: UIView {
+final class EmptySearchView: UIView {
     
     let imageView = UIImageView()
     let noLabel = UILabel()

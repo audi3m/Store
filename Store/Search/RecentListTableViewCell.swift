@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RecentListTableViewCell: BaseTableViewCell {
+final class RecentListTableViewCell: BaseTableViewCell {
     let ud = UserDefaultsHelper.shared
     
     let clockImage = UIImageView()

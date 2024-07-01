@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AccountTableViewCell: BaseTableViewCell {
+final class AccountTableViewCell: BaseTableViewCell {
     
     let ud = UserDefaultsHelper.shared
     lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_0")!, type: .selected)

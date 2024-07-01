@@ -13,7 +13,7 @@ enum ProfileSettingMode {
     case edit
 }
 
-class ProfileNicknameSettingViewController: BaseTopBarViewController {
+final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()

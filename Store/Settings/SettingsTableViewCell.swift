@@ -10,7 +10,7 @@ import SnapKit
 
 
 
-class SettingsTableViewCell: BaseTableViewCell {
+final class SettingsTableViewCell: BaseTableViewCell {
     
     let titleLabel = UILabel()
     let countLabel = UILabel()

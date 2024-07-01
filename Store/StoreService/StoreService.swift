@@ -15,28 +15,28 @@ class StoreService {
     
     typealias completionHandler = (SearchResponse?, Error?) -> Void
     
-    func requestItems(query: String, start: Int, sortOption: SortOptions,
-                      completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
-        let url = StoreAPI.url
-        let parameters: Parameters = [
-            "query": query,
-            "start": start,
-            "display": 30,
-            "sort": sortOption.rawValue
-        ]
-        
-        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
-            switch response.result {
-            case .success(let value):
-                completionHandler(value, nil)
-            case .failure(let error):
-                print(error)
-                completionHandler(nil, error)
-            }
-        }
-    }
+//    func requestItems(query: String, start: Int, sortOption: SortOptions,
+//                      completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
+//        let url = StoreAPI.url
+//        let parameters: Parameters = [
+//            "query": query,
+//            "start": start,
+//            "display": 30,
+//            "sort": sortOption.rawValue
+//        ]
+//        
+//        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
+//            switch response.result {
+//            case .success(let value):
+//                completionHandler(value, nil)
+//            case .failure(let error):
+//                print(error)
+//                completionHandler(nil, error)
+//            }
+//        }
+//    }
     
-    func request<T: Decodable>(query: String, start: Int, sortOption: SortOptions, model: T.Type,
+    func request<T: Decodable>(session: URLSession, query: String, start: Int, sortOption: SortOptions, model: T.Type,
                                completionHandler: @escaping (T?, ResponseError?) -> Void) {
         
         var component = URLComponents(url: StoreAPI.url, resolvingAgainstBaseURL: false)!
@@ -51,7 +51,8 @@ class StoreService {
         request.setValue(StoreAPI.idKey, forHTTPHeaderField: "X-Naver-Client-Id")
         request.setValue(StoreAPI.secretKey, forHTTPHeaderField: "X-Naver-Client-Secret")
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        session.dataTask(with: request) { data, response, error in
+//        URLSession.shared.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {
                 guard error == nil else {

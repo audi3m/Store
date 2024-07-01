@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrangeButton: UIButton {
+final class OrangeButton: UIButton {
     
     init(title: String) {
         super.init(frame: .zero)

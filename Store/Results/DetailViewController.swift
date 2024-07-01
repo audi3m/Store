@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import WebKit
 
-class DetailViewController: BaseViewController {
+final class DetailViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
     

@@ -55,9 +55,7 @@ extension UIViewController {
             collectionView.dataSource = viewController as? UICollectionViewDataSource
             collectionView.prefetchDataSource = viewController as? UICollectionViewDataSourcePrefetching
         }
-        
     }
-    
     
 }
 

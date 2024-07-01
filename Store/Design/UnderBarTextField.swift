@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class UnderBarTextField: UITextField {
+final class UnderBarTextField: UITextField {
     
     private let underBar = UIView()
 

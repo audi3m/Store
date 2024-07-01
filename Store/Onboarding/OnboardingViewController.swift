@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: BaseViewController {
+final class OnboardingViewController: BaseViewController {
     
     let titleLabel = UILabel()
     let imageView = UIImageView()

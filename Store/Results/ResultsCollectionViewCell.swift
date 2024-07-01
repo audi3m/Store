@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class ResultsCollectionViewCell: BaseCollectionViewCell {
+final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     let ud = UserDefaultsHelper.shared
     

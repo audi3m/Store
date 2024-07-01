@@ -9,9 +9,10 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class ResultsViewController: BaseTopBarViewController {
+final class ResultsViewController: BaseTopBarViewController {
     let storeService = StoreService.shared
     
+    let progressBar = UIProgressView()
     let resultCountLabel = UILabel()
     let sortButtonsStack = UIStackView()
     let simButton = SortingButton(option: .sim)
@@ -26,16 +27,14 @@ class ResultsViewController: BaseTopBarViewController {
     var sortOption: SortOptions = .sim {
         didSet {
             start = 1
-            storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-                guard error == nil else { return }
-                guard let response else { return }
-                
-                self.applyResponse(response: response)
-            }
+            requestItems()
+            
             simButton.deSelected()
             dateButton.deSelected()
             ascButton.deSelected()
             dscButton.deSelected()
+            
+            
         }
     }
     let query: String
@@ -43,12 +42,23 @@ class ResultsViewController: BaseTopBarViewController {
     var totalItems = 0
     var selectedCell = -1
     
+    var session: URLSession!
+    var total: Double = 0
+    var buffer: Data? {
+        didSet {
+            let result = Float(buffer?.count ?? 0) / Float(total)
+            progressBar.setProgress(result, animated: true)
+        }
+    }
+    
     var list: [SearchedItem] = [] {
         didSet {
-            sortButtonsStack.isHidden = false
-            collectionView.reloadData()
-            if start == 1 && !list.isEmpty {
-                collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            DispatchQueue.main.async {
+                self.sortButtonsStack.isHidden = false
+                self.collectionView.reloadData()
+                if self.start == 1 && !self.list.isEmpty {
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                }
             }
         }
     }
@@ -75,28 +85,24 @@ class ResultsViewController: BaseTopBarViewController {
         
         setButtons()
         
-        storeService.request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
-            guard error == nil else { return }
-            guard let response else { return }
-            self.applyResponse(response: response)
-        }
-        
-        //        storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-        //            guard error == nil else { return }
-        //            guard let response else { return }
-        //            self.applyResponse(response: response)
-        //
-        //        }
+        requestItems()
+         
         
     }
     
     override func setHierarchy() {
+        view.addSubview(progressBar)
         view.addSubview(resultCountLabel)
         view.addSubview(sortButtonsStack)
         view.addSubview(collectionView)
     }
     
     override func setLayout() {
+        progressBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(2)
+        }
+        
         resultCountLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
@@ -113,6 +119,9 @@ class ResultsViewController: BaseTopBarViewController {
     }
     
     override func setUI() {
+        progressBar.progressTintColor = .themeColor
+        progressBar.trackTintColor = .clear
+        
         resultCountLabel.text = " "
         resultCountLabel.font = .boldSystemFont(ofSize: 14)
         resultCountLabel.textColor = .themeColor
@@ -121,6 +130,128 @@ class ResultsViewController: BaseTopBarViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func requestItems() {
+        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        buffer = Data()
+        storeService.request(session: session, query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
+            guard error == nil else { return }
+            guard let response else { return }
+            self.applyResponse(response: response)
+        }
+    }
+     
+    func applyResponse(response: SearchResponse) {
+        self.totalItems = response.total
+        self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
+        if self.start == 1 {
+            self.list = response.items
+        } else {
+            self.list.append(contentsOf: response.items)
+        }
+    }
+    
+}
+
+extension ResultsViewController: URLSessionDataDelegate {
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
+        print(#function, response)
+        
+        if let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) {
+            let contentLength = response.value(forHTTPHeaderField: "Content-Length")!
+            total = Double(contentLength)!
+            return .allow
+        } else {
+            return .cancel
+        }
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        print(#function, data)
+        buffer?.append(data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+        if let _ = error {
+            
+        } else {
+            // completion 시점과 동일
+            print("Completed")
+            guard buffer == nil else { return }
+            progressBar.isHidden = true
+            
+        }
+    }
+    
+}
+
+extension ResultsViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for item in indexPaths {
+            if item.item == self.list.count - 2 {
+                start += 30
+                if start <= totalItems {
+                    
+                    requestItems()
+                    
+//                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
+//                        guard error == nil else { return }
+//                        guard let response else { return }
+//                        self.applyResponse(response: response)
+//                    }
+                }
+            }
+        }
+    }
+}
+
+extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        list.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.id, for: indexPath) as! ResultsCollectionViewCell
+        cell.item = list[indexPath.item]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = list[indexPath.item]
+        cellTapped(item: item)
+        selectedCell = indexPath.item
+    }
+    
+    static func collectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let sectionSpacing: CGFloat = 20
+        let cellSpacing: CGFloat = 20
+        let width = UIScreen.main.bounds.width - (sectionSpacing * 2 + cellSpacing)
+        layout.itemSize = CGSize(width: width/2, height: width/1.2)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = cellSpacing
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
+        return layout
+    }
+    
+    private func cellTapped(item: SearchedItem) {
+        let vc = DetailViewController()
+        if let url = URL(string: item.link) {
+            let request = URLRequest(url: url)
+            vc.webView.load(request)
+        }
+        vc.item = item
+        vc.navigationItem.title = item.title.deleteHtmlTags()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+// button functions
+extension ResultsViewController {
     
     private func setButtons() {
         sortButtonsStack.axis = .horizontal
@@ -188,81 +319,4 @@ class ResultsViewController: BaseTopBarViewController {
             buttonSleep()
         }
     }
-    
-    func applyResponse(response: SearchResponse) {
-        self.totalItems = response.total
-        self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
-        if self.start == 1 {
-            self.list = response.items
-        } else {
-            self.list.append(contentsOf: response.items)
-        }
-    }
-    
-}
-
-extension ResultsViewController: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for item in indexPaths {
-            if item.item == self.list.count - 2 {
-                start += 30
-                if start <= totalItems {
-                    storeService.request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
-                        guard error == nil else { return }
-                        guard let response else { return }
-                        self.applyResponse(response: response)
-                    }
-                    
-//                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-//                        guard error == nil else { return }
-//                        guard let response else { return }
-//                        self.applyResponse(response: response)
-//                    }
-                }
-            }
-        }
-    }
-}
-
-extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        list.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.id, for: indexPath) as! ResultsCollectionViewCell
-        cell.item = list[indexPath.item]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = list[indexPath.item]
-        cellTapped(item: item)
-        selectedCell = indexPath.item
-    }
-    
-    static func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 20
-        let cellSpacing: CGFloat = 20
-        let width = UIScreen.main.bounds.width - (sectionSpacing * 2 + cellSpacing)
-        layout.itemSize = CGSize(width: width/2, height: width/1.2)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = cellSpacing
-        layout.minimumInteritemSpacing = cellSpacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        return layout
-    }
-    
-    private func cellTapped(item: SearchedItem) {
-        let vc = DetailViewController()
-        if let url = URL(string: item.link) {
-            let request = URLRequest(url: url)
-            vc.webView.load(request)
-        }
-        vc.item = item
-        vc.navigationItem.title = item.title.deleteHtmlTags()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }

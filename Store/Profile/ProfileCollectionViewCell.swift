@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileCollectionViewCell: BaseCollectionViewCell {
+final class ProfileCollectionViewCell: BaseCollectionViewCell {
     let imageView = CircleImageView(image: UIImage(named: "profile_0")!, type: .selected)
     
     override func layoutSubviews() {

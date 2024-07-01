@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import SnapKit
 
-class SearchViewController: BaseTopBarViewController {
+final class SearchViewController: BaseTopBarViewController {
     
     let searchBar = UISearchBar()
     let emptyView = EmptySearchView()

@@ -10,7 +10,7 @@ import UIKit
 // nickname
 // profile
 // recentSearch
-class UserDefaultsHelper {
+final class UserDefaultsHelper {
     static let shared = UserDefaultsHelper()
     
     private init() { }

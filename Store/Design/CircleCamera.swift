@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CameraImageView: UIView {
+final class CameraImageView: UIView {
     
     let backgroundView = UIView()
     let smallImageView = UIImageView()

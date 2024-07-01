@@ -12,10 +12,10 @@ final class AccountTableViewCell: BaseTableViewCell {
     
     let ud = UserDefaultsHelper.shared
     lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_0")!, type: .selected)
-    let stackView = UIStackView()
+    private let stackView = UIStackView()
     let nicknameLabel = UILabel()
     let registerDateLabel = UILabel()
-    let chevronImageView = UIImageView()
+    private let chevronImageView = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

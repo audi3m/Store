@@ -10,8 +10,8 @@ import SnapKit
 
 final class EmptySearchView: UIView {
     
-    let imageView = UIImageView()
-    let noLabel = UILabel()
+    private let imageView = UIImageView()
+    private let noLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

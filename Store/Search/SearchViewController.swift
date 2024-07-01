@@ -11,13 +11,13 @@ import SnapKit
 
 final class SearchViewController: BaseTopBarViewController {
     
-    let searchBar = UISearchBar()
-    let emptyView = EmptySearchView()
-    let recentSearchLabel = UILabel()
-    let deleteAllButton = UIButton()
+    private let searchBar = UISearchBar()
+    private let emptyView = EmptySearchView()
+    private let recentSearchLabel = UILabel()
+    private let deleteAllButton = UIButton()
     
-    let recentTableView = UITableView()
-    var recentList: [String] = [] {
+    private let recentTableView = UITableView()
+    private var recentList: [String] = [] {
         didSet {
             recentTableView.reloadData()
             updateViewVisibility()

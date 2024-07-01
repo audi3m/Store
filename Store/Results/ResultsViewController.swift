@@ -12,13 +12,13 @@ import SnapKit
 final class ResultsViewController: BaseTopBarViewController {
     let storeService = StoreService.shared
     
-    let progressBar = UIProgressView()
-    let resultCountLabel = UILabel()
-    let sortButtonsStack = UIStackView()
-    let simButton = SortingButton(option: .sim)
-    let dateButton = SortingButton(option: .date)
-    let ascButton = SortingButton(option: .asc)
-    let dscButton = SortingButton(option: .dsc)
+    private let progressBar = UIProgressView()
+    private let resultCountLabel = UILabel()
+    private let sortButtonsStack = UIStackView()
+    private let simButton = SortingButton(option: .sim)
+    private let dateButton = SortingButton(option: .date)
+    private let ascButton = SortingButton(option: .asc)
+    private let dscButton = SortingButton(option: .dsc)
     
     var tabBarIsHidden = false
     
@@ -87,7 +87,6 @@ final class ResultsViewController: BaseTopBarViewController {
         
         requestItems()
          
-        
     }
     
     override func setHierarchy() {
@@ -131,7 +130,7 @@ final class ResultsViewController: BaseTopBarViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func requestItems() {
+    private func requestItems() {
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         buffer = Data()
         storeService.request(session: session, query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
@@ -141,7 +140,7 @@ final class ResultsViewController: BaseTopBarViewController {
         }
     }
      
-    func applyResponse(response: SearchResponse) {
+    private func applyResponse(response: SearchResponse) {
         self.totalItems = response.total
         self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
         if self.start == 1 {
@@ -223,7 +222,7 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         selectedCell = indexPath.item
     }
     
-    static func collectionViewLayout() -> UICollectionViewLayout {
+    static private func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionSpacing: CGFloat = 20
         let cellSpacing: CGFloat = 20

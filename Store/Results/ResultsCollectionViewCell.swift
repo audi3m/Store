@@ -13,11 +13,11 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     let ud = UserDefaultsHelper.shared
     
-    let imageView = UIImageView()
-    let likeButton = UIButton()
-    let mallLabel = UILabel()
-    let titleLabel = UILabel()
-    let priceLabel = UILabel()
+    private let imageView = UIImageView()
+    private let likeButton = UIButton()
+    private let mallLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let priceLabel = UILabel()
     
     var item: SearchedItem? {
         didSet {

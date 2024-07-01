@@ -10,9 +10,9 @@ import SnapKit
 
 final class ProfileImageSettingViewController: BaseTopBarViewController {
     
-    let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
-    let cameraImage = CameraImageView()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
+    private let cameraImage = CameraImageView()
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
     let profileList = ["profile_0", "profile_1", "profile_2", "profile_3",
                        "profile_4", "profile_5", "profile_6", "profile_7",
@@ -102,7 +102,7 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         ud.profile = profile
     }
     
-    static func collectionViewLayout() -> UICollectionViewLayout {
+    static private func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionSpacing: CGFloat = 20
         let cellSpacing: CGFloat = 16

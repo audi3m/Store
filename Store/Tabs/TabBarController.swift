@@ -37,30 +37,30 @@ final class TabBarController: UITabBarController {
         
     }
     
+    private enum TabItems: String, CaseIterable {
+        case search = "검색"
+        case settings = "설정"
+        
+        var image: UIImage {
+            switch self {
+            case .search:
+                return .magnifyingglass
+            case .settings:
+                return .person
+            }
+        }
+        
+        var viewController: UIViewController {
+            switch self {
+            case .search:
+                return UINavigationController(rootViewController: SearchViewController())
+            case .settings:
+                return UINavigationController(rootViewController: SettingsViewController())
+            }
+        }
+        
+    }
+    
 }
 
-enum TabItems: String, CaseIterable {
-    case search = "검색"
-    case settings = "설정"
-    
-    var image: UIImage {
-        switch self {
-        case .search:
-            return .magnifyingglass
-        case .settings:
-            return .person
-        }
-    }
-    
-    var viewController: UIViewController {
-        switch self {
-        case .search:
-            return UINavigationController(rootViewController: SearchViewController())
-//            return SearchViewController()
-        case .settings:
-            return UINavigationController(rootViewController: SettingsViewController())
-//            return SettingsViewController()
-        }
-    }
-    
-}
+

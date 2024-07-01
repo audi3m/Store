@@ -10,8 +10,8 @@ import SnapKit
 
 final class CameraImageView: UIView {
     
-    let backgroundView = UIView()
-    let smallImageView = UIImageView()
+    private let backgroundView = UIView()
+    private let smallImageView = UIImageView()
     
     init() {
         super.init(frame: .zero)

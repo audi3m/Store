@@ -88,16 +88,17 @@ class StoreService {
                     completionHandler(nil, .invalidData)
                 }
             }
-            
         }.resume()
         
     }
     
+    enum ResponseError: Int, Error {
+        case failedRequest = 401
+        case noData = 403
+        case invalidResponse // 404
+        case invalidData // 405
+    }
+    
 }
 
-enum ResponseError: Int, Error {
-    case failedRequest = 401
-    case noData = 403
-    case invalidResponse // 404
-    case invalidData // 405
-}
+

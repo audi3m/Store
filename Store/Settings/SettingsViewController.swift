@@ -10,7 +10,7 @@ import SnapKit
 
 final class SettingsViewController: BaseTopBarViewController {
     
-    let tableView = UITableView()
+    private let tableView = UITableView()
     
     override func viewIsAppearing(_ animated: Bool) {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
@@ -86,6 +86,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.row == 0 ? 110 : 44
     }
+    
+    private enum SettingsItem: String, CaseIterable {
+        case account = "계정"
+        case myList = "나의 장바구니 목록"
+        case qna = "자주 묻는 질문"
+        case support = "1:1 문의"
+        case notification = "알림 설정"
+        case deleteAccount = "탈퇴하기"
+    }
 }
 
 extension SettingsViewController {
@@ -126,11 +135,4 @@ extension SettingsViewController {
     }
 }
 
-enum SettingsItem: String, CaseIterable {
-    case account = "계정"
-    case myList = "나의 장바구니 목록"
-    case qna = "자주 묻는 질문"
-    case support = "1:1 문의"
-    case notification = "알림 설정"
-    case deleteAccount = "탈퇴하기"
-}
+

@@ -14,7 +14,7 @@ final class DetailViewController: BaseViewController {
     let ud = UserDefaultsHelper.shared
     
     let webView = WKWebView()
-    let loading = UIActivityIndicatorView()
+    private let loading = UIActivityIndicatorView()
     
     var item: SearchedItem?
     

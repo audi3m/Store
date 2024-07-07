@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 class StoreModel: Object {
-//    @Persisted(primaryKey: true) var id: ObjectId
     
     @Persisted var title: String
     @Persisted var link: String
@@ -30,9 +29,9 @@ class StoreModel: Object {
     
     func convertToItem() -> SearchedItem {
         let item = SearchedItem(title: self.title,
-                                 link: self.link,
-                                image: self.price,
-                                lprice: self.image,
+                                link: self.link,
+                                image: self.image,
+                                lprice: self.price,
                                 mallName: self.mallName,
                                 productId: self.productId)
         return item

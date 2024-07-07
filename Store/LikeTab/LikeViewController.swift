@@ -28,6 +28,10 @@ final class LikeViewController: BaseTopBarViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("Like Tab will appear")
+    }
+    
     
     override func setHierarchy() {
         view.addSubview(collectionView)
@@ -55,14 +59,14 @@ extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.id, for: indexPath) as! ResultsCollectionViewCell
-        let model = list[indexPath.item]
-        let item = model.convertToItem()
-        cell.item = item
+        cell.item = list[indexPath.item].convertToItem()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let model = list[indexPath.item]
+        let item = model.convertToItem()
+        cellTapped(item: item)
     }
     
     static private func collectionViewLayout() -> UICollectionViewLayout {

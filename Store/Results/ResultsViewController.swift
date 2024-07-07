@@ -11,6 +11,7 @@ import SnapKit
 
 final class ResultsViewController: BaseTopBarViewController {
     let storeService = StoreService.shared
+    let repository = StoreRepository()
     
     private let progressBar = UIProgressView()
     private let resultCountLabel = UILabel()
@@ -33,7 +34,6 @@ final class ResultsViewController: BaseTopBarViewController {
             dateButton.deSelected()
             ascButton.deSelected()
             dscButton.deSelected()
-            
             
         }
     }
@@ -172,10 +172,9 @@ extension ResultsViewController: URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
-        if let _ = error {
-            
+        if let error {
+            print(error)
         } else {
-            // completion 시점과 동일
             print("Completed")
             guard buffer == nil else { return }
             progressBar.isHidden = true
@@ -191,14 +190,7 @@ extension ResultsViewController: UICollectionViewDataSourcePrefetching {
             if item.item == self.list.count - 2 {
                 start += 30
                 if start <= totalItems {
-                    
                     requestItems()
-                    
-//                    storeService.requestItems(query: query, start: start, sortOption: sortOption) { response, error in
-//                        guard error == nil else { return }
-//                        guard let response else { return }
-//                        self.applyResponse(response: response)
-//                    }
                 }
             }
         }
@@ -245,9 +237,7 @@ extension ResultsViewController: UICollectionViewDelegate, UICollectionViewDataS
         vc.navigationItem.title = item.title.deleteHtmlTags()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
-
 
 // button functions
 extension ResultsViewController {

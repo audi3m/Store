@@ -185,7 +185,7 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         ud.profile = randomProfile
         ud.registerDate = Date.now.customFormat()
         
-        resetRootViewController(root: SearchViewController())
+        resetRootViewController(root: TabBarController())
         
     }
     

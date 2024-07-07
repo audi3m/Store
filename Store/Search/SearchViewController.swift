@@ -26,10 +26,6 @@ final class SearchViewController: BaseTopBarViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad() 
-        let settings = UIBarButtonItem(image: .personCircle, style: .plain, target: self,
-                                       action: #selector(settingsButtonClicked))
-        settings.tintColor = .themeColor
-        navigationItem.rightBarButtonItem = settings
         
         recentList = ud.recentSearch.reversed()
         
@@ -103,11 +99,6 @@ final class SearchViewController: BaseTopBarViewController {
     
     @objc private func deleteAll() {
         recentList = ud.deleteSearchHistory()
-    }
-    
-    @objc private func settingsButtonClicked() {
-        let vc = SettingsViewController()
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func updateViewVisibility() {

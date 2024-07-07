@@ -27,24 +27,19 @@ final class TabBarController: UITabBarController {
         
         self.viewControllers = viewControllers
         
-//        let search = UINavigationController(rootViewController: SearchViewController())
-//        search.tabBarItem = UITabBarItem(title: "검색", image: .magnifyingglass, tag: 0)
-//        
-//        let settings = UINavigationController(rootViewController: SettingsViewController())
-//        settings.tabBarItem = UITabBarItem(title: "설정", image: .person, tag: 1)
-//        
-//        setViewControllers([search, settings], animated: true)
-        
     }
     
     private enum TabItems: String, CaseIterable {
         case search = "검색"
+        case likes = "좋아요"
         case settings = "설정"
         
         var image: UIImage {
             switch self {
             case .search:
                 return .magnifyingglass
+            case .likes:
+                return .likeTab
             case .settings:
                 return .person
             }
@@ -54,6 +49,8 @@ final class TabBarController: UITabBarController {
             switch self {
             case .search:
                 return UINavigationController(rootViewController: SearchViewController())
+            case .likes:
+                return UINavigationController(rootViewController: LikeViewController())
             case .settings:
                 return UINavigationController(rootViewController: SettingsViewController())
             }

@@ -12,6 +12,7 @@ import WebKit
 final class DetailViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
+    let repository = StoreRepository()
     
     let webView = WKWebView()
     private let loading = UIActivityIndicatorView()
@@ -57,6 +58,9 @@ final class DetailViewController: BaseViewController {
         guard let productId = item?.productId else { return }
         let image: UIImage = ud.likeThisProduct(productId) ? .unlike : .like
         ud.handleLikes(productID: productId)
+        if let item {
+            repository.likeClicked(item: item)
+        }
         navigationItem.rightBarButtonItem?.image = image
     }
 }

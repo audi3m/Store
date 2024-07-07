@@ -16,6 +16,7 @@ extension UIImage {
     static let chevronRight = UIImage(systemName: "chevron.right")!
     static let personCircle = UIImage(systemName: "person.crop.circle")!
     
+    static let likeTab = UIImage.likeSelected
     static let like = UIImage.likeSelected.withRenderingMode(.alwaysOriginal)
     static let unlike = UIImage.likeUnselected.withRenderingMode(.alwaysOriginal)
 }

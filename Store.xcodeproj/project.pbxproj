@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D42746422C3AF4D50014FB1F /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746412C3AF4D50014FB1F /* LikeViewController.swift */; };
+		D42746442C3AF89D0014FB1F /* LikeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */; };
+		D42746462C3AF9DF0014FB1F /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746452C3AF9DF0014FB1F /* StoreRepository.swift */; };
+		D42746482C3AF9EC0014FB1F /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746472C3AF9EC0014FB1F /* StoreModel.swift */; };
+		D427464C2C3AFA210014FB1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; };
+		D427464D2C3AFD7B0014FB1F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D453913F2C241E7B00E407C8 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453913E2C241E7B00E407C8 /* StoreService.swift */; };
 		D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */; };
 		D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391422C28156300E407C8 /* UnderBarTextField.swift */; };
@@ -49,7 +55,25 @@
 		D4F8D58D2C2AE69D00638548 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F8D58C2C2AE69D00638548 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D427464E2C3AFD7B0014FB1F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D427464D2C3AFD7B0014FB1F /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		D42746412C3AF4D50014FB1F /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
+		D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCollectionViewCell.swift; sourceTree = "<group>"; };
+		D42746452C3AF9DF0014FB1F /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
+		D42746472C3AF9EC0014FB1F /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		D453913E2C241E7B00E407C8 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		D45391422C28156300E407C8 /* UnderBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarTextField.swift; sourceTree = "<group>"; };
@@ -96,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D427464C2C3AFA210014FB1F /* RealmSwift in Frameworks */,
 				D466A3832C1DDE8800AA2954 /* Kingfisher in Frameworks */,
 				D466A33F2C1AD57F00AA2954 /* Alamofire in Frameworks */,
 				D466A3422C1AD58900AA2954 /* SnapKit in Frameworks */,
@@ -105,6 +130,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D42746402C3AF4C40014FB1F /* LikeTab */ = {
+			isa = PBXGroup;
+			children = (
+				D42746412C3AF4D50014FB1F /* LikeViewController.swift */,
+				D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */,
+			);
+			path = LikeTab;
+			sourceTree = "<group>";
+		};
+		D42746492C3AF9F20014FB1F /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				D42746472C3AF9EC0014FB1F /* StoreModel.swift */,
+				D42746452C3AF9DF0014FB1F /* StoreRepository.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		D453913D2C241E6400E407C8 /* StoreService */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,9 +180,11 @@
 				D466A3292C1AD53F00AA2954 /* AppDelegate.swift */,
 				D466A32B2C1AD53F00AA2954 /* SceneDelegate.swift */,
 				D453913D2C241E6400E407C8 /* StoreService */,
+				D42746492C3AF9F20014FB1F /* DataBase */,
 				D466A3582C1B1D9300AA2954 /* Onboarding */,
 				D466A3512C1B1BA100AA2954 /* Tabs */,
 				D466A3502C1B1B9600AA2954 /* Profile */,
+				D42746402C3AF4C40014FB1F /* LikeTab */,
 				D466A3772C1D83E000AA2954 /* Search */,
 				D466A36E2C1C238400AA2954 /* Results */,
 				D466A3782C1D83EC00AA2954 /* Settings */,
@@ -256,6 +301,7 @@
 				D466A3222C1AD53F00AA2954 /* Sources */,
 				D466A3232C1AD53F00AA2954 /* Frameworks */,
 				D466A3242C1AD53F00AA2954 /* Resources */,
+				D427464E2C3AFD7B0014FB1F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -266,6 +312,7 @@
 				D466A33E2C1AD57F00AA2954 /* Alamofire */,
 				D466A3412C1AD58900AA2954 /* SnapKit */,
 				D466A3822C1DDE8800AA2954 /* Kingfisher */,
+				D427464B2C3AFA210014FB1F /* RealmSwift */,
 			);
 			productName = Store;
 			productReference = D466A3262C1AD53F00AA2954 /* Store.app */;
@@ -299,6 +346,7 @@
 				D466A33D2C1AD57F00AA2954 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D466A3402C1AD58900AA2954 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				D466A3812C1DDE8800AA2954 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				D427464A2C3AFA210014FB1F /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = D466A3272C1AD53F00AA2954 /* Products */;
 			projectDirPath = "";
@@ -327,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42746462C3AF9DF0014FB1F /* StoreRepository.swift in Sources */,
 				D466A3672C1BCBAE00AA2954 /* UserDefaultsHelper.swift in Sources */,
 				D466A3692C1C209D00AA2954 /* CircleCamera.swift in Sources */,
 				D466A3802C1DD64900AA2954 /* SortingButton.swift in Sources */,
@@ -334,9 +383,12 @@
 				D466A37E2C1DD3AE00AA2954 /* EmptySearchView.swift in Sources */,
 				D466A3452C1AD60200AA2954 /* UIImage+Ex.swift in Sources */,
 				D466A3742C1C8B3C00AA2954 /* Date+Ex.swift in Sources */,
+				D42746442C3AF89D0014FB1F /* LikeCollectionViewCell.swift in Sources */,
 				D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */,
 				D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */,
+				D42746422C3AF4D50014FB1F /* LikeViewController.swift in Sources */,
 				D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */,
+				D42746482C3AF9EC0014FB1F /* StoreModel.swift in Sources */,
 				D466A3612C1B282700AA2954 /* ProfileCollectionViewCell.swift in Sources */,
 				D466A34B2C1B150300AA2954 /* StoreAPI.swift in Sources */,
 				D466A3552C1B1BFE00AA2954 /* SettingsViewController.swift in Sources */,
@@ -587,6 +639,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D427464A2C3AFA210014FB1F /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D466A33D2C1AD57F00AA2954 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -614,6 +674,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D427464B2C3AFA210014FB1F /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D427464A2C3AFA210014FB1F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		D466A33E2C1AD57F00AA2954 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D466A33D2C1AD57F00AA2954 /* XCRemoteSwiftPackageReference "Alamofire" */;

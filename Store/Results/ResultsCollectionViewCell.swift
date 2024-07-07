@@ -12,6 +12,7 @@ import Kingfisher
 final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     let ud = UserDefaultsHelper.shared
+    let repository = StoreRepository()
     
     private let imageView = UIImageView()
     private let likeButton = UIButton()
@@ -110,6 +111,10 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
         likeButton.setImage(like ? .unlike : .like, for: .normal)
         likeButton.backgroundColor = like ? .grayColor.withAlphaComponent(0.7) : .whiteColor
         ud.handleLikes(productID: productId)
+        
+        if let item {
+            repository.likeClicked(item: item)
+        }
     }
     
 }

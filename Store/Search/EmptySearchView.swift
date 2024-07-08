@@ -18,7 +18,6 @@ final class EmptySearchView: UIView {
         setHierarchy()
         setLayout()
         setUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +25,6 @@ final class EmptySearchView: UIView {
         setHierarchy()
         setLayout()
         setUI()
-        
     }
     
     private func setHierarchy() {
@@ -53,4 +51,5 @@ final class EmptySearchView: UIView {
         noLabel.text = "최근 검색어가 없어요."
         noLabel.font = .systemFont(ofSize: 16, weight: .black)
     }
+    
 }

@@ -20,7 +20,6 @@ final class LikeViewController: BaseTopBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "좋아요 상품"
-    
         list = repository.fetchAll()
         
         setScrollViewProtocols(collectionView, viewController: self)
@@ -30,8 +29,8 @@ final class LikeViewController: BaseTopBarViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         print("Like Tab will appear")
+        collectionView.reloadData()
     }
-    
     
     override func setHierarchy() {
         view.addSubview(collectionView)
@@ -39,18 +38,14 @@ final class LikeViewController: BaseTopBarViewController {
     
     override func setLayout() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(topBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    override func setUI() {
-        
-    }
+    @objc private func listCount() { }
     
 }
-
-
- 
 
 extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -60,6 +55,14 @@ extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.id, for: indexPath) as! ResultsCollectionViewCell
         cell.item = list[indexPath.item].convertToItem()
+        cell.updated = { updated in
+            if updated {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.list = self.repository.fetchAll()
+                    collectionView.reloadData()
+                }
+            }
+        }
         return cell
     }
     
@@ -92,5 +95,6 @@ extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         vc.navigationItem.title = item.title.deleteHtmlTags()
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 

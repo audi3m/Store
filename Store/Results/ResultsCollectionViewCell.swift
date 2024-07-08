@@ -14,6 +14,8 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     let ud = UserDefaultsHelper.shared
     let repository = StoreRepository()
     
+    var updated: ((Bool) -> Void)?
+    
     private let imageView = UIImageView()
     private let likeButton = UIButton()
     private let mallLabel = UILabel()
@@ -33,7 +35,6 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
     }
     
     override func setHierarchy() {
@@ -114,6 +115,7 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
         
         if let item {
             repository.likeClicked(item: item)
+            updated?(true)
         }
     }
     

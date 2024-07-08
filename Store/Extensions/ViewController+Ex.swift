@@ -41,9 +41,9 @@ extension UIViewController {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        let nav = UINavigationController(rootViewController: root)
+//        let nav = UINavigationController(rootViewController: root)
         
-        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.rootViewController = root
         sceneDelegate?.window?.makeKeyAndVisible()
     }
     

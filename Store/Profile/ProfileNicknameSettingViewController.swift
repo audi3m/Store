@@ -15,7 +15,7 @@ enum ProfileSettingMode {
 
 final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
-    let nicknameViewModel = NicknameViewModel()
+    let nicknameViewModel = NicknameViewModel(nil)
     
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
@@ -71,6 +71,7 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
             }
         }
         
+        nicknameViewModel.inputNickname.value = ud.nickname
         bindData()
     }
     

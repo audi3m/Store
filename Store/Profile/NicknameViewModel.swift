@@ -14,9 +14,9 @@ final class NicknameViewModel {
     var outputValidationText = Observable("")
     var outputValid = Observable(false)
     
-    init() {
+    init(_ nickname: String?) {
         print("ViewModel init")
-        
+        inputNickname.value = nickname
         inputNickname.bind { _ in
             self.validation()
         }

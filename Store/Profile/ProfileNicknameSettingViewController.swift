@@ -15,6 +15,8 @@ enum ProfileSettingMode {
 
 final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
+    let nicknameViewModel = NicknameViewModel()
+    
     var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     let cameraImageView = CameraImageView()
     let nicknameTextField = UnderBarTextField()
@@ -67,6 +69,19 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
             if let profile = ud.profile {
                 currentProfile = profile
             }
+        }
+        
+        bindData()
+    }
+    
+    private func bindData() {
+        nicknameViewModel.outputValidationText.bind { value in
+            self.warningLabel.text = value
+        }
+        
+        nicknameViewModel.outputValid.bind { value in
+            self.warningLabel.textColor = value ? .themeColor : .red
+            self.navigationItem.rightBarButtonItem?.isEnabled = value
         }
     }
     
@@ -206,33 +221,17 @@ extension ProfileNicknameSettingViewController: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        do {
-            try isValidateInput(text: text)
-            warningLabel.text = "사용할 수 있는 닉네임이에요"
-            buttonEnabled = true
-            return
-        } catch NicknameValidationError.lengthError {
-            warningLabel.text = "2글자 이상 10글자 미만 입력해주세요"
-        } catch NicknameValidationError.symbolError {
-            warningLabel.text = "@, #, $, %는 포함할 수 없습니다"
-        } catch NicknameValidationError.numError {
-            warningLabel.text = "숫자는 포함할 수 없습니다"
-        } catch {
-            fatalError()
-        }
-        
-        buttonEnabled = false
-        
+        print(#function)
+        nicknameViewModel.inputNickname.value = nicknameTextField.text
     }
-    
-    @discardableResult
-    func isValidateInput(text: String) throws -> Bool {
-        guard text.count >= 2 && text.count < 10 else { throw NicknameValidationError.lengthError }
-        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) == nil else { throw NicknameValidationError.symbolError }
-        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) == nil else { throw NicknameValidationError.numError }
-        return true
-    }
+//    
+//    @discardableResult
+//    func isValidateInput(text: String) throws -> Bool {
+//        guard text.count >= 2 && text.count < 10 else { throw NicknameValidationError.lengthError }
+//        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) == nil else { throw NicknameValidationError.symbolError }
+//        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) == nil else { throw NicknameValidationError.numError }
+//        return true
+//    }
 }
 
 enum NicknameValidationError: Error {

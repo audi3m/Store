@@ -13,6 +13,9 @@
 		D42746482C3AF9EC0014FB1F /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746472C3AF9EC0014FB1F /* StoreModel.swift */; };
 		D427464C2C3AFA210014FB1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; };
 		D427464D2C3AFD7B0014FB1F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D42746562C3BF5170014FB1F /* MallRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746552C3BF5170014FB1F /* MallRepository.swift */; };
+		D427466F2C3D82DF0014FB1F /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427466E2C3D82DF0014FB1F /* NicknameViewModel.swift */; };
+		D42746712C3D82EF0014FB1F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746702C3D82EF0014FB1F /* Observable.swift */; };
 		D453913F2C241E7B00E407C8 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453913E2C241E7B00E407C8 /* StoreService.swift */; };
 		D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */; };
 		D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391422C28156300E407C8 /* UnderBarTextField.swift */; };
@@ -74,6 +77,9 @@
 		D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D42746452C3AF9DF0014FB1F /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
 		D42746472C3AF9EC0014FB1F /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
+		D42746552C3BF5170014FB1F /* MallRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallRepository.swift; sourceTree = "<group>"; };
+		D427466E2C3D82DF0014FB1F /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		D42746702C3D82EF0014FB1F /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		D453913E2C241E7B00E407C8 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		D45391422C28156300E407C8 /* UnderBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarTextField.swift; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 			children = (
 				D42746472C3AF9EC0014FB1F /* StoreModel.swift */,
 				D42746452C3AF9DF0014FB1F /* StoreRepository.swift */,
+				D42746552C3BF5170014FB1F /* MallRepository.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -208,6 +215,7 @@
 				D4B83E0B2C211F9B00457CC7 /* String+Ex.swift */,
 				D466A3732C1C8B3C00AA2954 /* Date+Ex.swift */,
 				D466A3622C1B283700AA2954 /* id.swift */,
+				D42746702C3D82EF0014FB1F /* Observable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -218,6 +226,7 @@
 				D466A34C2C1B1B3B00AA2954 /* ProfileNicknameSettingViewController.swift */,
 				D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */,
 				D466A3602C1B282700AA2954 /* ProfileCollectionViewCell.swift */,
+				D427466E2C3D82DF0014FB1F /* NicknameViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -386,7 +395,9 @@
 				D42746442C3AF89D0014FB1F /* LikeCollectionViewCell.swift in Sources */,
 				D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */,
 				D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */,
+				D42746712C3D82EF0014FB1F /* Observable.swift in Sources */,
 				D42746422C3AF4D50014FB1F /* LikeViewController.swift in Sources */,
+				D427466F2C3D82DF0014FB1F /* NicknameViewModel.swift in Sources */,
 				D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */,
 				D42746482C3AF9EC0014FB1F /* StoreModel.swift in Sources */,
 				D466A3612C1B282700AA2954 /* ProfileCollectionViewCell.swift in Sources */,
@@ -396,6 +407,7 @@
 				D466A3472C1AD68700AA2954 /* UIColor+Ex.swift in Sources */,
 				D4F8D5892C2AE17B00638548 /* BaseTableViewCell.swift in Sources */,
 				D466A35A2C1B1DAF00AA2954 /* OnboardingViewController.swift in Sources */,
+				D42746562C3BF5170014FB1F /* MallRepository.swift in Sources */,
 				D466A3652C1B287A00AA2954 /* SettingsTableViewCell.swift in Sources */,
 				D466A36B2C1C225F00AA2954 /* ResultsCollectionViewCell.swift in Sources */,
 				D466A32A2C1AD53F00AA2954 /* AppDelegate.swift in Sources */,

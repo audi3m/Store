@@ -8,7 +8,13 @@
 import Foundation
 import RealmSwift
 
-class StoreModel: Object {
+final class Mall: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var name: String
+    @Persisted var mallList: List<StoreModel>
+}
+
+final class StoreModel: Object {
     
     @Persisted var title: String
     @Persisted var link: String
@@ -16,6 +22,8 @@ class StoreModel: Object {
     @Persisted var mallName: String
     @Persisted var image: String
     @Persisted(primaryKey: true) var productId: String
+    
+    @Persisted(originProperty: "mallList") var main: LinkingObjects<Mall>
     
     convenience init(title: String, link: String, price: String, mallName: String, image: String, productId: String) {
         self.init()

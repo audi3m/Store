@@ -33,9 +33,9 @@ final class UserDefaultsHelper {
         }
     }
     
-    var profile: String? {
+    var profileIndex: Int? {
         get {
-            return UserDefaults.standard.string(forKey: "profile")
+            return UserDefaults.standard.integer(forKey: "profile")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "profile")
@@ -63,7 +63,7 @@ final class UserDefaultsHelper {
     func resetData() {
         nickname = nil
         registerDate = ""
-        profile = nil
+        profileIndex = nil
         recentSearch = []
         likeItems = [:]
     }

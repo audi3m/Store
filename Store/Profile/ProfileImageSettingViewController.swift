@@ -10,19 +10,20 @@ import SnapKit
 
 final class ProfileImageSettingViewController: BaseTopBarViewController {
     
+    let profileViewModel = ProfileViewModel()
+    
     private let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     private let cameraImage = CameraImageView()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
-    let profileList = ["profile_0", "profile_1", "profile_2", "profile_3",
-                       "profile_4", "profile_5", "profile_6", "profile_7",
-                       "profile_8", "profile_9", "profile_10", "profile_11"]
+    var sendProfile: ((Int) -> Void)?
     
     let mode: ProfileSettingMode
-    var randomrofile: String?
+    var profileIndex: Int
     
-    init(mode: ProfileSettingMode) {
+    init(mode: ProfileSettingMode, profileIndex: Int) {
         self.mode = mode
+        self.profileIndex = profileIndex
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,23 +31,25 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if mode == .newProfile {
-            if let randomrofile, let item = profileList.firstIndex(of: randomrofile) {
-                selectedImageView.image = UIImage(named: randomrofile)
-                collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
-            }
-        } else {
-            if let profile = ud.profile, let item = profileList.firstIndex(of: profile) {
-                selectedImageView.image = UIImage(named: profile)
-                collectionView.selectItem(at: IndexPath(item: item, section: 0), animated: true, scrollPosition: .centeredVertically)
-            }
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad() 
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
+        bindData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        selectedImageView.image = UIImage(named: "profile_\(profileIndex)")
+        collectionView.selectItem(at: IndexPath(item: profileIndex, section: 0), animated: true, scrollPosition: .centeredVertically)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        sendProfile?(profileIndex)
+    }
+    
+    private func bindData() {
+        profileViewModel.outputProfileName.bind { value in
+            self.selectedImageView.image = UIImage(named: value)
+        }
     }
     
     override func setHierarchy() {
@@ -86,20 +89,20 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
 
 extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        profileList.count
+        profileViewModel.profileList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.id, for: indexPath) as! ProfileCollectionViewCell
-        cell.imageView.image = UIImage(named: profileList[indexPath.item])
+        cell.imageView.image = UIImage(named: profileViewModel.profileList[indexPath.item])
         cell.imageView.layer.cornerRadius = cell.frame.width/2
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let profile = profileList[indexPath.item]
+        let profile = profileViewModel.profileList[indexPath.item]
         selectedImageView.image = UIImage(named: profile)
-        ud.profile = profile
+        profileIndex = indexPath.item
     }
     
     static private func collectionViewLayout() -> UICollectionViewLayout {

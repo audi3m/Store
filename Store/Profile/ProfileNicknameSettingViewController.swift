@@ -15,34 +15,21 @@ enum ProfileSettingMode {
 
 final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
-    let nicknameViewModel = NicknameViewModel(nil)
+    private let nicknameViewModel = NicknameViewModel(nil)
     
-    var profileImageView = CircleImageView(image: UIImage(), type: .profile)
-    let cameraImageView = CameraImageView()
-    let nicknameTextField = UnderBarTextField()
-    let warningLabel = UILabel()
-    let completeButton = OrangeButton(title: "완료")
-    var goBack = true
-    var currentProfile = ""
     
-    var warningText = [String]() {
-        didSet {
-            var text = ""
-            for item in warningText {
-                if text.isEmpty {
-                    text += item
-                } else {
-                    text += "\n\(item)"
-                }
-            }
-            warningLabel.text = text
-        }
-    }
+    private var profileImageView = CircleImageView(image: UIImage(), type: .profile)
+    private let cameraImageView = CameraImageView()
+    private let nicknameTextField = UnderBarTextField()
+    private let warningLabel = UILabel()
+    private let completeButton = OrangeButton(title: "완료")
+    private var goBack = true
+    private var currentProfile = ""
     
     let mode: ProfileSettingMode
-    let randomProfile = "profile_\(Int.random(in: 0..<12))"
+    let randomProfileIndex = Int.random(in: 0..<12)
     
-    var buttonEnabled = false {
+    private var buttonEnabled = false {
         didSet {
             completeButton.isEnabled = buttonEnabled
             navigationItem.rightBarButtonItem?.isEnabled = buttonEnabled
@@ -66,8 +53,8 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         if mode == .edit {
             completeButton.isHidden = true
             warningLabel.text = "사용할 수 있는 닉네임이에요"
-            if let profile = ud.profile {
-                currentProfile = profile
+            if let profileIndex = ud.profileIndex {
+                currentProfile = "profile_\(profileIndex)"
             }
         }
         
@@ -84,21 +71,22 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
             self.warningLabel.textColor = value ? .themeColor : .red
             self.navigationItem.rightBarButtonItem?.isEnabled = value
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let profile = ud.profile {
-            profileImageView.image = UIImage(named: profile)
+        if let profileIndex = ud.profileIndex {
+            profileImageView.image = UIImage(named: "profile_\(profileIndex)")
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if mode == .newProfile && goBack {
-            ud.resetData()
-        }
-        
-        if mode == .edit && goBack {
-            ud.profile = currentProfile
+        if goBack {
+            if mode == .newProfile {
+                
+            } else {
+                ud.profileIndex = currentProfile
+            }
         }
     }
     
@@ -163,10 +151,10 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(selectProfile))
         profileImageView.addGestureRecognizer(gesture)
         
-        if let profile = ud.profile {
-            profileImageView.image = UIImage(named: profile)
+        if let profileIndex = ud.profileIndex {
+            profileImageView.image = UIImage(named: "profile_\(profileIndex)")
         } else {
-            profileImageView.image = UIImage(named: randomProfile)
+            profileImageView.image = UIImage(named: "profile_\(randomProfileIndex)")
         }
     }
     
@@ -185,11 +173,11 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     @objc private func selectProfile() {
-        let vc = ProfileImageSettingViewController(mode: mode)
-        if let profile = ud.profile {
-            vc.randomrofile = profile
+        let vc = ProfileImageSettingViewController(mode: mode, profileIndex: <#Int#>)
+        if let profileIndex = ud.profileIndex {
+            vc.profileIndex = profileIndex
         } else {
-            vc.randomrofile = randomProfile
+            vc.profileIndex = randomProfileIndex
         }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -198,7 +186,7 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
-        ud.profile = randomProfile
+        ud.profileIndex = randomProfile
         ud.registerDate = Date.now.customFormat()
         
         resetRootViewController(root: TabBarController())
@@ -222,17 +210,8 @@ extension ProfileNicknameSettingViewController: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        print(#function)
         nicknameViewModel.inputNickname.value = nicknameTextField.text
     }
-//    
-//    @discardableResult
-//    func isValidateInput(text: String) throws -> Bool {
-//        guard text.count >= 2 && text.count < 10 else { throw NicknameValidationError.lengthError }
-//        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) == nil else { throw NicknameValidationError.symbolError }
-//        guard text.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) == nil else { throw NicknameValidationError.numError }
-//        return true
-//    }
 }
 
 enum NicknameValidationError: Error {

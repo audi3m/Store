@@ -45,7 +45,7 @@ final class NicknameViewModel {
     }
     
     @discardableResult
-    func isValidateInput(nickname: String) throws -> Bool {
+    private func isValidateInput(nickname: String) throws -> Bool {
         guard nickname.count >= 2 && nickname.count < 10 else { throw NicknameValidationError.lengthError }
         guard nickname.rangeOfCharacter(from: CharacterSet(charactersIn: "@#$%")) == nil else { throw NicknameValidationError.symbolError }
         guard nickname.rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) == nil else { throw NicknameValidationError.numError }

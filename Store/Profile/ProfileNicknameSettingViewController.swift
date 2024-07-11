@@ -78,20 +78,8 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let profileIndex = ud.profileIndex {
-            profileImageView.image = UIImage(named: "profile_\(profileIndex)")
-        }
+        profileImageView.image = UIImage(named: "profile_\(selectedProfileIndex)")
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        if goBack {
-//            if mode == .newProfile {
-//                
-//            } else {
-//                ud.profileIndex = currentProfile
-//            }
-//        }
-//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

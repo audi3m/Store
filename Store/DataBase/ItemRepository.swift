@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class StoreRepository {
+final class ItemRepository {
     
     private let realm = try! Realm()
     
@@ -27,6 +27,17 @@ final class StoreRepository {
             try realm.write {
                 realm.add(data)
                 print("Realm Create Success")
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteAllItems() {
+        do {
+            try realm.write {
+                let allItems = realm.objects(StoreModel.self)
+                realm.delete(allItems)
             }
         } catch {
             print(error)

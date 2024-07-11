@@ -10,6 +10,8 @@ import SnapKit
 
 final class SettingsViewController: BaseTopBarViewController {
     
+    let itemRepository = ItemRepository()
+    
     private let tableView = UITableView()
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -74,7 +76,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             presentProfileSetting()
         case 5:
             showAlert(type: .resign) {
-                self.ud.resetData()
                 self.confirmButtonClicked()
             }
         default: break
@@ -131,7 +132,8 @@ extension SettingsViewController {
     
     private func confirmButtonClicked() {
         ud.resetData()
-        resetRootViewController(root: OnboardingViewController())
+        itemRepository.deleteAllItems()
+        resetRootViewController(root: OnboardingViewController(), withNav: true)
     }
 }
 

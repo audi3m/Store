@@ -22,7 +22,6 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     private let nicknameTextField = UnderBarTextField()
     private let warningLabel = UILabel()
     private let completeButton = OrangeButton(title: "완료")
-    private var goBack = true
     
     let mode: ProfileSettingMode
     var selectedProfileIndex = Int.random(in: 0..<12) {
@@ -167,19 +166,18 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     @objc private func completeButtonClicked() {
-        goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
         ud.profileIndex = selectedProfileIndex
         ud.registerDate = Date.now.customFormat()
         
-        resetRootViewController(root: TabBarController())
+        resetRootViewController(root: HomeTabBarController(), withNav: false)
     }
     
     @objc private func saveButtonClicked() {
-        goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
+        ud.profileIndex = selectedProfileIndex
         navigationController?.popViewController(animated: true)
     }
     

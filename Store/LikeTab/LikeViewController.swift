@@ -11,7 +11,7 @@ import SnapKit
 
 final class LikeViewController: BaseTopBarViewController {
     let storeService = StoreService.shared
-    let repository = StoreRepository()
+    let repository = ItemRepository()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     

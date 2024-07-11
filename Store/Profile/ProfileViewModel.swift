@@ -17,7 +17,7 @@ final class ProfileViewModel {
     var outputProfileName: Observable<String> = Observable("")
     
     init() {
-        print("ViewModel init")
+        print("ProfileViewModel init")
         inputProfileIndex.bind { _ in
             self.returnProfileName()
         }

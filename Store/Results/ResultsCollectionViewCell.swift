@@ -12,7 +12,7 @@ import Kingfisher
 final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     let ud = UserDefaultsHelper.shared
-    let repository = StoreRepository()
+    let repository = ItemRepository()
     
     var updated: ((Bool) -> Void)?
     

@@ -1,5 +1,5 @@
 //
-//  TabBarController.swift
+//  HomeTabBarController.swift
 //  Store
 //
 //  Created by J Oh on 6/13/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController {
+final class HomeTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

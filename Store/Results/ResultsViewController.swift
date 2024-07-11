@@ -10,8 +10,9 @@ import Alamofire
 import SnapKit
 
 final class ResultsViewController: BaseTopBarViewController {
+    
     let storeService = StoreService.shared
-    let repository = StoreRepository()
+    let repository = ItemRepository()
     
     private let progressBar = UIProgressView()
     private let resultCountLabel = UILabel()
@@ -20,8 +21,6 @@ final class ResultsViewController: BaseTopBarViewController {
     private let dateButton = SortingButton(option: .date)
     private let ascButton = SortingButton(option: .asc)
     private let dscButton = SortingButton(option: .dsc)
-    
-    var tabBarIsHidden = false
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -34,9 +33,9 @@ final class ResultsViewController: BaseTopBarViewController {
             dateButton.deSelected()
             ascButton.deSelected()
             dscButton.deSelected()
-            
         }
     }
+    
     let query: String
     var start = 1
     var totalItems = 0
@@ -46,6 +45,7 @@ final class ResultsViewController: BaseTopBarViewController {
     var total: Double = 0
     var buffer: Data? {
         didSet {
+            print("buffer changed: \(buffer?.count ?? -1) / \(total)")
             let result = Float(buffer?.count ?? 0) / Float(total)
             progressBar.setProgress(result, animated: true)
         }
@@ -84,9 +84,7 @@ final class ResultsViewController: BaseTopBarViewController {
         collectionView.register(ResultsCollectionViewCell.self, forCellWithReuseIdentifier: ResultsCollectionViewCell.id)
         
         setButtons()
-        
         requestItems()
-         
     }
     
     override func setHierarchy() {
@@ -133,13 +131,19 @@ final class ResultsViewController: BaseTopBarViewController {
     private func requestItems() {
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         buffer = Data()
+//        request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
+//            guard error == nil else { return }
+//            guard let response else { return }
+//            self.applyResponse(response: response)
+//        }
+        
         storeService.request(session: session, query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
             guard error == nil else { return }
             guard let response else { return }
             self.applyResponse(response: response)
         }
     }
-     
+    
     private func applyResponse(response: SearchResponse) {
         self.totalItems = response.total
         self.resultCountLabel.text = "\(self.totalItems.formatted())개의 검색 결과"
@@ -149,6 +153,8 @@ final class ResultsViewController: BaseTopBarViewController {
             self.list.append(contentsOf: response.items)
         }
     }
+    
+    
     
 }
 
@@ -160,8 +166,10 @@ extension ResultsViewController: URLSessionDataDelegate {
         if let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) {
             let contentLength = response.value(forHTTPHeaderField: "Content-Length")!
             total = Double(contentLength)!
+            print(total)
             return .allow
         } else {
+            print("response is nil")
             return .cancel
         }
     }
@@ -265,7 +273,7 @@ extension ResultsViewController {
         ascButton.isEnabled = false
         dscButton.isEnabled = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.simButton.isEnabled = true
             self.dateButton.isEnabled = true
             self.ascButton.isEnabled = true

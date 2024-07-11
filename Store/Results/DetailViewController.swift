@@ -12,7 +12,7 @@ import WebKit
 final class DetailViewController: BaseViewController {
     
     let ud = UserDefaultsHelper.shared
-    let repository = StoreRepository()
+    let repository = ItemRepository()
     
     let webView = WKWebView()
     private let loading = UIActivityIndicatorView()

@@ -34,16 +34,18 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
-    
-    
-    func resetRootViewController(root: UIViewController) {
+    func resetRootViewController(root: UIViewController, withNav: Bool) {
         
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-//        let nav = UINavigationController(rootViewController: root)
+        if withNav {
+            let nav = UINavigationController(rootViewController: root)
+            sceneDelegate?.window?.rootViewController = nav
+        } else {
+            sceneDelegate?.window?.rootViewController = root
+        }
         
-        sceneDelegate?.window?.rootViewController = root
         sceneDelegate?.window?.makeKeyAndVisible()
     }
     

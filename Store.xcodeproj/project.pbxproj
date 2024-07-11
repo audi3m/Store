@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D42746422C3AF4D50014FB1F /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746412C3AF4D50014FB1F /* LikeViewController.swift */; };
 		D42746442C3AF89D0014FB1F /* LikeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */; };
-		D42746462C3AF9DF0014FB1F /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746452C3AF9DF0014FB1F /* StoreRepository.swift */; };
+		D42746462C3AF9DF0014FB1F /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746452C3AF9DF0014FB1F /* ItemRepository.swift */; };
 		D42746482C3AF9EC0014FB1F /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746472C3AF9EC0014FB1F /* StoreModel.swift */; };
 		D427464C2C3AFA210014FB1F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; };
 		D427464D2C3AFD7B0014FB1F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D427464B2C3AFA210014FB1F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -17,6 +17,7 @@
 		D427466F2C3D82DF0014FB1F /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427466E2C3D82DF0014FB1F /* NicknameViewModel.swift */; };
 		D42746712C3D82EF0014FB1F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746702C3D82EF0014FB1F /* Observable.swift */; };
 		D42746732C3E02860014FB1F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42746722C3E02860014FB1F /* ProfileViewModel.swift */; };
+		D430D0FA2C3FD07800A5312A /* NASAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430D0F92C3FD07800A5312A /* NASAViewController.swift */; };
 		D453913F2C241E7B00E407C8 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453913E2C241E7B00E407C8 /* StoreService.swift */; };
 		D45391412C266FCC00E407C8 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */; };
 		D45391432C28156300E407C8 /* UnderBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45391422C28156300E407C8 /* UnderBarTextField.swift */; };
@@ -35,7 +36,7 @@
 		D466A34F2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */; };
 		D466A3532C1B1BAE00AA2954 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3522C1B1BAE00AA2954 /* SearchViewController.swift */; };
 		D466A3552C1B1BFE00AA2954 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3542C1B1BFE00AA2954 /* SettingsViewController.swift */; };
-		D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3562C1B1C6A00AA2954 /* TabBarController.swift */; };
+		D466A3572C1B1C6A00AA2954 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3562C1B1C6A00AA2954 /* HomeTabBarController.swift */; };
 		D466A35A2C1B1DAF00AA2954 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A3592C1B1DAF00AA2954 /* OnboardingViewController.swift */; };
 		D466A35D2C1B1DFB00AA2954 /* ButtonDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */; };
 		D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D466A35E2C1B215D00AA2954 /* CircleImageView.swift */; };
@@ -76,12 +77,13 @@
 /* Begin PBXFileReference section */
 		D42746412C3AF4D50014FB1F /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
 		D42746432C3AF89D0014FB1F /* LikeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCollectionViewCell.swift; sourceTree = "<group>"; };
-		D42746452C3AF9DF0014FB1F /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
+		D42746452C3AF9DF0014FB1F /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		D42746472C3AF9EC0014FB1F /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		D42746552C3BF5170014FB1F /* MallRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallRepository.swift; sourceTree = "<group>"; };
 		D427466E2C3D82DF0014FB1F /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 		D42746702C3D82EF0014FB1F /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		D42746722C3E02860014FB1F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		D430D0F92C3FD07800A5312A /* NASAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAViewController.swift; sourceTree = "<group>"; };
 		D453913E2C241E7B00E407C8 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		D45391402C266FCC00E407C8 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		D45391422C28156300E407C8 /* UnderBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarTextField.swift; sourceTree = "<group>"; };
@@ -100,7 +102,7 @@
 		D466A34E2C1B1B6400AA2954 /* ProfileImageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingViewController.swift; sourceTree = "<group>"; };
 		D466A3522C1B1BAE00AA2954 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D466A3542C1B1BFE00AA2954 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		D466A3562C1B1C6A00AA2954 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		D466A3562C1B1C6A00AA2954 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		D466A3592C1B1DAF00AA2954 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D466A35C2C1B1DFB00AA2954 /* ButtonDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDesign.swift; sourceTree = "<group>"; };
 		D466A35E2C1B215D00AA2954 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -151,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				D42746472C3AF9EC0014FB1F /* StoreModel.swift */,
-				D42746452C3AF9DF0014FB1F /* StoreRepository.swift */,
+				D42746452C3AF9DF0014FB1F /* ItemRepository.swift */,
 				D42746552C3BF5170014FB1F /* MallRepository.swift */,
 			);
 			path = DataBase;
@@ -162,6 +164,7 @@
 			children = (
 				D466A34A2C1B150300AA2954 /* StoreAPI.swift */,
 				D453913E2C241E7B00E407C8 /* StoreService.swift */,
+				D430D0F92C3FD07800A5312A /* NASAViewController.swift */,
 			);
 			path = StoreService;
 			sourceTree = "<group>";
@@ -237,7 +240,7 @@
 		D466A3512C1B1BA100AA2954 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				D466A3562C1B1C6A00AA2954 /* TabBarController.swift */,
+				D466A3562C1B1C6A00AA2954 /* HomeTabBarController.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -387,10 +390,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D42746462C3AF9DF0014FB1F /* StoreRepository.swift in Sources */,
+				D42746462C3AF9DF0014FB1F /* ItemRepository.swift in Sources */,
 				D466A3672C1BCBAE00AA2954 /* UserDefaultsHelper.swift in Sources */,
 				D466A3692C1C209D00AA2954 /* CircleCamera.swift in Sources */,
 				D466A3802C1DD64900AA2954 /* SortingButton.swift in Sources */,
+				D430D0FA2C3FD07800A5312A /* NASAViewController.swift in Sources */,
 				D466A3632C1B283700AA2954 /* id.swift in Sources */,
 				D466A37E2C1DD3AE00AA2954 /* EmptySearchView.swift in Sources */,
 				D42746732C3E02860014FB1F /* ProfileViewModel.swift in Sources */,
@@ -398,7 +402,7 @@
 				D466A3742C1C8B3C00AA2954 /* Date+Ex.swift in Sources */,
 				D42746442C3AF89D0014FB1F /* LikeCollectionViewCell.swift in Sources */,
 				D466A35F2C1B215D00AA2954 /* CircleImageView.swift in Sources */,
-				D466A3572C1B1C6A00AA2954 /* TabBarController.swift in Sources */,
+				D466A3572C1B1C6A00AA2954 /* HomeTabBarController.swift in Sources */,
 				D42746712C3D82EF0014FB1F /* Observable.swift in Sources */,
 				D42746422C3AF4D50014FB1F /* LikeViewController.swift in Sources */,
 				D427466F2C3D82DF0014FB1F /* NicknameViewModel.swift in Sources */,

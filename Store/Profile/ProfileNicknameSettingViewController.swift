@@ -17,7 +17,6 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
     private let nicknameViewModel = NicknameViewModel(nil)
     
-    
     private var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     private let cameraImageView = CameraImageView()
     private let nicknameTextField = UnderBarTextField()
@@ -52,6 +51,8 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         setProfileImageView()
         setNicknameTextField()
         setCompleteButton()
+        
+        print("NicknameField profile random: \(selectedProfileIndex)")
         
         if mode == .edit {
             completeButton.isHidden = true

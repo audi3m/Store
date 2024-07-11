@@ -34,6 +34,7 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad() 
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
+        print("Initial index: \(selectedProfileIndex)")
         bindData()
     }
     
@@ -102,6 +103,7 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedProfileIndex = indexPath.item
+        print("Selected profile changed: \(selectedProfileIndex)")
         profileViewModel.inputProfileIndex.value = selectedProfileIndex
     }
     

@@ -13,7 +13,7 @@ final class ProfileViewModel {
                        "profile_4", "profile_5", "profile_6", "profile_7",
                        "profile_8", "profile_9", "profile_10", "profile_11"]
     
-    var inputProfileIndex: Observable<Int> = Observable(.random(in: 0...11))
+    var inputProfileIndex: Observable<Int> = Observable(.random(in: 0..<12))
     var outputProfileName: Observable<String> = Observable("")
     
     init() {
@@ -24,7 +24,7 @@ final class ProfileViewModel {
     }
     
     private func returnProfileName() {
-        outputProfileName.value = "profile_" + "\(inputProfileIndex.value)"
+        outputProfileName.value = "profile_\(inputProfileIndex.value)"
         
     }
     

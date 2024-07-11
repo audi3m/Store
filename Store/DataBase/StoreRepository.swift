@@ -62,7 +62,6 @@ final class StoreRepository {
         
         if let existingProduct = realm.object(ofType: StoreModel.self, forPrimaryKey: product.productId) {
             deleteItem(existingProduct)
-            
         } else {
             createItem(product)
         }

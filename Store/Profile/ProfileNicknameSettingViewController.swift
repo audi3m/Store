@@ -24,10 +24,13 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     private let warningLabel = UILabel()
     private let completeButton = OrangeButton(title: "완료")
     private var goBack = true
-    private var currentProfile = ""
     
     let mode: ProfileSettingMode
-    let randomProfileIndex = Int.random(in: 0..<12)
+    var selectedProfileIndex = Int.random(in: 0..<12) {
+        didSet {
+            self.profileImageView.image = UIImage(named: "profile_\(selectedProfileIndex)")
+        }
+    }
     
     private var buttonEnabled = false {
         didSet {
@@ -54,7 +57,7 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
             completeButton.isHidden = true
             warningLabel.text = "사용할 수 있는 닉네임이에요"
             if let profileIndex = ud.profileIndex {
-                currentProfile = "profile_\(profileIndex)"
+                selectedProfileIndex = profileIndex
             }
         }
         
@@ -71,7 +74,6 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
             self.warningLabel.textColor = value ? .themeColor : .red
             self.navigationItem.rightBarButtonItem?.isEnabled = value
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,15 +82,15 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        if goBack {
-            if mode == .newProfile {
-                
-            } else {
-                ud.profileIndex = currentProfile
-            }
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        if goBack {
+//            if mode == .newProfile {
+//                
+//            } else {
+//                ud.profileIndex = currentProfile
+//            }
+//        }
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -150,12 +152,7 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(selectProfile))
         profileImageView.addGestureRecognizer(gesture)
-        
-        if let profileIndex = ud.profileIndex {
-            profileImageView.image = UIImage(named: "profile_\(profileIndex)")
-        } else {
-            profileImageView.image = UIImage(named: "profile_\(randomProfileIndex)")
-        }
+        profileImageView.image = UIImage(named: "profile_\(selectedProfileIndex)")
     }
     
     private func setNicknameTextField() {
@@ -173,11 +170,9 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     @objc private func selectProfile() {
-        let vc = ProfileImageSettingViewController(mode: mode, profileIndex: <#Int#>)
-        if let profileIndex = ud.profileIndex {
-            vc.profileIndex = profileIndex
-        } else {
-            vc.profileIndex = randomProfileIndex
+        let vc = ProfileImageSettingViewController(mode: mode, profileIndex: selectedProfileIndex)
+        vc.sendProfileIndex = { index in
+            self.selectedProfileIndex = index
         }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -186,11 +181,10 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         goBack = false
         let nickname = nicknameTextField.text!
         ud.nickname = nickname
-        ud.profileIndex = randomProfile
+        ud.profileIndex = selectedProfileIndex
         ud.registerDate = Date.now.customFormat()
         
         resetRootViewController(root: TabBarController())
-        
     }
     
     @objc private func saveButtonClicked() {

@@ -11,7 +11,7 @@ import SnapKit
 final class AccountTableViewCell: BaseTableViewCell {
     
     let ud = UserDefaultsHelper.shared
-    lazy var profileImageView = CircleImageView(image: UIImage(named: ud.profile ?? "profile_0")!, type: .selected)
+    lazy var profileImageView = CircleImageView(image: UIImage(named: "profile_\(ud.profileIndex ?? 0)")!, type: .selected)
     private let stackView = UIStackView()
     let nicknameLabel = UILabel()
     let registerDateLabel = UILabel()

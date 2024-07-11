@@ -50,7 +50,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             let accountCell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.id, for: indexPath) as! AccountTableViewCell
             accountCell.nicknameLabel.text = ud.nickname
-            accountCell.profileImageView.image = UIImage(named: ud.profile ?? "profile_0")
+            accountCell.profileImageView.image = UIImage(named: "profile_\(ud.profileIndex ?? 0)")
             accountCell.registerDateLabel.text = ud.registerDate
             return accountCell
             

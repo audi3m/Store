@@ -16,14 +16,14 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     private let cameraImage = CameraImageView()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
-    var sendProfile: ((Int) -> Void)?
+    var sendProfileIndex: ((Int) -> Void)?
     
     let mode: ProfileSettingMode
-    var profileIndex: Int
+    var selectedProfileIndex: Int
     
     init(mode: ProfileSettingMode, profileIndex: Int) {
         self.mode = mode
-        self.profileIndex = profileIndex
+        self.selectedProfileIndex = profileIndex
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,12 +38,12 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        selectedImageView.image = UIImage(named: "profile_\(profileIndex)")
-        collectionView.selectItem(at: IndexPath(item: profileIndex, section: 0), animated: true, scrollPosition: .centeredVertically)
+        selectedImageView.image = UIImage(named: "profile_\(selectedProfileIndex)")
+        collectionView.selectItem(at: IndexPath(item: selectedProfileIndex, section: 0), animated: true, scrollPosition: .centeredVertically)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        sendProfile?(profileIndex)
+        sendProfileIndex?(selectedProfileIndex)
     }
     
     private func bindData() {
@@ -89,20 +89,20 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
 
 extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        profileViewModel.profileList.count
+        12
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.id, for: indexPath) as! ProfileCollectionViewCell
-        cell.imageView.image = UIImage(named: profileViewModel.profileList[indexPath.item])
+        let profileIndex = indexPath.item
+        cell.imageView.image = UIImage(named: "profile_\(profileIndex)")
         cell.imageView.layer.cornerRadius = cell.frame.width/2
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let profile = profileViewModel.profileList[indexPath.item]
-        selectedImageView.image = UIImage(named: profile)
-        profileIndex = indexPath.item
+        selectedProfileIndex = indexPath.item
+        profileViewModel.inputProfileIndex.value = selectedProfileIndex
     }
     
     static private func collectionViewLayout() -> UICollectionViewLayout {

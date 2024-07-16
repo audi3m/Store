@@ -8,17 +8,15 @@
 import Foundation
 
 final class NicknameViewModel {
-    
     var inputNickname: Observable<String?> = Observable(nil)
     
     var outputValidationText = Observable("")
     var outputValid = Observable(false)
     
-    init(_ nickname: String?) {
-        print("NicknameViewModel init")
-        inputNickname.value = nickname
-        inputNickname.bind { _ in
-            self.validation()
+    init() {
+        print("init - NicknameViewModel")
+        inputNickname.bind { [weak self] _ in
+            self?.validation()
         }
     }
     

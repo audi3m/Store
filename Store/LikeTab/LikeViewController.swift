@@ -13,7 +13,7 @@ final class LikeViewController: BaseTopBarViewController {
     let storeService = StoreService.shared
     let repository = ItemRepository()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: CellLayout.itemCellLayout())
     
     var list: Results<StoreModel>!
     
@@ -70,19 +70,6 @@ extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let model = list[indexPath.item]
         let item = model.convertToItem()
         cellTapped(item: item)
-    }
-    
-    static private func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 20
-        let cellSpacing: CGFloat = 20
-        let width = UIScreen.main.bounds.width - (sectionSpacing * 2 + cellSpacing)
-        layout.itemSize = CGSize(width: width/2, height: width/1.2)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = cellSpacing
-        layout.minimumInteritemSpacing = cellSpacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        return layout
     }
     
     private func cellTapped(item: SearchedItem) {

@@ -26,7 +26,6 @@ final class StoreService {
         request.setValue(StoreAPI.idKey, forHTTPHeaderField: "X-Naver-Client-Id")
         request.setValue(StoreAPI.secretKey, forHTTPHeaderField: "X-Naver-Client-Secret")
         
-//        session.dataTask(with: request) { data, response, error in
         URLSession.shared.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {

@@ -15,7 +15,7 @@ enum ProfileSettingMode {
 
 final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
-    private let nicknameViewModel = NicknameViewModel(nil)
+    private let nicknameViewModel = NicknameViewModel()
     
     private var profileImageView = CircleImageView(image: UIImage(), type: .profile)
     private let cameraImageView = CameraImageView()
@@ -70,13 +70,13 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     private func bindData() {
-        nicknameViewModel.outputValidationText.bind { value in
-            self.warningLabel.text = value
+        nicknameViewModel.outputValidationText.bind { [weak self] value in
+            self?.warningLabel.text = value
         }
         
-        nicknameViewModel.outputValid.bind { value in
-            self.warningLabel.textColor = value ? .themeColor : .red
-            self.navigationItem.rightBarButtonItem?.isEnabled = value
+        nicknameViewModel.outputValid.bind { [weak self] value in
+            self?.warningLabel.textColor = value ? .themeColor : .red
+            self?.navigationItem.rightBarButtonItem?.isEnabled = value
         }
     }
     
@@ -162,8 +162,8 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     
     @objc private func selectProfile() {
         let vc = ProfileImageSettingViewController(mode: mode, profileIndex: selectedProfileIndex)
-        vc.sendProfileIndex = { index in
-            self.selectedProfileIndex = index
+        vc.sendProfileIndex = { [weak self] index in
+            self?.selectedProfileIndex = index
         }
         navigationController?.pushViewController(vc, animated: true)
     }

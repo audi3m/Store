@@ -13,9 +13,9 @@ final class ProfileViewModel {
     var outputProfileName: Observable<String> = Observable("")
     
     init() {
-        print("ProfileViewModel init")
-        inputProfileIndex.bind { _ in
-            self.returnProfileName()
+        print("ini- ProfileViewModel")
+        inputProfileIndex.bind { [weak self] _ in
+            self?.returnProfileName()
         }
     }
     

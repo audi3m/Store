@@ -12,7 +12,6 @@ import UIKit
 // recentSearch
 final class UserDefaultsHelper {
     static let shared = UserDefaultsHelper()
-    
     private init() { }
     
     var nickname: String? {

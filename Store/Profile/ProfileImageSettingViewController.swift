@@ -14,7 +14,7 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     
     private let selectedImageView = CircleImageView(image: UIImage(), type: .profile)
     private let cameraImage = CameraImageView()
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: CellLayout.profileCellLayout())
     
     var sendProfileIndex: ((Int) -> Void)?
     
@@ -34,7 +34,6 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad() 
         navigationItem.title = mode == .newProfile ? "PROFILE SETTING" : "EDIT PROFILE"
-        print("Initial index: \(selectedProfileIndex)")
         bindData()
     }
     
@@ -48,7 +47,8 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     }
     
     private func bindData() {
-        profileViewModel.outputProfileName.bind { value in
+        profileViewModel.outputProfileName.bind { [weak self] value in
+            guard let self else { return }
             self.selectedImageView.image = UIImage(named: value)
         }
     }
@@ -60,7 +60,6 @@ final class ProfileImageSettingViewController: BaseTopBarViewController {
     }
     
     override func setLayout() {
-        
         selectedImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
@@ -103,21 +102,7 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedProfileIndex = indexPath.item
-        print("Selected profile changed: \(selectedProfileIndex)")
         profileViewModel.inputProfileIndex.value = selectedProfileIndex
-    }
-    
-    static private func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 20
-        let cellSpacing: CGFloat = 16
-        let width = UIScreen.main.bounds.width - (sectionSpacing * 2 + cellSpacing * 3)
-        layout.itemSize = CGSize(width: width/4, height: width/4)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = cellSpacing
-        layout.minimumInteritemSpacing = cellSpacing
-        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        return layout
     }
     
 }

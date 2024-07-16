@@ -6,38 +6,13 @@
 //
 
 import Foundation
-import Alamofire
 
-class StoreService {
+final class StoreService {
     static let shared = StoreService()
-    
     private init() { }
     
-    typealias completionHandler = (SearchResponse?, Error?) -> Void
-    
-//    func requestItems(query: String, start: Int, sortOption: SortOptions,
-//                      completionHandler: @escaping (SearchResponse?, Error?) -> Void) {
-//        let url = StoreAPI.url
-//        let parameters: Parameters = [
-//            "query": query,
-//            "start": start,
-//            "display": 30,
-//            "sort": sortOption.rawValue
-//        ]
-//        
-//        AF.request(url, parameters: parameters, headers: StoreAPI.header).responseDecodable(of: SearchResponse.self) { response in
-//            switch response.result {
-//            case .success(let value):
-//                completionHandler(value, nil)
-//            case .failure(let error):
-//                print(error)
-//                completionHandler(nil, error)
-//            }
-//        }
-//    }
-    
-    func request<T: Decodable>(session: URLSession, query: String, start: Int, sortOption: SortOptions, model: T.Type,
-                               completionHandler: @escaping (T?, ResponseError?) -> Void) {
+    func request<T: Decodable>(query: String, start: Int, sortOption: SortOptions, model: T.Type,
+                               completionHandler: @escaping (Result<T, ResponseError>) -> Void) {
         
         var component = URLComponents(url: StoreAPI.url, resolvingAgainstBaseURL: false)!
         component.queryItems = [
@@ -51,41 +26,41 @@ class StoreService {
         request.setValue(StoreAPI.idKey, forHTTPHeaderField: "X-Naver-Client-Id")
         request.setValue(StoreAPI.secretKey, forHTTPHeaderField: "X-Naver-Client-Secret")
         
-        session.dataTask(with: request) { data, response, error in
-//        URLSession.shared.dataTask(with: request) { data, response, error in
+//        session.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {
                 guard error == nil else {
                     print("Failed Request")
-                    completionHandler(nil, .failedRequest)
+                    completionHandler(.failure(.failedRequest))
                     return
                 }
                 
                 guard let data else {
                     print("No Data Returned")
-                    completionHandler(nil, .noData)
+                    completionHandler(.failure(.noData))
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse else {
                     print("Unable Response")
-                    completionHandler(nil, .invalidResponse)
+                    completionHandler(.failure(.invalidResponse))
                     return
                 }
                 
                 guard response.statusCode == 200 else {
                     print("Failed Response")
-                    completionHandler(nil, .failedRequest)
+                    completionHandler(.failure(.failedRequest))
                     return
                 }
                 
                 do {
                     let result = try JSONDecoder().decode(T.self, from: data)
-                    completionHandler(result, nil)
+                    completionHandler(.success(result))
                     print("Success")
                 } catch {
                     print("Error")
-                    completionHandler(nil, .invalidData)
+                    completionHandler(.failure(.invalidData))
                 }
             }
         }.resume()

@@ -15,8 +15,11 @@ final class OnboardingViewController: BaseViewController {
     let startButton = OrangeButton(title: "시작하기")
     
     override func viewDidLoad() {
-        super.viewDidLoad()  
-        
+        super.viewDidLoad()
+    }
+    
+    deinit {
+        print("deinit - OnboardingViewController")
     }
     
     override func setHierarchy() {

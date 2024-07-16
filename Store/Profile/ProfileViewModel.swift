@@ -9,10 +9,6 @@ import Foundation
 
 final class ProfileViewModel {
     
-    let profileList = ["profile_0", "profile_1", "profile_2", "profile_3",
-                       "profile_4", "profile_5", "profile_6", "profile_7",
-                       "profile_8", "profile_9", "profile_10", "profile_11"]
-    
     var inputProfileIndex: Observable<Int> = Observable(.random(in: 0..<12))
     var outputProfileName: Observable<String> = Observable("")
     
@@ -23,10 +19,12 @@ final class ProfileViewModel {
         }
     }
     
-    private func returnProfileName() {
-        outputProfileName.value = "profile_\(inputProfileIndex.value)"
-        
+    deinit {
+        print("deinit - ProfileViewModel")
     }
     
+    private func returnProfileName() {
+        outputProfileName.value = "profile_\(inputProfileIndex.value)"
+    }
     
 }

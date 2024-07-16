@@ -11,7 +11,6 @@ import SnapKit
 
 final class ResultsViewController: BaseTopBarViewController {
     
-    let storeService = StoreService.shared
     let repository = ItemRepository()
     
     private let progressBar = UIProgressView()
@@ -41,16 +40,6 @@ final class ResultsViewController: BaseTopBarViewController {
     var totalItems = 0
     var selectedCell = -1
     
-    var session: URLSession!
-    var total: Double = 0
-    var buffer: Data? {
-        didSet {
-            print("buffer changed: \(buffer?.count ?? -1) / \(total)")
-            let result = Float(buffer?.count ?? 0) / Float(total)
-            progressBar.setProgress(result, animated: true)
-        }
-    }
-    
     var list: [SearchedItem] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -66,6 +55,10 @@ final class ResultsViewController: BaseTopBarViewController {
     init(query: String) {
         self.query = query
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        print("deinit - ResultsViewController")
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -129,18 +122,13 @@ final class ResultsViewController: BaseTopBarViewController {
     }
     
     private func requestItems() {
-        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        buffer = Data()
-//        request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
-//            guard error == nil else { return }
-//            guard let response else { return }
-//            self.applyResponse(response: response)
-//        }
-        
-        storeService.request(session: session, query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { response, error in
-            guard error == nil else { return }
-            guard let response else { return }
-            self.applyResponse(response: response)
+        StoreService.shared.request(query: query, start: start, sortOption: sortOption, model: SearchResponse.self) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.applyResponse(response: response)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
@@ -153,43 +141,6 @@ final class ResultsViewController: BaseTopBarViewController {
             self.list.append(contentsOf: response.items)
         }
     }
-    
-    
-    
-}
-
-extension ResultsViewController: URLSessionDataDelegate {
-    
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
-        print(#function, response)
-        
-        if let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) {
-            let contentLength = response.value(forHTTPHeaderField: "Content-Length")!
-            total = Double(contentLength)!
-            print(total)
-            return .allow
-        } else {
-            print("response is nil")
-            return .cancel
-        }
-    }
-    
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        print(#function, data)
-        buffer?.append(data)
-    }
-    
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
-        if let error {
-            print(error)
-        } else {
-            print("Completed")
-            guard buffer == nil else { return }
-            progressBar.isHidden = true
-            
-        }
-    }
-    
 }
 
 extension ResultsViewController: UICollectionViewDataSourcePrefetching {
@@ -264,7 +215,6 @@ extension ResultsViewController {
         dscButton.addTarget(self, action: #selector(dscClicked), for: .touchUpInside)
         
         simButton.selected()
-        
     }
     
     func buttonSleep() {

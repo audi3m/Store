@@ -41,6 +41,10 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
+
+    deinit {
+        print("deinit - ProfileNicknameSettingViewController")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()  
@@ -103,7 +107,6 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
     }
     
     override func setLayout() {
-        
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
@@ -184,7 +187,6 @@ final class ProfileNicknameSettingViewController: BaseTopBarViewController {
 }
 
 extension ProfileNicknameSettingViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true

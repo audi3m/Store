@@ -22,6 +22,10 @@ final class NicknameViewModel {
         }
     }
     
+    deinit {
+        print("deinit - NicknameViewModel")
+    }
+    
     private func validation() {
         guard let nickname = inputNickname.value else { return }
         

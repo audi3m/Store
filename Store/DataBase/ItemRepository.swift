@@ -12,6 +12,14 @@ final class ItemRepository {
     
     private let realm = try! Realm()
     
+    init() {
+        print("init - ItemRepository")
+    }
+    
+    deinit {
+        print("deinit - ItemRepository")
+    }
+    
     func printPath() {
         print(realm.configuration.fileURL ?? "")
     }

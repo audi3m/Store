@@ -26,7 +26,6 @@ final class HomeTabBarController: UITabBarController {
         }
         
         self.viewControllers = viewControllers
-        
     }
     
     private enum TabItems: String, CaseIterable {
@@ -55,9 +54,7 @@ final class HomeTabBarController: UITabBarController {
                 return UINavigationController(rootViewController: SettingsViewController())
             }
         }
-        
     }
-    
 }
 
 

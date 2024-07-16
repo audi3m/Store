@@ -11,6 +11,7 @@ import UIKit
 // profile
 // recentSearch
 final class UserDefaultsHelper {
+    
     static let shared = UserDefaultsHelper()
     private init() { }
     

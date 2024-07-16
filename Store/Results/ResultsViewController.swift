@@ -11,7 +11,7 @@ import SnapKit
 
 final class ResultsViewController: BaseTopBarViewController {
     
-    let repository = ItemRepository()
+//    let repository = ItemRepository()
     
     private let progressBar = UIProgressView()
     private let resultCountLabel = UILabel()

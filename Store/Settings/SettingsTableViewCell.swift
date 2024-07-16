@@ -16,8 +16,7 @@ final class SettingsTableViewCell: BaseTableViewCell {
     let countLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier) 
-        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
      
     override func setHierarchy() {

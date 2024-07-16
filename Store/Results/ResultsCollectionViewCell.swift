@@ -11,7 +11,6 @@ import Kingfisher
 
 final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
-    let ud = UserDefaultsHelper.shared
     let repository = ItemRepository()
     
     var updated: ((Bool) -> Void)?
@@ -74,7 +73,7 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     override func setUI() {
         guard let item else { return }
-        let like = ud.likeThisProduct(item.productId)
+        let like = UserDefaultsHelper.shared.likeThisProduct(item.productId)
         imageView.contentMode = .scaleAspectFit
         
         likeButton.setImage(like ? .like : .unlike, for: .normal)
@@ -93,7 +92,7 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     private func setData() {
         guard let item else { return }
-        let like = ud.likeItems.keys.contains(item.productId)
+        let like = UserDefaultsHelper.shared.likeItems.keys.contains(item.productId)
         let url = URL(string: item.image)
         imageView.kf.setImage(with: url)
         
@@ -108,10 +107,10 @@ final class ResultsCollectionViewCell: BaseCollectionViewCell {
     
     @objc func likeButtonClicked() {
         guard let productId = item?.productId else { return }
-        let like = ud.likeThisProduct(productId)
+        let like = UserDefaultsHelper.shared.likeThisProduct(productId)
         likeButton.setImage(like ? .unlike : .like, for: .normal)
         likeButton.backgroundColor = like ? .grayColor.withAlphaComponent(0.7) : .whiteColor
-        ud.handleLikes(productID: productId)
+        UserDefaultsHelper.shared.handleLikes(productID: productId)
         
         if let item {
             repository.likeClicked(item: item)
